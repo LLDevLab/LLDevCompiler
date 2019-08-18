@@ -8,7 +8,7 @@ For now compiler supports next operations:
 - add (example: add r0, r1)
 - sub (example sub r0, r1)
 
-At the end of file should always by an empty line.
+At the end of file should always be an empty line.
 
 ## Using Context-Free Grammar
 For parsing lines of assembly language instructions this compiler is using next context-free grammar:

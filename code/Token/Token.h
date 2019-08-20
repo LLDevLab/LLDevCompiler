@@ -8,12 +8,13 @@ using namespace std;
 enum TOKENS
 {
 	UNKNOWN = 0,
-	ONE_REG_OP = 11,
-	TWO_REG_OP = 12,
-	REGISTER = 13,
-	COMMA = 14,
-	END_OF_INPUT = 15,
-	END_OF_FILE = 16
+	ZERO_REG_OP = 11,
+	ONE_REG_OP = 12,
+	TWO_REG_OP = 13,
+	REGISTER = 14,
+	COMMA = 15,
+	END_OF_INPUT = 16,
+	END_OF_FILE = 17
 };
 
 struct token_pos

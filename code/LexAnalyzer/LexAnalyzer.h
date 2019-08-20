@@ -35,5 +35,6 @@ private:
 	bool IsTwoRegOp(string lexeme);
 	bool IsRegister(string lexeme);
 	bool IsOneRegOp(string lexeme);
+	bool IsZeroRegOp(string lexeme);
 	void AddLexeme(string lexeme, int pos);
 };

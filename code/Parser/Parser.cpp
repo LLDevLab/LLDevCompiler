@@ -4,8 +4,9 @@ enum NONTERMINALS {
 	PRGM = 0,				// Programm
 	INSTR_LIST = 1,			// Instruction list
 	INSTR = 2,				// Instruction
-	ONE_REG_INSTR = 3,		// One register instruction
-	TWO_REG_INSTR = 4		// Two register instruction
+	ZERO_REG_INSTR = 3,		// Zero register instruction
+	ONE_REG_INSTR = 4,		// One register instruction
+	TWO_REG_INSTR = 5		// Two register instruction
 };
 
 Parser::Parser(LexAnalyzer* analyzer)
@@ -52,11 +53,17 @@ void Parser::Parse()
 			}
 	
 			break;
+		case ZERO_REG_OP:							// reduce from zero_reg_op to zero_reg_instr
+			Reduce(8);
+			break;
 		case TWO_REG_OP:
 			Shift();
 			break;
 		case ONE_REG_OP:
 			Shift();
+			break;
+		case ZERO_REG_INSTR:						// reduce from zero_reg_instr to instr
+			Reduce(9);
 			break;
 		case TWO_REG_INSTR:
 			Reduce(5);								// reduce from two_reg_instr to instr
@@ -145,6 +152,18 @@ void Parser::InitReductionTable()
 			reduct_table[i][2] = COMMA;
 			reduct_table[i][3] = REGISTER;
 			break;
+		case 8:										// zero_reg_instr -> zero_reg_op
+			reduct_table[i][0] = ZERO_REG_OP;
+			reduct_table[i][1] = REDUCT_NONE;
+			reduct_table[i][2] = REDUCT_NONE;
+			reduct_table[i][3] = REDUCT_NONE;
+			break;
+		case 9:										// instr -> zero_reg_instr
+			reduct_table[i][0] = ZERO_REG_INSTR;
+			reduct_table[i][1] = REDUCT_NONE;
+			reduct_table[i][2] = REDUCT_NONE;
+			reduct_table[i][3] = REDUCT_NONE;
+			break;
 		}
 	}
 }
@@ -184,6 +203,7 @@ void Parser::Reduce(int reduct_table_idx)
 
 			switch (parse_stack[top_of_stack])
 			{
+			case ZERO_REG_OP:
 			case ONE_REG_OP:
 			case TWO_REG_OP:
 				code_generator.SetLineNum(token.GetPosition().line_num);
@@ -224,6 +244,7 @@ void Parser::Reduce(int reduct_table_idx)
 		break;
 	case 4:
 	case 5:
+	case 9:
 		code_generator.InitHexLine();
 		lhs = INSTR;
 		break;
@@ -232,6 +253,9 @@ void Parser::Reduce(int reduct_table_idx)
 		break;
 	case 7:
 		lhs = TWO_REG_INSTR;
+		break;
+	case 8:
+		lhs = ZERO_REG_INSTR;
 		break;
 	}
 
@@ -267,7 +291,7 @@ void Parser::ShowError(token_pos pos, string lexeme)
 {
 	char buf[100];
 
-	sprintf_s(buf, "Syntax error at line %d on position %d, near %s.", pos.line_num, pos.line_pos + 1, lexeme.c_str());
+	sprintf_s(buf, "Syntax error at line %d near \"%s\".", pos.line_num, lexeme.c_str());
 
 	throw LLDevIOException(buf);
 }

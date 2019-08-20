@@ -6,7 +6,7 @@
 
 #define REDUCT_NONE -1
 #define REDUCT_ERROR -2
-#define REDUCT_TABLE_ROWS 8
+#define REDUCT_TABLE_ROWS 10
 #define REDUCT_TABLE_COLS 4
 
 #define STACK_ERROR "Stack out of range."

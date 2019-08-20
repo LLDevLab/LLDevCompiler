@@ -102,7 +102,7 @@ void LexAnalyzer::GetLexemes(string line)
 	}
 
 	lexeme = line.substr(prev_pos, cur_pos - prev_pos);
-	AddLexeme(lexeme, (int)prev_pos);
+	AddLexeme(lexeme, (int)prev_pos + 1);
 }
 
 void LexAnalyzer::AddLexeme(string lexeme, int pos)
@@ -140,8 +140,15 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 		ret = REGISTER;
 	else if (lexeme == ",")
 		ret = COMMA;
+	else if (IsZeroRegOp(lexeme))
+		ret = ZERO_REG_OP;
 
 	return ret;
+}
+
+bool LexAnalyzer::IsZeroRegOp(string lexeme)
+{
+	return lexeme == "noop";
 }
 
 bool LexAnalyzer::IsTwoRegOp(string lexeme)

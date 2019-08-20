@@ -74,7 +74,9 @@ string CodeGenerator::ConvertBinsToHex()
 	stringstream stream;
 	string ret;
 
-	bins = (opcode_bin << 26) | (reg1_bin << 22);
+	// if opcode not equal noop
+	if (opcode_bin != 0)				
+		bins = (opcode_bin << 26) | (reg1_bin << 22);
 
 	if (reg2_bin != REG_ADDR_MAX + 1)
 		bins |= (reg2_bin << 18);
@@ -84,7 +86,7 @@ string CodeGenerator::ConvertBinsToHex()
 
 	ret = stream.str();
 
-	while(ret.size() < DATA_STR_SIZE)
+	while (ret.size() < DATA_STR_SIZE)
 	{
 		ret = "0" + ret;
 	}
@@ -119,6 +121,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x02;
 	else if (lexeme == "br")
 		ret = 0x03;
+	else if (lexeme == "noop")
+		ret = 0x00;
 
 	return ret;
 }

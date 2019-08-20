@@ -5,6 +5,9 @@ This is assembly language compiler for lldevcpu architecture.
 ## Supporting Operations
 
 For now compiler supports next operations:
+- noop
+	- Description: no operation instruction.
+	- Example: noop
 - add rd, rs
 	- Description: Adds values from 2 registers and puts the result to destination register (rd) 
 	- Example: add r0, r1
@@ -21,7 +24,8 @@ At the end of file should always by an empty line.
 For parsing lines of assembly language instructions this compiler is using next context-free grammar:
 - prgm -> instr_list **EOF** | **EOF**
 - instr_list -> instr_list instr **EOI** | instr **EOI**
-- instr -> one_reg_instr | two_reg_instr
+- instr -> zero_reg_instr | one_reg_instr | two_reg_instr
+- zero_reg_instr -> **zero_reg_op**
 - one_reg_instr -> **one_reg_op reg**
 - two_reg_instr -> **two_reg_op reg, reg**
 
@@ -29,11 +33,13 @@ Terminal symbols are:
 - EOF (End of File)
 - EOI (End of Input)
 - , (Comma)
+- zero_reg_op (Operation with zero registers (example: noop))
 - one_reg_op (Operation with one register)
 - two_reg_op (Operation with two registers)
 - reg (Register)
 
 Nonterminal symbols are:
+- zero_reg_instr (Instruction with zero registers)
 - one_reg_instr (Instruction with one register)
 - two_reg_instr (Instruction with two registers)
 - instr (Instruction)

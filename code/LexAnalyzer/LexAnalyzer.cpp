@@ -132,9 +132,9 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 {
 	TOKENS ret = UNKNOWN;
 
-	if (IsTwoAddrInstr(lexeme))
+	if (IsTwoRegOp(lexeme))
 		ret = TWO_REG_OP;
-	else if (IsOneAddrInstr(lexeme))
+	else if (IsOneRegOp(lexeme))
 		ret = ONE_REG_OP;
 	else if (IsRegister(lexeme))
 		ret = REGISTER;
@@ -144,13 +144,13 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 	return ret;
 }
 
-bool LexAnalyzer::IsTwoAddrInstr(string lexeme)
+bool LexAnalyzer::IsTwoRegOp(string lexeme)
 {
 	return lexeme == "add" ||
 		lexeme == "sub";
 }
 
-bool LexAnalyzer::IsOneAddrInstr(string lexeme)
+bool LexAnalyzer::IsOneRegOp(string lexeme)
 {
 	return lexeme == "br";
 }

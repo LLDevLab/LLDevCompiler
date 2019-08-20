@@ -32,8 +32,8 @@ private:
 	string ReadLine();
 	void GetLexemes(string line);
 	TOKENS GetTokenFromLexeme(string lexeme);
-	bool IsTwoAddrInstr(string lexeme);
+	bool IsTwoRegOp(string lexeme);
 	bool IsRegister(string lexeme);
-	bool IsOneAddrInstr(string lexeme);
+	bool IsOneRegOp(string lexeme);
 	void AddLexeme(string lexeme, int pos);
 };

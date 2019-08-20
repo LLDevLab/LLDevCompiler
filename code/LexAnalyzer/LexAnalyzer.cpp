@@ -95,7 +95,7 @@ void LexAnalyzer::GetLexemes(string line)
 	{
 		lexeme = line.substr(prev_pos, cur_pos - prev_pos);
 
-		AddLexeme(lexeme, (int)(prev_pos + 1));
+		AddLexeme(lexeme,(int)(prev_pos + 1));
 
 		prev_pos = cur_pos + 1;
 		cur_pos = line.find(token_delim, prev_pos);
@@ -152,7 +152,7 @@ bool LexAnalyzer::IsTwoAddrInstr(string lexeme)
 
 bool LexAnalyzer::IsOneAddrInstr(string lexeme)
 {
-	return false;
+	return lexeme == "br";
 }
 
 bool LexAnalyzer::IsRegister(string lexeme)

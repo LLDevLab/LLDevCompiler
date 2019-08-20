@@ -117,6 +117,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x01;
 	else if (lexeme == "sub")
 		ret = 0x02;
+	else if (lexeme == "br")
+		ret = 0x03;
 
 	return ret;
 }

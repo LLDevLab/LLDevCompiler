@@ -103,7 +103,7 @@ void Parser::InitReductionTable()
 			reduct_table[i][2] = REDUCT_NONE;
 			reduct_table[i][3] = REDUCT_NONE;
 			break;
-		case 1:										// prgm -> end of file
+		case 1:										// prgm -> epsilon
 			reduct_table[i][0] = END_OF_FILE;
 			reduct_table[i][1] = REDUCT_NONE;
 			reduct_table[i][2] = REDUCT_NONE;
@@ -139,7 +139,7 @@ void Parser::InitReductionTable()
 			reduct_table[i][2] = REDUCT_NONE;
 			reduct_table[i][3] = REDUCT_NONE;
 			break;
-		case 7:										// two_reg_instr -> two_reg_op reg, reg
+		case 7:										// two_reg_instr -> two_reg_instr reg, reg
 			reduct_table[i][0] = TWO_REG_OP;
 			reduct_table[i][1] = REGISTER;
 			reduct_table[i][2] = COMMA;

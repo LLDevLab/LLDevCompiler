@@ -5,10 +5,17 @@ This is assembly language compiler for lldevcpu architecture.
 ## Supporting Operations
 
 For now compiler supports next operations:
-- add (example: add r0, r1)
-- sub (example sub r0, r1)
+- add rd, rs
+	- Description: Adds values from 2 registers and puts the result to destination register (rd) 
+	- Example: add r0, r1
+- sub  rd, rs
+	- Description: Subtracts source register's (rs) value from destination register's (rd) value and puts the result to destination register.
+	- Example sub r0, r1
+- br rs
+	- Description: Unconditional branch to the address, that is stored in source register (rs).
+	- Example: br r0
 
-At the end of file should always be an empty line.
+At the end of file should always by an empty line.
 
 ## Using Context-Free Grammar
 For parsing lines of assembly language instructions this compiler is using next context-free grammar:

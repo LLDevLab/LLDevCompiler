@@ -123,6 +123,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x03;
 	else if (lexeme == "breq")
 		ret = 0x04;
+	else if (lexeme == "brne")
+		ret = 0x05;
 	else if (lexeme == "noop")
 		ret = 0x00;
 

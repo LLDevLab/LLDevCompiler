@@ -13,7 +13,7 @@ For now compiler supports next operations:
 	- Example: add r0, r1
 - sub  rd, rs
 	- Description: Subtracts source register's (rs) value from destination register's (rd) value and puts the result to destination register.
-	- Example sub r0, r1
+	- Example: sub r0, r1
 - br rs
 	- Description: Unconditional branch to the address, that is stored in source register (rs).
 	- Example: br r0
@@ -21,6 +21,10 @@ For now compiler supports next operations:
 - breq rs
 	- Description: If zero flag is set in Status register, this instruction will branch to the address, that is stored in source register (rs). Otherwise branch will not be taken and next instruction will be executed. 
 	- Example: breq r0
+	
+- brne rs
+	- Description: If zero flag is not set in Status register, this instruction will branch to the address, that is stored in source register (rs). Otherwise branch will not be taken and next instruction will be executed. 
+	- Example: brne r0
 
 At the end of file should always by an empty line.
 

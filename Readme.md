@@ -17,6 +17,10 @@ For now compiler supports next operations:
 - br rs
 	- Description: Unconditional branch to the address, that is stored in source register (rs).
 	- Example: br r0
+	
+- breq rs
+	- Description: If zero flag is set in Status register, this instruction will branch to the address, that is stored in source register (rs). Otherwise branch will not be taken and next instruction will be executed. 
+	- Example: breq r0
 
 At the end of file should always by an empty line.
 

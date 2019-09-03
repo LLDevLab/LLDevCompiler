@@ -11,7 +11,7 @@ For now compiler supports next operations:
 - add rd, rs
 	- Description: Adds values from 2 registers and puts the result to destination register (rd) 
 	- Example: add r0, r1
-- sub  rd, rs
+- sub rd, rs
 	- Description: Subtracts source register's (rs) value from destination register's (rd) value and puts the result to destination register.
 	- Example: sub r0, r1
 - br rs
@@ -25,6 +25,10 @@ For now compiler supports next operations:
 - brne rs
 	- Description: If zero flag is not set in Status register, this instruction will branch to the address, that is stored in source register (rs). Otherwise branch will not be taken and next instruction will be executed. 
 	- Example: brne r0
+	
+- brlts rs
+	- Description: This operation is using with signed integer numbers. It will branch to the address, that is stored in source register (rs). If negative flag in status register is set (value in rd register was less then value in rs register). Otherwise branch will not be taken and next instruction will be executed.
+	- Example: brlts r0
 
 At the end of file should always by an empty line.
 

@@ -131,6 +131,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x07;
 	else if (lexeme == "brltu")
 		ret = 0x08;
+	else if (lexeme == "brgtu")
+		ret = 0x09;
 	else if (lexeme == "noop")
 		ret = 0x00;
 

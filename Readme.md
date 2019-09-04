@@ -36,7 +36,7 @@ For now compiler supports next operations:
 	
 - brltu rs
 	- Description: This operation is using with unsigned integer numbers. It will branch to the address, that is stored in source register (rs), if carry flag in status register is set (value in rd register was less than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
-	- Example: brlts r0
+	- Example: brltu r0
 
 At the end of file should always by an empty line.
 

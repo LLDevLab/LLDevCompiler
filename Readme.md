@@ -33,6 +33,10 @@ For now compiler supports next operations:
 - brgts rs
 	- Description: This operation is using with signed integer numbers. It will branch to the address, that is stored in source register (rs), if negative flag in status register is not set (value in rd register was greater than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
 	- Example: brgts r0
+	
+- brltu rs
+	- Description: This operation is using with unsigned integer numbers. It will branch to the address, that is stored in source register (rs), if carry flag in status register is set (value in rd register was less than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
+	- Example: brlts r0
 
 At the end of file should always by an empty line.
 

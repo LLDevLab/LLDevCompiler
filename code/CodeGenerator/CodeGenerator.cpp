@@ -135,6 +135,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x09;
 	else if (lexeme == "cmp")
 		ret = 0x0a;
+	else if (lexeme == "clr")
+		ret = 0x0b;
 	else if (lexeme == "noop")
 		ret = 0x00;
 

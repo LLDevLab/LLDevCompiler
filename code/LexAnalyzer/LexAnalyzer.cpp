@@ -166,7 +166,8 @@ bool LexAnalyzer::IsOneRegOp(string lexeme)
 			lexeme == "brlts" ||
 			lexeme == "brgts" ||
 			lexeme == "brltu" ||
-			lexeme == "brgtu";
+			lexeme == "brgtu" ||
+			lexeme == "clr";
 }
 
 bool LexAnalyzer::IsRegister(string lexeme)

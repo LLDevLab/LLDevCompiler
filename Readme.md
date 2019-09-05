@@ -38,6 +38,9 @@ For now compiler supports next Instructions:
 - cmp rd, rs
 	- Description: Compares 2 registers and sets oppropriate flags in Status Register, but do not chance values of these registers.
 	- Example: cmp r0, r1
+- clr rd
+	- Description: Clears all bits in rd register and resets all status flags.
+	- Example: clr r0
 
 At the end of file should always by an empty line.
 

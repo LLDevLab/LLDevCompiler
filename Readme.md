@@ -2,9 +2,9 @@
 
 This is assembly language compiler for lldevcpu architecture.
 
-## Supporting Operations
+## Supporting Instructions
 
-For now compiler supports next operations:
+For now compiler supports next Instructions:
 - noop
 	- Description: no operation instruction.
 	- Example: noop
@@ -17,30 +17,27 @@ For now compiler supports next operations:
 - br rs
 	- Description: Unconditional branch to the address, that is stored in source register (rs).
 	- Example: br r0
-	
 - breq rs
 	- Description: If zero flag is set in Status register, this instruction will branch to the address, that is stored in source register (rs). Otherwise branch will not be taken and next instruction will be executed. 
 	- Example: breq r0
-	
 - brne rs
 	- Description: If zero flag is not set in Status register, this instruction will branch to the address, that is stored in source register (rs). Otherwise branch will not be taken and next instruction will be executed. 
 	- Example: brne r0
-	
 - brlts rs
-	- Description: This operation is using with signed integer numbers. It will branch to the address, that is stored in source register (rs), if negative flag in status register is set (value in rd register was less than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
+	- Description: This instruction is using with signed integer numbers. It will branch to the address, that is stored in source register (rs), if negative flag in status register is set (value in rd register was less than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
 	- Example: brlts r0
-
 - brgts rs
-	- Description: This operation is using with signed integer numbers. It will branch to the address, that is stored in source register (rs), if negative flag in status register is not set (value in rd register was greater than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
+	- Description: This instruction is using with signed integer numbers. It will branch to the address, that is stored in source register (rs), if negative flag in status register is not set (value in rd register was greater than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
 	- Example: brgts r0
-	
 - brltu rs
-	- Description: This operation is using with unsigned integer numbers. It will branch to the address, that is stored in source register (rs), if carry flag in status register is set (value in rd register was less than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
+	- Description: This instruction is using with unsigned integer numbers. It will branch to the address, that is stored in source register (rs), if carry flag in status register is set (value in rd register was less than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
 	- Example: brltu r0
-	
 - brgtu rs
-	- Description: This operation is using with unsigned integer numbers. It will branch to the address, that is stored in source register (rs), if carry flag in status register is not set (value in rd register was greater than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
+	- Description: This instruction is using with unsigned integer numbers. It will branch to the address, that is stored in source register (rs), if carry flag in status register is not set (value in rd register was greater than value in rs register). Otherwise branch will not be taken and next instruction will be executed.
 	- Example: brgtu r0
+- cmp rd, rs
+	- Description: Compares 2 registers and sets oppropriate flags in Status Register, but do not chance value in these registers.
+	- Example: cmp r0, r1
 
 At the end of file should always by an empty line.
 

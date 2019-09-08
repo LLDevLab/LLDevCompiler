@@ -1,0 +1,14 @@
+noop
+add r3, r4
+sub r3, r4
+br r3
+breq r3
+brne r3
+brlts r3
+brgts r3
+brltu r3
+brgtu r3
+cmp r3, r4
+clr r3
+ldi r3, #20
+ldi r3, #0x20

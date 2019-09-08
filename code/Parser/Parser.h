@@ -1,15 +1,12 @@
 #pragma once
 
 #include <vector>
+#include <ctype.h>
 #include "../LexAnalyzer/LexAnalyzer.h"
 #include "../CodeGenerator/CodeGenerator.h"
 
-#define REDUCT_NONE -1
-#define REDUCT_ERROR -2
-#define REDUCT_TABLE_ROWS 10
+#define REDUCT_TABLE_ROWS 12
 #define REDUCT_TABLE_COLS 4
-
-#define STACK_ERROR "Stack out of range."
 
 class Parser
 {
@@ -24,6 +21,7 @@ private:
 	LexAnalyzer* analyzer;
 	string output;
 	CodeGenerator code_generator;
+	char imm_digits[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	void InitReductionTable();
 	void Shift();
@@ -31,5 +29,11 @@ private:
 	string LineNumToStr(int line_num);
 	void ShowError(token_pos pos, string lexeme);
 	void ShowError(token_pos pos, string lexeme, int parse_stack_val, int reduct_table_val);
+	void ShowToLongNumberError(token_pos pos, string lexeme);
+	bool IsImmediateCorrect(string lexeme, IMMEDIATE_TYPE type);
+	bool IsImmDecimalCorrect(string lexeme);
+	bool IsImmHexCorrect(string lexeme);
+	bool IsCorrectNumber(char num, IMMEDIATE_TYPE type);
+	bool IsCorrectNumberSize(string lexeme, IMMEDIATE_TYPE type);
 };
 

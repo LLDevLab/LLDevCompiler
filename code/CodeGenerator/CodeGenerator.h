@@ -22,6 +22,7 @@ public:
 	void SetOpcodeToken(Token token);
 	void SetFirstRegisterToken(Token token);
 	void SetSecondRegisterToken(Token token);
+	void SetImmediateToken(Token token);
 	void SaveToFile(const char* file);
 	void InitHexLine();
 private:
@@ -31,6 +32,11 @@ private:
 	uint32_t opcode_bin;
 	uint32_t reg1_bin;
 	uint32_t reg2_bin;
+	uint32_t imm_bin;
+
+	bool is_reg1_set;
+	bool is_reg2_set;
+	bool is_imm_set;
 
 	string LineNumToStr(int line_num);
 	void ClearBinaries();
@@ -41,4 +47,5 @@ private:
 	string GetCheckSum();
 	void SaveLine();	
 	string RemoveFileExtension(const char* file_name);
+	int HexStrToInt(string hex_str);
 };

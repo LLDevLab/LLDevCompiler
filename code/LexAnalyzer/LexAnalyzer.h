@@ -36,5 +36,9 @@ private:
 	bool IsRegister(string lexeme);
 	bool IsOneRegOp(string lexeme);
 	bool IsZeroRegOp(string lexeme);
+	bool IsOneRegImmOp(string lexete);
+	bool IsImmediate(string lexeme);
+	bool IsImmHex(string lexeme);
 	void AddLexeme(string lexeme, int pos);
+	IMMEDIATE_TYPE GetImmediateType(string lexeme);
 };

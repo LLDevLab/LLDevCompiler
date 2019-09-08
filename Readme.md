@@ -41,6 +41,10 @@ For now compiler supports next Instructions:
 - clr rd
 	- Description: Clears all bits in rd register and resets all status flags.
 	- Example: clr r0
+- ldi rd, imm
+	- Description: Loads decimal or hexadecimal immediate value to the register
+	- Decimal value example: ldi r0, #10
+	- Hexadecimal value example: ldi r0, #0x10
 
 At the end of file should always by an empty line.
 
@@ -48,9 +52,10 @@ At the end of file should always by an empty line.
 For parsing lines of assembly language instructions this compiler is using next context-free grammar:
 - prgm -> instr_list **EOF** | **EOF**
 - instr_list -> instr_list instr **EOI** | instr **EOI**
-- instr -> zero_reg_instr | one_reg_instr | two_reg_instr
+- instr -> zero_reg_instr | one_reg_instr | one_reg_imm_instr | two_reg_instr
 - zero_reg_instr -> **zero_reg_op**
 - one_reg_instr -> **one_reg_op reg**
+- one_reg_imm_instr -> **one_reg_imm_op reg, imm**
 - two_reg_instr -> **two_reg_op reg, reg**
 
 Terminal symbols are:
@@ -58,13 +63,16 @@ Terminal symbols are:
 - EOI (End of Input)
 - , (Comma)
 - zero_reg_op (Operation with zero registers (example: noop))
+- one_reg_imm_op (Operation with one register and one immediate value)
 - one_reg_op (Operation with one register)
 - two_reg_op (Operation with two registers)
 - reg (Register)
+- imm (Immediate value)
 
 Nonterminal symbols are:
 - zero_reg_instr (Instruction with zero registers)
 - one_reg_instr (Instruction with one register)
+- one_reg_imm_instr (Instructions with one register and immediate value)
 - two_reg_instr (Instruction with two registers)
 - instr (Instruction)
 - instr_list (Instructions list)

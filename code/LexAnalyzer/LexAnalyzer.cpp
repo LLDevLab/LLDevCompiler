@@ -23,6 +23,7 @@ Token LexAnalyzer::GetNextToken()
 	string cur_lexeme = "";
 	int line_pos = 0;
 	token_pos pos;
+	TOKENS tokens;
 
 	pos.line_num = cur_line;
 
@@ -35,7 +36,13 @@ Token LexAnalyzer::GetNextToken()
 		ret.SetLexeme(cur_lexeme);
 		pos.line_pos = line_pos;
 		ret.SetTokenPos(pos);
-		ret.SetTokenValue(GetTokenFromLexeme(cur_lexeme));
+
+		tokens = GetTokenFromLexeme(cur_lexeme);
+
+		ret.SetTokenValue(tokens);
+
+		if (tokens == IMMEDIATE)
+			ret.SetImmediateType(GetImmediateType(cur_lexeme));
 	}
 	else
 	{
@@ -74,8 +81,8 @@ string LexAnalyzer::ReadLine()
 
 void LexAnalyzer::GetLexemes(string line)
 {
-	size_t cur_pos = 0;
-	size_t prev_pos = 0;
+	int cur_pos = 0;
+	int prev_pos = 0;
 	string lexeme = "";
 	
 	cur_line++;
@@ -84,7 +91,6 @@ void LexAnalyzer::GetLexemes(string line)
 	cur_token_index = 0;
 
 	lex_positions.clear();
-
 
 	if (line == "")
 		return;
@@ -99,10 +105,15 @@ void LexAnalyzer::GetLexemes(string line)
 
 		prev_pos = cur_pos + 1;
 		cur_pos = line.find(token_delim, prev_pos);
+
+		if (cur_pos < 0)
+			break;
 	}
 
 	lexeme = line.substr(prev_pos, cur_pos - prev_pos);
-	AddLexeme(lexeme, (int)prev_pos + 1);
+
+	if(lexeme != "")
+		AddLexeme(lexeme, (int)prev_pos + 1);
 }
 
 void LexAnalyzer::AddLexeme(string lexeme, int pos)
@@ -142,6 +153,10 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 		ret = COMMA;
 	else if (IsZeroRegOp(lexeme))
 		ret = ZERO_REG_OP;
+	else if (IsOneRegImmOp(lexeme))
+		ret = ONE_REG_IMM_OP;
+	else if (IsImmediate(lexeme))
+		ret = IMMEDIATE;
 
 	return ret;
 }
@@ -170,6 +185,24 @@ bool LexAnalyzer::IsOneRegOp(string lexeme)
 			lexeme == "clr";
 }
 
+bool LexAnalyzer::IsOneRegImmOp(string lexeme)
+{
+	return lexeme == "ldi";
+}
+
+bool LexAnalyzer::IsImmediate(string lexeme)
+{
+	return lexeme[0] == '#';
+}
+
+bool LexAnalyzer::IsImmHex(string lexeme)
+{
+	if (lexeme.size() < 4)
+		return false;
+
+	return tolower(lexeme[2]) == 'x';
+}
+
 bool LexAnalyzer::IsRegister(string lexeme)
 {
 	bool ret = false;
@@ -196,6 +229,16 @@ bool LexAnalyzer::IsRegister(string lexeme)
 			break;
 		}
 	}
+
+	return ret;
+}
+
+IMMEDIATE_TYPE LexAnalyzer::GetImmediateType(string lexeme)
+{
+	IMMEDIATE_TYPE ret = DECIMAL;
+
+	if (IsImmHex(lexeme))
+		ret = HEXADECIMAL;
 
 	return ret;
 }

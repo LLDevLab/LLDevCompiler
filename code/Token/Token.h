@@ -7,14 +7,22 @@ using namespace std;
 
 enum TOKENS
 {
-	UNKNOWN = 0,
-	ZERO_REG_OP = 11,
-	ONE_REG_OP = 12,
-	TWO_REG_OP = 13,
-	REGISTER = 14,
-	COMMA = 15,
-	END_OF_INPUT = 16,
-	END_OF_FILE = 17
+	UNKNOWN = 100,
+	ZERO_REG_OP = 101,
+	ONE_REG_OP = 102,
+	ONE_REG_IMM_OP = 103,
+	TWO_REG_OP = 104,
+	REGISTER = 105,
+	COMMA = 106,
+	IMMEDIATE = 107,
+	END_OF_INPUT = 108,
+	END_OF_FILE = 109
+};
+
+enum IMMEDIATE_TYPE
+{
+	DECIMAL,
+	HEXADECIMAL
 };
 
 struct token_pos
@@ -35,10 +43,13 @@ public:
 	TOKENS GetTokenValue();
 	token_pos GetPosition();
 	string GetLexeme();
+	void SetImmediateType(IMMEDIATE_TYPE type);
+	IMMEDIATE_TYPE GetImmediateType();
 
 private:
 	TOKENS token;
 	token_pos pos;
 	string lexeme;
+	IMMEDIATE_TYPE imm_type;
 };
 

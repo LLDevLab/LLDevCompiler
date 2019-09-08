@@ -1,12 +1,21 @@
 #include "Parser.h"
 
+#define REDUCT_NONE -1
+#define REDUCT_ERROR -2
+#define STACK_ERROR "Stack out of range."
+
+// 4194303 is a max 22 bit value
+#define MAX_IMM_VALUE 4194303
+
+// Nonterminal values could be from 0 to 100
 enum NONTERMINALS {
 	PRGM = 0,				// Programm
 	INSTR_LIST = 1,			// Instruction list
 	INSTR = 2,				// Instruction
 	ZERO_REG_INSTR = 3,		// Zero register instruction
 	ONE_REG_INSTR = 4,		// One register instruction
-	TWO_REG_INSTR = 5		// Two register instruction
+	TWO_REG_INSTR = 5,		// Two register instruction
+	ONE_REG_IMM_INSTR = 6	// One register and immediate value instruction
 };
 
 Parser::Parser(LexAnalyzer* analyzer)
@@ -61,6 +70,15 @@ void Parser::Parse()
 			break;
 		case ONE_REG_OP:
 			Shift();
+			break;
+		case ONE_REG_IMM_OP:
+			Shift();
+			break;
+		case IMMEDIATE:								// reduce from one_reg_imm_op reg, imm to one_reg_imm_instr
+			Reduce(10);
+			break;
+		case ONE_REG_IMM_INSTR:						// reduce from one_reg_imm_instr to instr
+			Reduce(11);
 			break;
 		case ZERO_REG_INSTR:						// reduce from zero_reg_instr to instr
 			Reduce(9);
@@ -164,14 +182,47 @@ void Parser::InitReductionTable()
 			reduct_table[i][2] = REDUCT_NONE;
 			reduct_table[i][3] = REDUCT_NONE;
 			break;
+		case 10:									// one_reg_imm_instr -> one_reg_imm_op reg, imm
+			reduct_table[i][0] = ONE_REG_IMM_OP;
+			reduct_table[i][1] = REGISTER;
+			reduct_table[i][2] = COMMA;
+			reduct_table[i][3] = IMMEDIATE;
+			break;
+		case 11:									// instr -> one_reg_imm_instr
+			reduct_table[i][0] = ONE_REG_IMM_INSTR;
+			reduct_table[i][1] = REDUCT_NONE;
+			reduct_table[i][2] = REDUCT_NONE;
+			reduct_table[i][3] = REDUCT_NONE;
+			break;
 		}
 	}
 }
 
 void Parser::Shift()
 {
-	if (input_token.GetTokenValue() == UNKNOWN)
+	string lexeme = input_token.GetLexeme();
+	IMMEDIATE_TYPE imm_type = input_token.GetImmediateType();
+	token_pos pos = input_token.GetPosition();
+
+	switch (input_token.GetTokenValue())
+	{
+	case UNKNOWN:
 		ShowError(input_token.GetPosition(), input_token.GetLexeme());
+		break;
+	case IMMEDIATE:
+		if (!IsImmediateCorrect(lexeme, imm_type))
+		{
+			ShowError(pos, lexeme);
+		}
+		else
+		{
+			if (!IsCorrectNumberSize(lexeme, imm_type))
+				ShowToLongNumberError(pos, lexeme);
+		}
+		break;
+	default:
+		break;
+	}
 
 	parse_stack.push_back(input_token.GetTokenValue());
 	value_stack.push_back(input_token);
@@ -206,6 +257,7 @@ void Parser::Reduce(int reduct_table_idx)
 			case ZERO_REG_OP:
 			case ONE_REG_OP:
 			case TWO_REG_OP:
+			case ONE_REG_IMM_OP:
 				code_generator.SetLineNum(token.GetPosition().line_num);
 				code_generator.SetOpcodeToken(token);
 				break;
@@ -214,6 +266,9 @@ void Parser::Reduce(int reduct_table_idx)
 					code_generator.SetSecondRegisterToken(token);
 				else
 					code_generator.SetFirstRegisterToken(token);
+				break;
+			case IMMEDIATE:
+				code_generator.SetImmediateToken(token);
 				break;
 			default:
 				break;
@@ -245,6 +300,7 @@ void Parser::Reduce(int reduct_table_idx)
 	case 4:
 	case 5:
 	case 9:
+	case 11:
 		code_generator.InitHexLine();
 		lhs = INSTR;
 		break;
@@ -256,6 +312,9 @@ void Parser::Reduce(int reduct_table_idx)
 		break;
 	case 8:
 		lhs = ZERO_REG_INSTR;
+		break;
+	case 10:
+		lhs = ONE_REG_IMM_INSTR;
 		break;
 	}
 
@@ -306,4 +365,136 @@ void Parser::ShowError(token_pos pos, string lexeme, int parse_stack_val, int re
 		ShowError(pos, lexeme);
 
 	throw LLDevIOException(buf);
+}
+
+void Parser::ShowToLongNumberError(token_pos pos, string lexeme)
+{
+	char buf[100];
+
+	sprintf_s(buf, "Error: to long number at line %d near \"%s\".", pos.line_num, lexeme.c_str());
+
+	throw LLDevIOException(buf);
+}
+
+bool Parser::IsImmediateCorrect(string lexeme, IMMEDIATE_TYPE type)
+{
+	bool ret = false;
+
+	switch (type)
+	{
+	case DECIMAL:
+		ret = IsImmDecimalCorrect(lexeme);
+		break;
+	case HEXADECIMAL:
+		ret = IsImmHexCorrect(lexeme);
+		break;
+	default:
+		break;
+	}
+
+	return ret;
+}
+
+bool Parser::IsImmDecimalCorrect(string lexeme)
+{
+	bool ret = true;
+	size_t lexeme_size = lexeme.size();
+	
+	for (unsigned int i = 1; i < lexeme.size(); i++)
+	{
+		// negative immediate value
+		if (i == 1 && lexeme[i] == '-')
+		{
+			// if there is only minus in lexeme
+			if (lexeme.size() < 3)
+			{
+				ret = false;
+				break;
+			}			
+
+			continue;
+		}			
+
+		ret = IsCorrectNumber(lexeme[i], DECIMAL);
+	}
+
+	return ret;
+}
+
+bool Parser::IsImmHexCorrect(string lexeme)
+{
+	bool ret = true;
+	size_t lexeme_size = lexeme.size();
+
+	for (unsigned int i = 1; i < lexeme_size; i++)
+	{
+		// first 2 characters of hex value should be "0x"
+		if ((i == 1 && lexeme[i] != '0') || (i == 2 && tolower(lexeme[i]) != 'x'))
+		{
+			ret = false;
+			break;
+		}
+
+		if (i == 1 || i == 2)
+			continue;
+
+		ret = IsCorrectNumber(lexeme[i], HEXADECIMAL);
+
+		if (!ret)
+			break;
+	}
+
+	return ret;
+}
+
+bool Parser::IsCorrectNumber(char num, IMMEDIATE_TYPE type)
+{
+	bool ret = false;
+	int max_i;
+
+	switch (type)
+	{
+	case HEXADECIMAL:
+		max_i = 16;
+		break;
+	default:
+		max_i = 10;
+		break;
+	}
+
+	for (int i = 0; i < max_i; i++)
+	{
+		if (tolower(num) == imm_digits[i])
+		{
+			ret = true;
+			break;
+		}
+	}
+
+	return ret;
+}
+
+bool Parser::IsCorrectNumberSize(string lexeme, IMMEDIATE_TYPE type)
+{
+	bool ret = false;
+	string num_to_convert = lexeme.substr(1, lexeme.size() - 1);
+	uint32_t int_val;
+
+	switch (type)
+	{
+	case HEXADECIMAL:
+		if (num_to_convert.size() > 8)
+			return false;
+
+		int_val = stoi(num_to_convert, NULL, 16);
+		break;
+	default:
+		if (num_to_convert.size() > 7)
+			return false;
+
+		int_val = stoi(num_to_convert);
+		break;
+	}
+
+	return int_val <= MAX_IMM_VALUE;
 }

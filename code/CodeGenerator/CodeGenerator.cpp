@@ -29,12 +29,14 @@ void CodeGenerator::SetOpcodeToken(Token token)
 
 void CodeGenerator::SetFirstRegisterToken(Token token)
 {
-	reg1_bin = GetRegisterBin(token.GetLexeme());		
+	reg1_bin = GetRegisterBin(token.GetLexeme());
+	is_reg1_set = true;
 }
 
 void CodeGenerator::SetSecondRegisterToken(Token token)
 {
 	reg2_bin = GetRegisterBin(token.GetLexeme());
+	is_reg2_set = true;
 }
 
 void CodeGenerator::SaveToFile(const char* file)
@@ -75,11 +77,17 @@ string CodeGenerator::ConvertBinsToHex()
 	string ret;
 
 	// if opcode not equal noop
-	if (opcode_bin != 0)				
-		bins = (opcode_bin << 26) | (reg1_bin << 22);
+	if (opcode_bin != 0)
+		bins = (opcode_bin << 26);
+		
+	if(is_reg1_set)
+		bins |= (reg1_bin << 22);
 
-	if (reg2_bin != REG_ADDR_MAX + 1)
+	if (is_reg2_set)
 		bins |= (reg2_bin << 18);
+
+	if(is_imm_set)
+		bins |= imm_bin;
 
 	// converts integer to hex string
 	stream << std::hex << bins;				
@@ -109,6 +117,10 @@ void CodeGenerator::ClearBinaries()
 	opcode_bin = 0;
 	reg1_bin = REG_ADDR_MAX + 1;
 	reg2_bin = REG_ADDR_MAX + 1;
+
+	is_reg1_set = false;
+	is_reg2_set = false; 
+	is_imm_set = false;
 }
 
 uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
@@ -137,6 +149,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x0a;
 	else if (lexeme == "clr")
 		ret = 0x0b;
+	else if (lexeme == "ldi")
+		ret = 0x0c;
 	else if (lexeme == "noop")
 		ret = 0x00;
 
@@ -148,26 +162,26 @@ string CodeGenerator::GetCheckSum()
 	string ret = "";
 	uint32_t check_sum = 0;
 	unsigned int prev_pos = 1;
-	int converted_int;
 	string substr;
 	stringstream stream;
+	size_t hex_line_size = hex_line.size();
 
-	for (unsigned int i = 1; i < hex_line.size(); i++)
+	for (unsigned int i = 1; i < hex_line_size; i++)
 	{
 		if (i < prev_pos + 2)
 			continue;
 		
 		substr = hex_line.substr(prev_pos, i - prev_pos);
 
-		stream.clear();
-
-		// converts hex string to integer
-		stream << hex << substr;
-		stream >> converted_int;
-
-		check_sum += converted_int;
+		check_sum += HexStrToInt(substr);
 
 		prev_pos = i;
+	}
+
+	if (prev_pos > 1)
+	{
+		substr = hex_line.substr(prev_pos, hex_line_size - prev_pos);
+		check_sum += HexStrToInt(substr);
 	}
 
 	check_sum = ~check_sum;
@@ -180,6 +194,20 @@ string CodeGenerator::GetCheckSum()
 	ret = stream.str();
 
 	return ret.substr(ret.size() - 2, 2);
+}
+
+int CodeGenerator::HexStrToInt(string hex_str)
+{
+	int ret = 0;
+	stringstream stream;
+
+	stream.clear();
+
+	// converts hex string to integer
+	stream << hex << hex_str;
+	stream >> ret;
+
+	return ret;
 }
 
 void CodeGenerator::InitHexLine()
@@ -220,4 +248,22 @@ void CodeGenerator::ClearHexs()
 {
 	hex_line = "";
 	hex_file = "";
+}
+
+void CodeGenerator::SetImmediateToken(Token token)
+{
+	string lexeme = token.GetLexeme();
+	string num_to_convert = lexeme.substr(1, lexeme.size() - 1);
+
+	is_imm_set = true;
+
+	switch (token.GetImmediateType())
+	{
+	case HEXADECIMAL:
+		imm_bin = stoi(num_to_convert, NULL, 16);
+		break;
+	default:
+		imm_bin = stoi(num_to_convert);
+		break;
+	}
 }

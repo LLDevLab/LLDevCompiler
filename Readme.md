@@ -72,7 +72,7 @@ Terminal symbols are:
 Nonterminal symbols are:
 - zero_reg_instr (Instruction with zero registers)
 - one_reg_instr (Instruction with one register)
-- one_reg_imm_instr (Instructions with one register and immediate value)
+- one_reg_imm_instr (Instructions with one register and one immediate value)
 - two_reg_instr (Instruction with two registers)
 - instr (Instruction)
 - instr_list (Instructions list)

@@ -151,6 +151,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x0b;
 	else if (lexeme == "ldi")
 		ret = 0x0c;
+	else if (lexeme == "or")
+		ret = 0x0d;
 	else if (lexeme == "noop")
 		ret = 0x00;
 

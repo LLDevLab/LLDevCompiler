@@ -170,7 +170,8 @@ bool LexAnalyzer::IsTwoRegOp(string lexeme)
 {
 	return lexeme == "add" ||
 		lexeme == "sub" ||
-		lexeme == "cmp";
+		lexeme == "cmp" ||
+		lexeme == "or";
 }
 
 bool LexAnalyzer::IsOneRegOp(string lexeme)

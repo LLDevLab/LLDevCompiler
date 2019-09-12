@@ -46,8 +46,11 @@ For now compiler supports next Instructions:
 	- Decimal value example: ldi r0, #10
 	- Hexadecimal value example: ldi r0, #0x10
 - or rd, rs
-	- Description: Doing bit-wise OR operation on values from 2 registers and storing the result to destination register (rd)
+	- Description: Doing bitwise OR operation on values from 2 registers and storing the result to destination register (rd)
 	- Example: or r0, r1
+-and rd, rs
+	- Description: Doing bitwise AND operation on values from 2 registers and storing the result to destination register (rd)
+	- Example: and r0, r1
 
 At the end of file should always by an empty line.
 

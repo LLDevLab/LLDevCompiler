@@ -153,6 +153,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x0c;
 	else if (lexeme == "or")
 		ret = 0x0d;
+	else if (lexeme == "and")
+		ret = 0x0e;
 	else if (lexeme == "noop")
 		ret = 0x00;
 

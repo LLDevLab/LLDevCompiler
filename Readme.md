@@ -48,7 +48,7 @@ For now compiler supports next Instructions:
 - or rd, rs
 	- Description: Doing bitwise OR operation on values from 2 registers and storing the result to destination register (rd)
 	- Example: or r0, r1
--and rd, rs
+- and rd, rs
 	- Description: Doing bitwise AND operation on values from 2 registers and storing the result to destination register (rd)
 	- Example: and r0, r1
 

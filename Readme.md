@@ -51,6 +51,9 @@ For now compiler supports next Instructions:
 - and rd, rs
 	- Description: Doing bitwise AND operation on values from 2 registers and storing the result to destination register (rd)
 	- Example: and r0, r1
+- xor rd, rs
+	- Description: Doing bitwise XOR operation on values from 2 registers and storing the result to destination register (rd)
+	- Example: xor r0, r1
 
 At the end of file should always by an empty line.
 

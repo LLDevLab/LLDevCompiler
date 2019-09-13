@@ -14,3 +14,4 @@ ldi r3, #20
 ldi r3, #0x20
 or r3, r4
 and r3, r4
+xor r3, r4

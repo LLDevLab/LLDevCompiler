@@ -15,3 +15,4 @@ ldi r3, #0x20
 or r3, r4
 and r3, r4
 xor r3, r4
+not r3

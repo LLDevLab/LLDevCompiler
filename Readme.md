@@ -54,6 +54,9 @@ For now compiler supports next Instructions:
 - xor rd, rs
 	- Description: Doing bitwise XOR operation on values from 2 registers and storing the result to destination register (rd)
 	- Example: xor r0, r1
+- not rd
+	- Description: Doing bitwise NOT operation on value from register destination register (rd) and storing the result to destination register (rd)
+	- Example: not r0
 
 At the end of file should always by an empty line.
 

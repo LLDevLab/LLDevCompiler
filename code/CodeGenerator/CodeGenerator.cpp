@@ -157,6 +157,8 @@ uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
 		ret = 0x0e;
 	else if (lexeme == "xor")
 		ret = 0x0f;
+	else if (lexeme == "not")
+		ret = 0x10;
 	else if (lexeme == "noop")
 		ret = 0x00;
 

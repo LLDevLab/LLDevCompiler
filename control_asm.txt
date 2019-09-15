@@ -16,3 +16,4 @@ or r3, r4
 and r3, r4
 xor r3, r4
 not r3
+lsh r3, #10

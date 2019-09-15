@@ -6,7 +6,8 @@
 // -2097152 is a min 22 bit value
 #define MIN_IMM_VAL -2097152
 
-#define MAX_STR_SIZE 9
+#define MAX_STR_SIZE 10
+#define SHIFTING_POS 0
 
 LdiInstr::LdiInstr(unsigned int line_num) : OneRegImmInstr(line_num)
 {
@@ -19,7 +20,7 @@ uint32_t LdiInstr::GetOpcode()
 
 uint32_t LdiInstr::GetShiftingPos()
 {
-	return 0;
+	return SHIFTING_POS;
 }
 
 int LdiInstr::GetMaxImmValue()

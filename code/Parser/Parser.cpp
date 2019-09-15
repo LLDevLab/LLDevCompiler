@@ -427,6 +427,8 @@ inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, unsigned int lin
 
 	if (lexeme == "ldi")
 		ret = new LdiInstr(line_num);
+	else if (lexeme == "lsh")
+		ret = new LshInstr(line_num);
 
 	return ret;
 }

@@ -57,6 +57,10 @@ For now compiler supports next Instructions:
 - not rd
 	- Description: Doing bitwise NOT operation on value from destination register (rd) and storing the result to destination register (rd)
 	- Example: not r0
+- lsh rd, imm
+	- Description: Doing bitwise left shift operation on value from destination register (rd) and storing the result to destination register (rd)
+	- Decimal value example: lsh r0, #10
+	- Hexadecimal value example: lsh r0, #0x10
 
 At the end of file should always by an empty line.
 

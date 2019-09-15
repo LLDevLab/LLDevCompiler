@@ -4,20 +4,6 @@
 #define REDUCT_ERROR -2
 #define STACK_ERROR "Stack out of range."
 
-// 4194303 is a max 22 bit value
-#define MAX_IMM_VALUE 4194303
-
-// Nonterminal values could be from 0 to 100
-enum NONTERMINALS {
-	PRGM = 0,				// Programm
-	INSTR_LIST = 1,			// Instruction list
-	INSTR = 2,				// Instruction
-	ZERO_REG_INSTR = 3,		// Zero register instruction
-	ONE_REG_INSTR = 4,		// One register instruction
-	TWO_REG_INSTR = 5,		// Two register instruction
-	ONE_REG_IMM_INSTR = 6	// One register and immediate value instruction
-};
-
 Parser::Parser(LexAnalyzer* analyzer)
 {
 	this->analyzer = analyzer;
@@ -200,25 +186,10 @@ void Parser::InitReductionTable()
 
 void Parser::Shift()
 {
-	string lexeme = input_token.GetLexeme();
-	IMMEDIATE_TYPE imm_type = input_token.GetImmediateType();
-	token_pos pos = input_token.GetPosition();
-
 	switch (input_token.GetTokenValue())
 	{
 	case UNKNOWN:
 		ShowError(input_token.GetPosition(), input_token.GetLexeme());
-		break;
-	case IMMEDIATE:
-		if (!IsImmediateCorrect(lexeme, imm_type))
-		{
-			ShowError(pos, lexeme);
-		}
-		else
-		{
-			if (!IsCorrectNumberSize(lexeme, imm_type))
-				ShowToLongNumberError(pos, lexeme);
-		}
 		break;
 	default:
 		break;
@@ -236,6 +207,15 @@ void Parser::Reduce(int reduct_table_idx)
 	Token token;
 	Token* last_token = new Token();
 	int lhs = 0;
+	string cur_lexeme = "";
+	token_pos cur_pos;
+	string first_reg = "";
+	string second_reg = "";
+	string immediate = "";
+	Instruction *cur_instr = NULL;
+	TwoRegInstr *twoRegInstr = NULL;
+	OneRegInstr *oneRegInstr = NULL;
+	OneRegImmInstr *oneRegImmInstr = NULL;
 
 	for (int i = REDUCT_TABLE_COLS - 1; i >= 0; i--)
 	{
@@ -250,25 +230,66 @@ void Parser::Reduce(int reduct_table_idx)
 		if (parse_stack[top_of_stack] == reduct_table[reduct_table_idx][i])
 		{
 			token = value_stack[top_of_stack];
+			cur_lexeme = token.GetLexeme();
+			cur_pos = token.GetPosition();
+
 			*last_token = token;
 
 			switch (parse_stack[top_of_stack])
 			{
 			case ZERO_REG_OP:
+				cur_instr = CreateZeroRegInstr(cur_lexeme, cur_pos.line_num);
+
+				if (cur_instr != NULL)
+					code_generator.SetInstruction(cur_instr);
+
+				break;
 			case ONE_REG_OP:
+				cur_instr = CreateOneRegInstr(cur_lexeme, cur_pos.line_num);
+
+				if (cur_instr != NULL)
+				{
+					oneRegInstr = (OneRegInstr*)cur_instr;
+					oneRegInstr->SetFirstReg(first_reg);
+
+					code_generator.SetInstruction(cur_instr);
+				}				
+
+				break;
 			case TWO_REG_OP:
+				cur_instr = CreateTwoRegInstr(cur_lexeme, cur_pos.line_num);
+
+				if (cur_instr != NULL)
+				{
+					twoRegInstr = (TwoRegInstr*)cur_instr;
+					twoRegInstr->SetFirstReg(first_reg);
+					twoRegInstr->SetSecondReg(second_reg);
+
+					code_generator.SetInstruction(cur_instr);
+				}
+
+				break;
 			case ONE_REG_IMM_OP:
-				code_generator.SetLineNum(token.GetPosition().line_num);
-				code_generator.SetOpcodeToken(token);
+				cur_instr = CreateOneRegImmInstr(cur_lexeme, cur_pos.line_num);
+
+				if (cur_instr != NULL)
+				{
+					oneRegImmInstr = (OneRegImmInstr*)cur_instr;
+					oneRegImmInstr->SetFirstReg(first_reg);
+					oneRegImmInstr->SetImmediateValue(immediate);
+
+					code_generator.SetInstruction(oneRegImmInstr);
+				}
+
 				break;
 			case REGISTER:
-				if(parse_stack[top_of_stack - 1] == COMMA)
-					code_generator.SetSecondRegisterToken(token);
+				if (parse_stack[top_of_stack - 1] == COMMA)
+					second_reg = token.GetLexeme();
 				else
-					code_generator.SetFirstRegisterToken(token);
+					first_reg = token.GetLexeme();
 				break;
 			case IMMEDIATE:
-				code_generator.SetImmediateToken(token);
+				immediate = token.GetLexeme();
 				break;
 			default:
 				break;
@@ -280,8 +301,7 @@ void Parser::Reduce(int reduct_table_idx)
 		else
 		{
 			token = value_stack[top_of_stack];
-			ShowError(token.GetPosition(), token.GetLexeme(),
-						parse_stack[top_of_stack], reduct_table[reduct_table_idx][i]);
+			ShowError(token.GetPosition(), cur_lexeme, parse_stack[top_of_stack], reduct_table[reduct_table_idx][i]);
 		}
 	}
 
@@ -323,178 +343,90 @@ void Parser::Reduce(int reduct_table_idx)
 	delete last_token;
 }
 
-string Parser::LineNumToStr(int line_num)
+void Parser::ShowError(token_pos pos, string lexeme, int parse_stack_val, int reduct_table_val)
 {
-	string ret = "";
-	char buffer[4];
-	int zeroes_cnt = 0;
+	char buf[100];
 
-	snprintf(buffer, 4, "%d", line_num - 1);
-
-	if (line_num < 10)
-		zeroes_cnt = 3;
-	else if (line_num < 100)
-		zeroes_cnt = 2;
-	else if (line_num < 1000)
-		zeroes_cnt = 1;
-
-	for (int i = 0; i < zeroes_cnt; i++)
-		buffer[i] = '0';
-
-	ret = buffer;
-
-	return ret;
+	if (parse_stack_val == INSTR && reduct_table_val == INSTR_LIST)
+	{
+		sprintf_s(buf, "Require new line symbol at the end of line %d.", pos.line_num);
+		throw LLDevIOException(buf);
+	}
+	else
+		ShowError(pos, lexeme);
 }
 
 void Parser::ShowError(token_pos pos, string lexeme)
 {
 	char buf[100];
 
-	sprintf_s(buf, "Syntax error at line %d near \"%s\".", pos.line_num, lexeme.c_str());
+	sprintf_s(buf, "Unexpected token %s at line %d.", lexeme.c_str(), pos.line_num);
 
 	throw LLDevIOException(buf);
 }
 
-void Parser::ShowError(token_pos pos, string lexeme, int parse_stack_val, int reduct_table_val)
+inline Instruction* Parser::CreateZeroRegInstr(string lexeme, unsigned int line_num)
 {
-	char buf[100];
+	Instruction *ret = NULL;
 
-	if (parse_stack_val == INSTR && reduct_table_val == INSTR_LIST)
-		sprintf_s(buf, "Require new line symbol at the end of line %d.", pos.line_num);
-	else
-		ShowError(pos, lexeme);
-
-	throw LLDevIOException(buf);
-}
-
-void Parser::ShowToLongNumberError(token_pos pos, string lexeme)
-{
-	char buf[100];
-
-	sprintf_s(buf, "Error: to long number at line %d near \"%s\".", pos.line_num, lexeme.c_str());
-
-	throw LLDevIOException(buf);
-}
-
-bool Parser::IsImmediateCorrect(string lexeme, IMMEDIATE_TYPE type)
-{
-	bool ret = false;
-
-	switch (type)
-	{
-	case DECIMAL:
-		ret = IsImmDecimalCorrect(lexeme);
-		break;
-	case HEXADECIMAL:
-		ret = IsImmHexCorrect(lexeme);
-		break;
-	default:
-		break;
-	}
+	if (lexeme == "noop")
+		ret = new NoopInstr(line_num);
 
 	return ret;
 }
 
-bool Parser::IsImmDecimalCorrect(string lexeme)
+inline Instruction* Parser::CreateOneRegInstr(string lexeme, unsigned int line_num)
 {
-	bool ret = true;
-	size_t lexeme_size = lexeme.size();
-	
-	for (unsigned int i = 1; i < lexeme.size(); i++)
-	{
-		// negative immediate value
-		if (i == 1 && lexeme[i] == '-')
-		{
-			// if there is only minus in lexeme
-			if (lexeme.size() < 3)
-			{
-				ret = false;
-				break;
-			}			
+	Instruction *ret = NULL;
 
-			continue;
-		}			
-
-		ret = IsCorrectNumber(lexeme[i], DECIMAL);
-	}
+	if (lexeme == "br")
+		ret = new BrInstr(line_num);
+	else if (lexeme == "breq")
+		ret = new BreqInstr(line_num);
+	else if (lexeme == "brne")
+		ret = new BrneInstr(line_num);
+	else if (lexeme == "brlts")
+		ret = new BrltsInstr(line_num);
+	else if (lexeme == "brgts")
+		ret = new BrgtsInstr(line_num);
+	else if (lexeme == "brltu")
+		ret = new BrltuInstr(line_num);
+	else if (lexeme == "brgtu")
+		ret = new BrgtuInstr(line_num);
+	else if (lexeme == "clr")
+		ret = new ClrInstr(line_num);
+	else if (lexeme == "not")
+		ret = new NotInstr(line_num);
 
 	return ret;
 }
 
-bool Parser::IsImmHexCorrect(string lexeme)
+inline Instruction* Parser::CreateTwoRegInstr(string lexeme, unsigned int line_num)
 {
-	bool ret = true;
-	size_t lexeme_size = lexeme.size();
+	Instruction *ret = NULL;
 
-	for (unsigned int i = 1; i < lexeme_size; i++)
-	{
-		// first 2 characters of hex value should be "0x"
-		if ((i == 1 && lexeme[i] != '0') || (i == 2 && tolower(lexeme[i]) != 'x'))
-		{
-			ret = false;
-			break;
-		}
-
-		if (i == 1 || i == 2)
-			continue;
-
-		ret = IsCorrectNumber(lexeme[i], HEXADECIMAL);
-
-		if (!ret)
-			break;
-	}
+	if (lexeme == "add")
+		ret = new AddInstr(line_num);
+	else if (lexeme == "sub")
+		ret = new SubInstr(line_num);
+	else if (lexeme == "cmp")
+		ret = new CmpInstr(line_num);
+	else if (lexeme == "or")
+		ret = new OrInstr(line_num);
+	else if (lexeme == "and")
+		ret = new AndInstr(line_num);
+	else if (lexeme == "xor")
+		ret = new XorInstr(line_num);
 
 	return ret;
 }
 
-bool Parser::IsCorrectNumber(char num, IMMEDIATE_TYPE type)
+inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, unsigned int line_num)
 {
-	bool ret = false;
-	int max_i;
+	Instruction *ret = NULL;
 
-	switch (type)
-	{
-	case HEXADECIMAL:
-		max_i = 16;
-		break;
-	default:
-		max_i = 10;
-		break;
-	}
-
-	for (int i = 0; i < max_i; i++)
-	{
-		if (tolower(num) == imm_digits[i])
-		{
-			ret = true;
-			break;
-		}
-	}
+	if (lexeme == "ldi")
+		ret = new LdiInstr(line_num);
 
 	return ret;
-}
-
-bool Parser::IsCorrectNumberSize(string lexeme, IMMEDIATE_TYPE type)
-{
-	bool ret = false;
-	string num_to_convert = lexeme.substr(1, lexeme.size() - 1);
-	uint32_t int_val;
-
-	switch (type)
-	{
-	case HEXADECIMAL:
-		if (num_to_convert.size() > 8)
-			return false;
-
-		int_val = stoi(num_to_convert, NULL, 16);
-		break;
-	default:
-		if (num_to_convert.size() > 7)
-			return false;
-
-		int_val = stoi(num_to_convert);
-		break;
-	}
-
-	return int_val <= MAX_IMM_VALUE;
 }

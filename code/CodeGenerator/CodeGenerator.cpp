@@ -5,38 +5,20 @@
 CodeGenerator::CodeGenerator()
 {
 	ClearHexs();
-	ClearBinaries();
-
-	InitHexLine();
 }
 
 void CodeGenerator::EndOfFile()
 {
+	if (this->instruction != NULL)
+	{
+		SaveLine();
+		delete this->instruction;
+		this->instruction = NULL;
+	}
+
 	hex_line = ":00000001FF";
 
 	hex_file += hex_line;
-}
-
-void CodeGenerator::SetLineNum(int line_num)
-{
-	hex_line += LineNumToStr(line_num);
-}
-
-void CodeGenerator::SetOpcodeToken(Token token)
-{
-	opcode_bin = GetOpcodeBin(token.GetLexeme());
-}
-
-void CodeGenerator::SetFirstRegisterToken(Token token)
-{
-	reg1_bin = GetRegisterBin(token.GetLexeme());
-	is_reg1_set = true;
-}
-
-void CodeGenerator::SetSecondRegisterToken(Token token)
-{
-	reg2_bin = GetRegisterBin(token.GetLexeme());
-	is_reg2_set = true;
 }
 
 void CodeGenerator::SaveToFile(const char* file)
@@ -75,20 +57,20 @@ string CodeGenerator::ConvertBinsToHex()
 	uint32_t bins = 0;
 	stringstream stream;
 	string ret;
+	NONTERMINALS instruction_type = instruction->GetInstructionType();
 
-	// if opcode not equal noop
-	if (opcode_bin != 0)
-		bins = (opcode_bin << 26);
-		
-	if(is_reg1_set)
-		bins |= (reg1_bin << 22);
+	// if opcode is equal noop
+	if (instruction_type != ZERO_REG_INSTR)
+	{
+		bins = (GetInstructionOpcode() << 26);
+		bins |= (GetFirstRegAddr() << 22);
 
-	if (is_reg2_set)
-		bins |= (reg2_bin << 18);
-
-	if(is_imm_set)
-		bins |= imm_bin;
-
+		if(instruction_type == TWO_REG_INSTR)
+			bins |= (GetSecondRegAddr() << 18);
+		else if (instruction_type == ONE_REG_IMM_INSTR)
+			bins |= (GetImmediateValue() << GetImmediateShiftingPos());
+	}
+	
 	// converts integer to hex string
 	stream << std::hex << bins;				
 
@@ -98,69 +80,6 @@ string CodeGenerator::ConvertBinsToHex()
 	{
 		ret = "0" + ret;
 	}
-
-	return ret;
-}
-
-uint32_t CodeGenerator::GetRegisterBin(string lexeme)
-{
-	uint32_t ret;
-	string reg_addr_str = lexeme.substr(1, 2);
-
-	ret = atoi(reg_addr_str.c_str());
-
-	return ret;
-}
-
-void CodeGenerator::ClearBinaries()
-{
-	opcode_bin = 0;
-	reg1_bin = REG_ADDR_MAX + 1;
-	reg2_bin = REG_ADDR_MAX + 1;
-
-	is_reg1_set = false;
-	is_reg2_set = false; 
-	is_imm_set = false;
-}
-
-uint32_t CodeGenerator::GetOpcodeBin(string lexeme)
-{
-	uint32_t ret = 0;
-
-	if (lexeme == "add")
-		ret = 0x01;
-	else if (lexeme == "sub")
-		ret = 0x02;
-	else if (lexeme == "br")
-		ret = 0x03;
-	else if (lexeme == "breq")
-		ret = 0x04;
-	else if (lexeme == "brne")
-		ret = 0x05;
-	else if (lexeme == "brlts")
-		ret = 0x06;
-	else if (lexeme == "brgts")
-		ret = 0x07;
-	else if (lexeme == "brltu")
-		ret = 0x08;
-	else if (lexeme == "brgtu")
-		ret = 0x09;
-	else if (lexeme == "cmp")
-		ret = 0x0a;
-	else if (lexeme == "clr")
-		ret = 0x0b;
-	else if (lexeme == "ldi")
-		ret = 0x0c;
-	else if (lexeme == "or")
-		ret = 0x0d;
-	else if (lexeme == "and")
-		ret = 0x0e;
-	else if (lexeme == "xor")
-		ret = 0x0f;
-	else if (lexeme == "not")
-		ret = 0x10;
-	else if (lexeme == "noop")
-		ret = 0x00;
 
 	return ret;
 }
@@ -220,14 +139,9 @@ int CodeGenerator::HexStrToInt(string hex_str)
 
 void CodeGenerator::InitHexLine()
 {
-	if (hex_line != "")
-	{
-		SaveLine();
-		ClearBinaries();
-	}
-
 	hex_line = ":";
 	hex_line += HEX_DATA_SIZE;
+	hex_line += LineNumToStr(instruction->GetLineNum());
 }
 
 void CodeGenerator::SaveLine()
@@ -239,13 +153,13 @@ void CodeGenerator::SaveLine()
 	hex_file += hex_line + "\n";
 }
 
-string CodeGenerator::LineNumToStr(int line_num)
+string CodeGenerator::LineNumToStr(unsigned int line_num)
 {
-	string ret = "";	
-	char buffer[5];		// 4 digits + \0
-	int zeroes_cnt = 0;
+	string ret = "";
+	const int buf_len = 5;
+	char buffer[buf_len];		// 4 digits + \0
 
-	snprintf(buffer, 5, "%04d", line_num - 1);	// "%04d" - 4 character integer padded with zeros	
+	snprintf(buffer, buf_len, "%04d", line_num - 1);	// "%04d" - 4 character integer padded with zeros	
 
 	ret = buffer;
 
@@ -258,20 +172,43 @@ void CodeGenerator::ClearHexs()
 	hex_file = "";
 }
 
-void CodeGenerator::SetImmediateToken(Token token)
+void CodeGenerator::SetInstruction(Instruction *instruction)
 {
-	string lexeme = token.GetLexeme();
-	string num_to_convert = lexeme.substr(1, lexeme.size() - 1);
-
-	is_imm_set = true;
-
-	switch (token.GetImmediateType())
+	if (this->instruction != NULL)
 	{
-	case HEXADECIMAL:
-		imm_bin = stoi(num_to_convert, NULL, 16);
-		break;
-	default:
-		imm_bin = stoi(num_to_convert);
-		break;
+		SaveLine();
+		delete this->instruction;
 	}
+
+	this->instruction = instruction;
+}
+
+inline uint32_t CodeGenerator::GetInstructionOpcode()
+{
+	OneRegInstr *one_reg_instr = (OneRegInstr*)instruction;
+	return one_reg_instr->GetOpcode();
+}
+
+inline uint32_t CodeGenerator::GetFirstRegAddr()
+{
+	OneRegInstr *one_reg_instr = (OneRegInstr*)instruction;
+	return one_reg_instr->GetFirstRegAddr();
+}
+
+inline uint32_t CodeGenerator::GetSecondRegAddr()
+{
+	TwoRegInstr *two_reg_instr = (TwoRegInstr*)instruction;
+	return two_reg_instr->GetSecondRegAddr();
+}
+
+inline uint32_t CodeGenerator::GetImmediateValue()
+{
+	OneRegImmInstr *imm_instr = (OneRegImmInstr*)instruction;
+	return imm_instr->GetImmediateValue();
+}
+
+inline uint32_t CodeGenerator::GetImmediateShiftingPos()
+{
+	OneRegImmInstr *imm_instr = (OneRegImmInstr*)instruction;
+	return imm_instr->GetShiftingPos();
 }

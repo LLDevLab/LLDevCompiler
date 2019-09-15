@@ -4,6 +4,12 @@
 #include <sstream>				// string stream
 #include <fstream>
 #include "../LexAnalyzer/LexAnalyzer.h"
+#include "../Parser/Nonterminals.h"
+#include "../Instructions/Instruction.h"
+#include "../Instructions/ZeroRegInstr/ZeroRegInstr.h"
+#include "../Instructions/OneRegImmInstr/OneRegImmInstr.h"
+#include "../Instructions/OneRegInstr/OneRegInstr.h"
+#include "../Instructions/TwoRegInstr/TwoRegInstr.h"
 
 #define REG_ADDR_MAX 15
 #define OUTPUT_FILE_EXT ".hex"
@@ -18,34 +24,25 @@ class CodeGenerator
 public:
 	CodeGenerator();
 	void EndOfFile();
-	void SetLineNum(int line_num);
-	void SetOpcodeToken(Token token);
-	void SetFirstRegisterToken(Token token);
-	void SetSecondRegisterToken(Token token);
-	void SetImmediateToken(Token token);
 	void SaveToFile(const char* file);
 	void InitHexLine();
+	void SetInstruction(Instruction* instruction);
 private:
 	string hex_line;
 	string hex_file;
 
-	uint32_t opcode_bin;
-	uint32_t reg1_bin;
-	uint32_t reg2_bin;
-	uint32_t imm_bin;
+	Instruction *instruction;
 
-	bool is_reg1_set;
-	bool is_reg2_set;
-	bool is_imm_set;
-
-	string LineNumToStr(int line_num);
-	void ClearBinaries();
+	string LineNumToStr(unsigned int line_num);
 	void ClearHexs();
-	uint32_t GetOpcodeBin(string lexeme);
-	uint32_t GetRegisterBin(string lexeme);
 	string ConvertBinsToHex();
 	string GetCheckSum();
 	void SaveLine();	
 	string RemoveFileExtension(const char* file_name);
 	int HexStrToInt(string hex_str);
+	uint32_t GetInstructionOpcode();
+	uint32_t GetFirstRegAddr();
+	uint32_t GetSecondRegAddr();
+	uint32_t GetImmediateValue();
+	uint32_t GetImmediateShiftingPos();
 };

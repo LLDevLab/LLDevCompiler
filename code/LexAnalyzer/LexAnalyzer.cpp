@@ -40,9 +40,6 @@ Token LexAnalyzer::GetNextToken()
 		tokens = GetTokenFromLexeme(cur_lexeme);
 
 		ret.SetTokenValue(tokens);
-
-		if (tokens == IMMEDIATE)
-			ret.SetImmediateType(GetImmediateType(cur_lexeme));
 	}
 	else
 	{
@@ -199,14 +196,6 @@ bool LexAnalyzer::IsImmediate(string lexeme)
 	return lexeme[0] == '#';
 }
 
-bool LexAnalyzer::IsImmHex(string lexeme)
-{
-	if (lexeme.size() < 4)
-		return false;
-
-	return tolower(lexeme[2]) == 'x';
-}
-
 bool LexAnalyzer::IsRegister(string lexeme)
 {
 	bool ret = false;
@@ -233,16 +222,6 @@ bool LexAnalyzer::IsRegister(string lexeme)
 			break;
 		}
 	}
-
-	return ret;
-}
-
-IMMEDIATE_TYPE LexAnalyzer::GetImmediateType(string lexeme)
-{
-	IMMEDIATE_TYPE ret = DECIMAL;
-
-	if (IsImmHex(lexeme))
-		ret = HEXADECIMAL;
 
 	return ret;
 }

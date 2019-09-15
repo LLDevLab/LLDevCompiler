@@ -19,12 +19,6 @@ enum TOKENS
 	END_OF_FILE = 109
 };
 
-enum IMMEDIATE_TYPE
-{
-	DECIMAL,
-	HEXADECIMAL
-};
-
 struct token_pos
 {
 	int line_num;
@@ -43,13 +37,10 @@ public:
 	TOKENS GetTokenValue();
 	token_pos GetPosition();
 	string GetLexeme();
-	void SetImmediateType(IMMEDIATE_TYPE type);
-	IMMEDIATE_TYPE GetImmediateType();
 
 private:
 	TOKENS token;
 	token_pos pos;
 	string lexeme;
-	IMMEDIATE_TYPE imm_type;
 };
 

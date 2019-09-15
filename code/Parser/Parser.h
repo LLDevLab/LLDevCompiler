@@ -4,6 +4,25 @@
 #include <ctype.h>
 #include "../LexAnalyzer/LexAnalyzer.h"
 #include "../CodeGenerator/CodeGenerator.h"
+#include "Nonterminals.h"
+#include "../Instructions/ZeroRegInstr/NoopInstr/NoopInstr.h"
+#include "../Instructions/OneRegInstr/BrInstr/BrInstr.h"
+#include "../Instructions/OneRegInstr/BreqInstr/BreqInstr.h"
+#include "../Instructions/OneRegInstr/BrneInstr/BrneInstr.h"
+#include "../Instructions/OneRegInstr/BrltsInstr/BrltsInstr.h"
+#include "../Instructions/OneRegInstr/BrgtsInstr/BrgtsInstr.h"
+#include "../Instructions/OneRegInstr/BrltuInstr/BrltuInstr.h"
+#include "../Instructions/OneRegInstr/BrgtuInstr/BrgtuInstr.h"
+#include "../Instructions/OneRegInstr/ClrInstr/ClrInstr.h"
+#include "../Instructions/OneRegInstr/NotInstr/NotInstr.h"
+#include "../Instructions/OneRegInstr/NotInstr/NotInstr.h"
+#include "../Instructions/TwoRegInstr/AddInstr/AddInstr.h"
+#include "../Instructions/TwoRegInstr/SubInstr/SubInstr.h"
+#include "../Instructions/TwoRegInstr/CmpInstr/CmpInstr.h"
+#include "../Instructions/TwoRegInstr/OrInstr/OrInstr.h"
+#include "../Instructions/TwoRegInstr/AndInstr/AndInstr.h"
+#include "../Instructions/TwoRegInstr/XorInstr/XorInstr.h"
+#include "../Instructions/OneRegImmInstr/LdiInstr/LdiInstr.h"
 
 #define REDUCT_TABLE_ROWS 12
 #define REDUCT_TABLE_COLS 4
@@ -21,19 +40,14 @@ private:
 	LexAnalyzer* analyzer;
 	string output;
 	CodeGenerator code_generator;
-	char imm_digits[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	void InitReductionTable();
 	void Shift();
 	void Reduce(int reduct_table_idx);
-	string LineNumToStr(int line_num);
-	void ShowError(token_pos pos, string lexeme);
 	void ShowError(token_pos pos, string lexeme, int parse_stack_val, int reduct_table_val);
-	void ShowToLongNumberError(token_pos pos, string lexeme);
-	bool IsImmediateCorrect(string lexeme, IMMEDIATE_TYPE type);
-	bool IsImmDecimalCorrect(string lexeme);
-	bool IsImmHexCorrect(string lexeme);
-	bool IsCorrectNumber(char num, IMMEDIATE_TYPE type);
-	bool IsCorrectNumberSize(string lexeme, IMMEDIATE_TYPE type);
+	void ShowError(token_pos pos, string lexeme);
+	Instruction* CreateZeroRegInstr(string lexeme, unsigned int line_num);
+	Instruction* CreateOneRegInstr(string lexeme, unsigned int line_num);
+	Instruction* CreateTwoRegInstr(string lexeme, unsigned int line_num);
+	Instruction* CreateOneRegImmInstr(string lexeme, unsigned int line_num);
 };
-

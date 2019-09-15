@@ -9,7 +9,6 @@ Token::Token()
 	};
 
 	lexeme = "";
-	imm_type = DECIMAL;
 }
 
 TOKENS Token::GetTokenValue()
@@ -40,14 +39,4 @@ void Token::SetTokenPos(token_pos pos)
 void Token::SetTokenValue(TOKENS value)
 {
 	token = value;
-}
-
-void Token::SetImmediateType(IMMEDIATE_TYPE type)
-{
-	imm_type = type;
-}
-
-IMMEDIATE_TYPE Token::GetImmediateType()
-{
-	return imm_type;
 }

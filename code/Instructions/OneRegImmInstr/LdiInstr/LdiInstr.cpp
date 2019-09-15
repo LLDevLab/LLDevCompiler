@@ -1,6 +1,6 @@
 #include "LdiInstr.h"
 
-// 4194303 is a max 22 bit value
+// 4 194 303 is a max 22 bit value
 #define MAX_IMM_VAL 4194303
 
 // -2097152 is a min 22 bit value

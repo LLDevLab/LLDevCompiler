@@ -70,6 +70,11 @@ For now compiler supports next Instructions:
 	- Description: Doing bitwise left rotate operation on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rtl r0, #10
 	- Hexadecimal value example: rtl r0, #0x10
+	
+- rtr rd, imm
+	- Description: Doing bitwise right rotate operation on value from destination register (rd) and storing the result to destination register (rd)
+	- Decimal value example: rtr r0, #10
+	- Hexadecimal value example: rtr r0, #0x10
 
 At the end of file should always by an empty line.
 

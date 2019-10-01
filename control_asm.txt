@@ -22,3 +22,5 @@ rsh r3, #10
 rsh r3, #0x10
 rtl r3, #10
 rtl r3, #0x10
+rtr r3, #10
+rtr r3, #0x10

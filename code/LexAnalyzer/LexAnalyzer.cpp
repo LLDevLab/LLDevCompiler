@@ -192,7 +192,8 @@ bool LexAnalyzer::IsOneRegImmOp(string lexeme)
 		lexeme == "lsh" ||
 		lexeme == "rsh" ||
 		lexeme == "rtl" ||
-		lexeme == "rtr";
+		lexeme == "rtr" ||
+		lexeme == "rtlc";
 }
 
 bool LexAnalyzer::IsImmediate(string lexeme)

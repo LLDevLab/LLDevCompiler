@@ -4,3 +4,4 @@
 #include "RshInstr/RshInstr.h"
 #include "RtlInstr/RtlInstr.h"
 #include "RtrInstr/RtrInstr.h"
+#include "RtlcInstr/RtlcInstr.h"

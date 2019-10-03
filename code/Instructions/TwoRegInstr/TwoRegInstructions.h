@@ -6,3 +6,4 @@
 #include "OrInstr/OrInstr.h"
 #include "AndInstr/AndInstr.h"
 #include "XorInstr/XorInstr.h"
+#include "AddcInstr/AddcInstr.h"

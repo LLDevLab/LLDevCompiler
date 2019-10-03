@@ -65,26 +65,25 @@ For now compiler supports next Instructions:
 	- Description: Doing bitwise right shift operation on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rsh r0, #10
 	- Hexadecimal value example: rsh r0, #0x10
-	
 - rtl rd, imm
 	- Description: Doing bitwise left rotate operation on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rtl r0, #10
 	- Hexadecimal value example: rtl r0, #0x10
-	
 - rtr rd, imm
 	- Description: Doing bitwise right rotate operation on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rtr r0, #10
 	- Hexadecimal value example: rtr r0, #0x10
-	
 - rtlc rd, imm
 	- Description: Doing bitwise left rotate operation, through carry bit (value from carry bit will also rotate left), on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rtlc r0, #10
 	- Hexadecimal value example: rtlc r0, #0x10
-	
 - rtrc rd, imm
 	- Description: Doing bitwise right rotate operation, through carry bit (value from carry bit will also rotate right), on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rtrc r0, #10
 	- Hexadecimal value example: rtrc r0, #0x10
+- addc rd, rs
+	- Description: Adds values from 2 registers and a carry bit and puts the result to destination register (rd) 
+	- Example: addc r0, r1
 
 At the end of file should always by an empty line.
 

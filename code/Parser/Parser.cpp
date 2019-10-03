@@ -437,6 +437,8 @@ inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, unsigned int lin
 		ret = new RtrInstr(line_num);
 	else if (lexeme == "rtlc")
 		ret = new RtlcInstr(line_num);
+	else if (lexeme == "rtrc")
+		ret = new RtrcInstr(line_num);
 
 	return ret;
 }

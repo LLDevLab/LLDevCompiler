@@ -26,3 +26,5 @@ rtr r3, #10
 rtr r3, #0x10
 rtlc r3, #10
 rtlc r3, #0x10
+rtrc r3, #10
+rtrc r3, #0x10

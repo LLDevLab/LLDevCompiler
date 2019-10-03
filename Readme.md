@@ -77,9 +77,14 @@ For now compiler supports next Instructions:
 	- Hexadecimal value example: rtr r0, #0x10
 	
 - rtlc rd, imm
-	- Description: Doing bitwise right rotate operation, through carry bit (value from carry bit will also rotate left), on value from destination register (rd) and storing the result to destination register (rd)
+	- Description: Doing bitwise left rotate operation, through carry bit (value from carry bit will also rotate left), on value from destination register (rd) and storing the result to destination register (rd)
 	- Decimal value example: rtlc r0, #10
 	- Hexadecimal value example: rtlc r0, #0x10
+	
+- rtrc rd, imm
+	- Description: Doing bitwise right rotate operation, through carry bit (value from carry bit will also rotate right), on value from destination register (rd) and storing the result to destination register (rd)
+	- Decimal value example: rtrc r0, #10
+	- Hexadecimal value example: rtrc r0, #0x10
 
 At the end of file should always by an empty line.
 

@@ -29,3 +29,4 @@ rtlc r3, #0x10
 rtrc r3, #10
 rtrc r3, #0x10
 addc r3, r4
+subc r3, r4

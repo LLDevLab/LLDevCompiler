@@ -84,6 +84,9 @@ For now compiler supports next Instructions:
 - addc rd, rs
 	- Description: Adds values from 2 registers and a carry bit and puts the result to destination register (rd) 
 	- Example: addc r0, r1
+- subc rd, rs
+	- Description: Subtracts source register's (rs) value and a carry bit from destination register's (rd) value and puts the result to destination register.
+	- Example: subc r0, r1
 
 At the end of file should always by an empty line.
 

@@ -7,3 +7,4 @@
 #include "AndInstr/AndInstr.h"
 #include "XorInstr/XorInstr.h"
 #include "AddcInstr/AddcInstr.h"
+#include "SubcInstr/SubcInstr.h"

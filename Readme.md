@@ -88,7 +88,7 @@ For now compiler supports next Instructions:
 	- Description: Subtracts source register's (rs) value and a carry bit from destination register's (rd) value and puts the result to destination register.
 	- Example: subc r0, r1
 - ld rd, rs
-	- Description: Loads data from memory address, that is stored in source register (rs), to destination register (rd).
+	- Description: Loads data from memory address (that is stored in source register (rs)), to destination register (rd).
 	- Example: ld r0, r1
 
 At the end of file should always by an empty line.

@@ -8,3 +8,4 @@
 #include "XorInstr/XorInstr.h"
 #include "AddcInstr/AddcInstr.h"
 #include "SubcInstr/SubcInstr.h"
+#include "LdInstr/LdInstr.h"

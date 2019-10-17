@@ -9,3 +9,4 @@
 #include "AddcInstr/AddcInstr.h"
 #include "SubcInstr/SubcInstr.h"
 #include "LdInstr/LdInstr.h"
+#include "StInstr/StInstr.h"

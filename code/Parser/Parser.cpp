@@ -423,6 +423,8 @@ inline Instruction* Parser::CreateTwoRegInstr(string lexeme, unsigned int line_n
 		ret = new SubcInstr(line_num);
 	else if (lexeme == "ld")
 		ret = new LdInstr(line_num);
+	else if (lexeme == "st")
+		ret = new StInstr(line_num);
 
 	return ret;
 }

@@ -31,3 +31,4 @@ rtrc r3, #0x10
 addc r3, r4
 subc r3, r4
 ld r3, r4
+st r3, r4

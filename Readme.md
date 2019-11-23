@@ -3,7 +3,7 @@
 This is assembly language compiler for lldevcpu architecture.
 
 ## Comments
-- // at the beginning of the line is denote as a comment
+- "//" at the beginning of the line is denote as a comment
 
 ## Supporting Instructions
 

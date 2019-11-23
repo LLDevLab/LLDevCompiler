@@ -28,6 +28,7 @@ private:
 	unsigned int cur_token_index;
 	int cur_line;
 	int cur_pos;
+	int cur_code_line;
 
 	string ReadLine();
 	void GetLexemes(string line);
@@ -38,5 +39,7 @@ private:
 	bool IsZeroRegOp(string lexeme);
 	bool IsOneRegImmOp(string lexete);
 	bool IsImmediate(string lexeme);
+	bool IsComment(string str_line);
+	string SkipComments(string str_line);
 	void AddLexeme(string lexeme, int pos);
 };

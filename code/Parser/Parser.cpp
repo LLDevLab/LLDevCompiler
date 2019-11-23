@@ -238,14 +238,14 @@ void Parser::Reduce(int reduct_table_idx)
 			switch (parse_stack[top_of_stack])
 			{
 			case ZERO_REG_OP:
-				cur_instr = CreateZeroRegInstr(cur_lexeme, cur_pos.line_num);
+				cur_instr = CreateZeroRegInstr(cur_lexeme, cur_pos.code_line_num);
 
 				if (cur_instr != NULL)
 					code_generator.SetInstruction(cur_instr);
 
 				break;
 			case ONE_REG_OP:
-				cur_instr = CreateOneRegInstr(cur_lexeme, cur_pos.line_num);
+				cur_instr = CreateOneRegInstr(cur_lexeme, cur_pos.code_line_num);
 
 				if (cur_instr != NULL)
 				{
@@ -257,7 +257,7 @@ void Parser::Reduce(int reduct_table_idx)
 
 				break;
 			case TWO_REG_OP:
-				cur_instr = CreateTwoRegInstr(cur_lexeme, cur_pos.line_num);
+				cur_instr = CreateTwoRegInstr(cur_lexeme, cur_pos.code_line_num);
 
 				if (cur_instr != NULL)
 				{
@@ -270,7 +270,7 @@ void Parser::Reduce(int reduct_table_idx)
 
 				break;
 			case ONE_REG_IMM_OP:
-				cur_instr = CreateOneRegImmInstr(cur_lexeme, cur_pos.line_num);
+				cur_instr = CreateOneRegImmInstr(cur_lexeme, cur_pos.code_line_num);
 
 				if (cur_instr != NULL)
 				{

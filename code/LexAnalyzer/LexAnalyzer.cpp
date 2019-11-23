@@ -3,6 +3,7 @@
 LexAnalyzer::LexAnalyzer(const char* file)
 {
 	cur_line = 0;
+	cur_code_line = 0;
 	cur_pos = 0;
 	cur_token_index = 0;
 	file_name = file;
@@ -26,6 +27,7 @@ Token LexAnalyzer::GetNextToken()
 	TOKENS tokens;
 
 	pos.line_num = cur_line;
+	pos.code_line_num = cur_code_line;
 
 	if (cur_token_index < lexemes.size())
 	{
@@ -69,6 +71,7 @@ string LexAnalyzer::ReadLine()
 
 	do
 	{
+		cur_line++;
 		getline(ios_file, ret);
 
 	} while (!ios_file.eof() && ret == "");			// ignore empty lines
@@ -81,36 +84,50 @@ void LexAnalyzer::GetLexemes(string line)
 	int cur_pos = 0;
 	int prev_pos = 0;
 	string lexeme = "";
+	string tmp_line;
+
+	tmp_line = SkipComments(line);
 	
-	cur_line++;
+	cur_code_line++;
 
 	lexemes.clear();
 	cur_token_index = 0;
 
 	lex_positions.clear();
 
-	if (line == "")
+	if (tmp_line == "")
 		return;
 
-	cur_pos = line.find(token_delim);
+	cur_pos = tmp_line.find(token_delim);
 
 	while (cur_pos != string::npos)
 	{
-		lexeme = line.substr(prev_pos, cur_pos - prev_pos);
+		lexeme = tmp_line.substr(prev_pos, cur_pos - prev_pos);
 
 		AddLexeme(lexeme,(int)(prev_pos + 1));
 
 		prev_pos = cur_pos + 1;
-		cur_pos = line.find(token_delim, prev_pos);
+		cur_pos = tmp_line.find(token_delim, prev_pos);
 
 		if (cur_pos < 0)
 			break;
 	}
 
-	lexeme = line.substr(prev_pos, cur_pos - prev_pos);
+	lexeme = tmp_line.substr(prev_pos, cur_pos - prev_pos);
 
 	if(lexeme != "")
 		AddLexeme(lexeme, (int)prev_pos + 1);
+}
+
+/// Skips all comment lines and return next line of code
+string LexAnalyzer::SkipComments(string str_line)
+{
+	string ret = str_line;
+
+	while (IsComment(ret))
+		ret = ReadLine();
+
+	return ret;
 }
 
 void LexAnalyzer::AddLexeme(string lexeme, int pos)
@@ -158,12 +175,12 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 	return ret;
 }
 
-bool LexAnalyzer::IsZeroRegOp(string lexeme)
+inline bool LexAnalyzer::IsZeroRegOp(string lexeme)
 {
 	return lexeme == "noop";
 }
 
-bool LexAnalyzer::IsTwoRegOp(string lexeme)
+inline bool LexAnalyzer::IsTwoRegOp(string lexeme)
 {
 	return lexeme == "add" ||
 		lexeme == "sub" ||
@@ -177,7 +194,7 @@ bool LexAnalyzer::IsTwoRegOp(string lexeme)
 		lexeme == "st";
 }
 
-bool LexAnalyzer::IsOneRegOp(string lexeme)
+inline bool LexAnalyzer::IsOneRegOp(string lexeme)
 {
 	return lexeme == "br" ||
 			lexeme == "breq" ||
@@ -190,7 +207,7 @@ bool LexAnalyzer::IsOneRegOp(string lexeme)
 			lexeme == "not";
 }
 
-bool LexAnalyzer::IsOneRegImmOp(string lexeme)
+inline bool LexAnalyzer::IsOneRegImmOp(string lexeme)
 {
 	return lexeme == "ldi" ||
 		lexeme == "lsh" ||
@@ -201,7 +218,7 @@ bool LexAnalyzer::IsOneRegImmOp(string lexeme)
 		lexeme == "rtrc";
 }
 
-bool LexAnalyzer::IsImmediate(string lexeme)
+inline bool LexAnalyzer::IsImmediate(string lexeme)
 {
 	return lexeme[0] == '#';
 }
@@ -234,4 +251,9 @@ bool LexAnalyzer::IsRegister(string lexeme)
 	}
 
 	return ret;
+}
+
+inline bool LexAnalyzer::IsComment(string str_line)
+{
+	return (str_line.length() > 1 && str_line.substr(0, 2) == "//");
 }

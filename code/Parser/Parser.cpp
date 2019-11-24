@@ -425,6 +425,8 @@ inline Instruction* Parser::CreateTwoRegInstr(string lexeme, unsigned int line_n
 		ret = new LdInstr(line_num);
 	else if (lexeme == "st")
 		ret = new StInstr(line_num);
+	else if (lexeme == "mov")
+		ret = new MovInstr(line_num);
 
 	return ret;
 }

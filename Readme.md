@@ -96,6 +96,9 @@ For now compiler supports next Instructions:
 - st rd, rs
 	- Description: Store data from source register (rs) to memory address (that is stored in destination register (rd)).
 	- Example: st r0, r1
+- mov rd, rs
+	- Description: Move data from source register (rs) to destination register (rd).
+	- Example: mov r0, r1
 
 At the end of file should always by an empty line.
 

@@ -10,3 +10,4 @@
 #include "SubcInstr/SubcInstr.h"
 #include "LdInstr/LdInstr.h"
 #include "StInstr/StInstr.h"
+#include "MovInstr/MovInstr.h"

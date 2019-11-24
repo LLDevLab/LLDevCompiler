@@ -191,7 +191,8 @@ inline bool LexAnalyzer::IsTwoRegOp(string lexeme)
 		lexeme == "addc" ||
 		lexeme == "subc" ||
 		lexeme == "ld" ||
-		lexeme == "st";
+		lexeme == "st" ||
+		lexeme == "mov";
 }
 
 inline bool LexAnalyzer::IsOneRegOp(string lexeme)

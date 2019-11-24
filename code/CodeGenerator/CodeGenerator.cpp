@@ -159,7 +159,7 @@ string CodeGenerator::LineNumToStr(unsigned int line_num)
 	const int buf_len = 5;
 	char buffer[buf_len];		// 4 digits + \0
 
-	snprintf(buffer, buf_len, "%04d", line_num - 1);	// "%04d" - 4 character integer padded with zeros	
+	snprintf(buffer, buf_len, "%04x", line_num - 1);	// "%04d" - 4 character integer padded with zeros	
 
 	ret = buffer;
 

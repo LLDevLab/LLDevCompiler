@@ -99,6 +99,9 @@ For now compiler supports next Instructions:
 - mov rd, rs
 	- Description: Move data from source register (rs) to destination register (rd).
 	- Example: mov r0, r1
+- push rs
+	- Description: Store the content of source register (rs) the top of the stack.
+	- Example: push r0
 
 At the end of file should always by an empty line.
 

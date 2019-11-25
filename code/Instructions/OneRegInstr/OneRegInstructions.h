@@ -9,3 +9,4 @@
 #include "BrgtuInstr/BrgtuInstr.h"
 #include "ClrInstr/ClrInstr.h"
 #include "NotInstr/NotInstr.h"
+#include "PushInstr/PushInstr.h"

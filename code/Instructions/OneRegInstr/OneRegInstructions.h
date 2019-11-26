@@ -10,3 +10,4 @@
 #include "ClrInstr/ClrInstr.h"
 #include "NotInstr/NotInstr.h"
 #include "PushInstr/PushInstr.h"
+#include "PopInstr/PopInstr.h"

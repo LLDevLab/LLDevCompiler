@@ -102,6 +102,9 @@ For now compiler supports next Instructions:
 - push rs
 	- Description: Store the content of source register (rs) to the top of the stack.
 	- Example: push r0
+- pop rd
+	- Description: Load content from the top of the stack to the destination register (rd).
+	- Example: pop r0
 
 At the end of file should always by an empty line.
 

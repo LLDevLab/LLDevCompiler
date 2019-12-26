@@ -260,7 +260,7 @@ inline bool LexAnalyzer::IsComment(string str_line)
 	return (str_line.length() > 1 && str_line.substr(0, 2) == "//");
 }
 
-inline bool LexAnalyzer::IsEmptyLine(string str_line)
+bool LexAnalyzer::IsEmptyLine(string str_line)
 {
 	size_t str_len = str_line.length();
 	bool ret = str_len > 0 ? true : false;		// string with length 0 can get here only if end of file was reached

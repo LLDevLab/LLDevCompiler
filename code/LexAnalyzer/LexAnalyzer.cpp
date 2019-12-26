@@ -86,7 +86,7 @@ void LexAnalyzer::GetLexemes(string line)
 	string lexeme = "";
 	string tmp_line;
 
-	tmp_line = SkipComments(line);
+	tmp_line = GetNextValidLine(line);
 	
 	cur_code_line++;
 
@@ -119,12 +119,11 @@ void LexAnalyzer::GetLexemes(string line)
 		AddLexeme(lexeme, (int)prev_pos + 1);
 }
 
-/// Skips all comment lines and return next line of code
-string LexAnalyzer::SkipComments(string str_line)
+string LexAnalyzer::GetNextValidLine(string str_line)
 {
 	string ret = str_line;
-
-	while (IsComment(ret))
+	
+	while(IsComment(ret) || IsEmptyLine(ret))
 		ret = ReadLine();
 
 	return ret;
@@ -259,4 +258,22 @@ bool LexAnalyzer::IsRegister(string lexeme)
 inline bool LexAnalyzer::IsComment(string str_line)
 {
 	return (str_line.length() > 1 && str_line.substr(0, 2) == "//");
+}
+
+inline bool LexAnalyzer::IsEmptyLine(string str_line)
+{
+	size_t str_len = str_line.length();
+	bool ret = str_len > 0 ? true : false;		// string with length 0 can get here only if end of file was reached
+
+	for (int i = 0; i < str_len; i++)
+	{
+		char chr = str_line.at(i);
+		if (chr != ' ' && chr != '\t')
+		{
+			ret = false;
+			break;
+		}
+	}
+
+	return ret;
 }

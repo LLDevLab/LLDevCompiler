@@ -40,6 +40,7 @@ private:
 	bool IsOneRegImmOp(string lexete);
 	bool IsImmediate(string lexeme);
 	bool IsComment(string str_line);
-	string SkipComments(string str_line);
+	bool IsEmptyLine(string str_line);
+	string GetNextValidLine(string str_line);
 	void AddLexeme(string lexeme, int pos);
 };

@@ -5,6 +5,7 @@
 #include <vector>
 #include <exception>
 #include <string>
+#include <map>
 #include "../Token/Token.h"
 
 using namespace std;
@@ -24,11 +25,10 @@ private:
 	ifstream ios_file;
 
 	vector<string> lexemes;
-	vector<int> lex_positions;
 	unsigned int cur_token_index;
 	int cur_line;
-	int cur_pos;
-	int cur_code_line;
+	int cur_bytecode_line;
+	map<string, int> label_to_line_num_map;
 
 	string ReadLine();
 	void GetLexemes(string line);
@@ -41,6 +41,8 @@ private:
 	bool IsImmediate(string lexeme);
 	bool IsComment(string str_line);
 	bool IsEmptyLine(string str_line);
+	bool IsLabel(string str_line, bool isDefinition);
+	void SetTokenLexeme(Token* token, string lexeme);
 	string GetNextValidLine(string str_line);
 	void AddLexeme(string lexeme, int pos);
 };

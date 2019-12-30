@@ -3,8 +3,7 @@
 LexAnalyzer::LexAnalyzer(const char* file)
 {
 	cur_line = 0;
-	cur_code_line = 0;
-	cur_pos = 0;
+	cur_bytecode_line = 0;
 	cur_token_index = 0;
 	file_name = file;
 
@@ -22,21 +21,18 @@ Token LexAnalyzer::GetNextToken()
 {
 	Token ret;
 	string cur_lexeme = "";
-	int line_pos = 0;
 	token_pos pos;
 	TOKENS tokens;
 
 	pos.line_num = cur_line;
-	pos.code_line_num = cur_code_line;
+	pos.bytecode_line_num = cur_bytecode_line;
 
 	if (cur_token_index < lexemes.size())
 	{
 		cur_lexeme = lexemes[cur_token_index];
-		line_pos = lex_positions[cur_token_index];
 		cur_token_index++;
 
-		ret.SetLexeme(cur_lexeme);
-		pos.line_pos = line_pos;
+		SetTokenLexeme(&ret, cur_lexeme);
 		ret.SetTokenPos(pos);
 
 		tokens = GetTokenFromLexeme(cur_lexeme);
@@ -88,12 +84,10 @@ void LexAnalyzer::GetLexemes(string line)
 
 	tmp_line = GetNextValidLine(line);
 	
-	cur_code_line++;
+	cur_bytecode_line++;
 
 	lexemes.clear();
 	cur_token_index = 0;
-
-	lex_positions.clear();
 
 	if (tmp_line == "")
 		return;
@@ -122,9 +116,17 @@ void LexAnalyzer::GetLexemes(string line)
 string LexAnalyzer::GetNextValidLine(string str_line)
 {
 	string ret = str_line;
-	
-	while(IsComment(ret) || IsEmptyLine(ret))
+	string ret_substr;
+
+	while (IsComment(ret) || IsEmptyLine(ret) || IsLabel(ret, true))
+	{
+		if (IsLabel(ret, true))
+		{
+			ret_substr = ret.substr(0, ret.size() - 1);
+			label_to_line_num_map.insert_or_assign(ret_substr, cur_bytecode_line);
+		}
 		ret = ReadLine();
+	}
 
 	return ret;
 }
@@ -140,15 +142,12 @@ void LexAnalyzer::AddLexeme(string lexeme, int pos)
 	if (lexeme_last_sym == ",")
 	{
 		lexemes.push_back(lexeme.substr(0, lexeme_size - 1));
-		lex_positions.push_back(pos - 1);
 
 		lexemes.push_back(lexeme_last_sym);
-		lex_positions.push_back(pos);
 	}
 	else
 	{
 		lexemes.push_back(lexeme);
-		lex_positions.push_back(pos);
 	}		
 }
 
@@ -168,7 +167,7 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 		ret = ZERO_REG_OP;
 	else if (IsOneRegImmOp(lexeme))
 		ret = ONE_REG_IMM_OP;
-	else if (IsImmediate(lexeme))
+	else if (IsImmediate(lexeme) || IsLabel(lexeme, false))
 		ret = IMMEDIATE;
 
 	return ret;
@@ -276,4 +275,36 @@ bool LexAnalyzer::IsEmptyLine(string str_line)
 	}
 
 	return ret;
+}
+
+// Checks if this is a label
+// isDefinition - if this value is true, that checks for label definition, otherwise search for defined labels
+bool LexAnalyzer::IsLabel(string str, bool isDefinition)
+{
+	size_t size = str.size();
+	int label_pos = 0;
+	iterator<string, int> label_iterator;
+
+	if (isDefinition)
+		return size > 0 && str.at(size - 1) == ':';
+	else
+		return label_to_line_num_map.find(str) != label_to_line_num_map.end();
+}
+
+void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
+{
+	int elem;
+	string new_lexeme = lexeme;
+	const int buf_len = 8;
+	char buf[buf_len];
+
+	if (IsLabel(lexeme, false))
+	{
+		elem = label_to_line_num_map.find(lexeme)->second;
+		_itoa_s(elem, buf, buf_len, 10);
+		new_lexeme = '#';
+		new_lexeme.append(buf);
+	}
+
+	token->SetLexeme(new_lexeme);
 }

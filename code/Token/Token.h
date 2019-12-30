@@ -22,8 +22,7 @@ enum TOKENS
 struct token_pos
 {
 	int line_num;
-	int line_pos;
-	int code_line_num;
+	int bytecode_line_num;
 };
 
 class Token

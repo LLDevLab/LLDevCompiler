@@ -7,9 +7,10 @@ This is assembly language compiler for lldevcpu architecture.
 
 ## Labels
 - A labels now can be used in the code. The label usage example:  
-branchHereLabel:  
-ldi r2, branchHereLabel  
-br r2  
+  
+*branchHereLabel:*  
+*ldi r2, branchHereLabel*  
+*br r2*  
 
 ## Supporting Instructions
 

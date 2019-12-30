@@ -6,10 +6,10 @@ This is assembly language compiler for lldevcpu architecture.
 - "//" at the beginning of the line is denote a comment line
 
 ## Labels
-- A labels now can be used in the code. The label usage example:
-branchHereLabel:
-ldi r2, branchHereLabel
-br r2
+- A labels now can be used in the code. The label usage example:  
+branchHereLabel:  
+ldi r2, branchHereLabel  
+br r2  
 
 ## Supporting Instructions
 

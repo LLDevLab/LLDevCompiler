@@ -59,10 +59,10 @@ string CodeGenerator::ConvertBinsToHex()
 	string ret;
 	NONTERMINALS instruction_type = instruction->GetInstructionType();
 
-	// if opcode is equal noop
+	bins = (GetInstructionOpcode() << 26);
+
 	if (instruction_type != ZERO_REG_INSTR)
 	{
-		bins = (GetInstructionOpcode() << 26);
 		bins |= (GetFirstRegAddr() << 22);
 
 		if(instruction_type == TWO_REG_INSTR)
@@ -185,8 +185,7 @@ void CodeGenerator::SetInstruction(Instruction *instruction)
 
 inline uint32_t CodeGenerator::GetInstructionOpcode()
 {
-	OneRegInstr *one_reg_instr = (OneRegInstr*)instruction;
-	return one_reg_instr->GetOpcode();
+	return instruction->GetOpcode();
 }
 
 inline uint32_t CodeGenerator::GetFirstRegAddr()

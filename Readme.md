@@ -113,8 +113,11 @@ For now compiler supports next Instructions:
 	- Description: Load content from the top of the stack to the destination register (rd).
 	- Example: pop r0
 - call rd
-	- Description: Saves current programm counter register's value to the stack and branches to the address from destination register (rd).
+	- Description: Saves current programm counter register's value to the stack, decrements stack pointer registers's value and branches to the address from destination register (rd).
 	- Example: call r0
+- ret
+	- Description: Restores return address from the stack to programm counter register and increments stack pointer register's value.
+	- Example: ret
 
 At the end of file should always by an empty line.
 

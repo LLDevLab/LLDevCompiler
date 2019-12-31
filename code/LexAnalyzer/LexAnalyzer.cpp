@@ -175,7 +175,8 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 
 inline bool LexAnalyzer::IsZeroRegOp(string lexeme)
 {
-	return lexeme == "noop";
+	return lexeme == "noop" ||
+		lexeme == "ret";
 }
 
 inline bool LexAnalyzer::IsTwoRegOp(string lexeme)

@@ -371,6 +371,8 @@ inline Instruction* Parser::CreateZeroRegInstr(string lexeme, unsigned int line_
 
 	if (lexeme == "noop")
 		ret = new NoopInstr(line_num);
+	else if (lexeme == "ret")
+		ret = new RetInstr(line_num);
 
 	return ret;
 }

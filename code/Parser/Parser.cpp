@@ -401,6 +401,8 @@ inline Instruction* Parser::CreateOneRegInstr(string lexeme, unsigned int line_n
 		ret = new PushInstr(line_num);
 	else if (lexeme == "pop")
 		ret = new PopInstr(line_num);
+	else if (lexeme == "call")
+		ret = new CallInstr(line_num);
 
 	return ret;
 }

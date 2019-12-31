@@ -11,3 +11,4 @@
 #include "NotInstr/NotInstr.h"
 #include "PushInstr/PushInstr.h"
 #include "PopInstr/PopInstr.h"
+#include "CallInstr/CallInstr.h"

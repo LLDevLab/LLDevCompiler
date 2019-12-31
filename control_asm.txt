@@ -35,3 +35,4 @@ st r3, r4
 mov r3, r4
 push r3
 pop r3
+call r3

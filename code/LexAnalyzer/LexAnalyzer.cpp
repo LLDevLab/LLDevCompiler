@@ -205,7 +205,8 @@ inline bool LexAnalyzer::IsOneRegOp(string lexeme)
 			lexeme == "clr" ||
 			lexeme == "not" ||
 			lexeme == "push" ||
-			lexeme == "pop";
+			lexeme == "pop" ||
+			lexeme == "call";
 }
 
 inline bool LexAnalyzer::IsOneRegImmOp(string lexeme)

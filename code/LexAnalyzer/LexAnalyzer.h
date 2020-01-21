@@ -30,7 +30,7 @@ private:
 	int cur_bytecode_line;
 	map<string, int> label_to_line_num_map;
 
-	string ReadLine();
+	string ReadLine(bool count_line_num);
 	void GetLexemes(string line);
 	TOKENS GetTokenFromLexeme(string lexeme);
 	bool IsTwoRegOp(string lexeme);
@@ -42,7 +42,11 @@ private:
 	bool IsComment(string str_line);
 	bool IsEmptyLine(string str_line);
 	bool IsLabel(string str_line, bool isDefinition);
+	bool CanSkip(string str_line);
 	void SetTokenLexeme(Token* token, string lexeme);
 	string GetNextValidLine(string str_line);
 	void AddLexeme(string lexeme, int pos);
+	void InitLabelToLineMap();
+	void OpenFile();
+	void ResetFilePos();
 };

@@ -7,8 +7,9 @@ LexAnalyzer::LexAnalyzer(const char* file)
 	cur_token_index = 0;
 	file_name = file;
 
-	ios_file.open(file_name);
-	GetLexemes(ReadLine());
+	OpenFile();
+	InitLabelToLineMap();
+	GetLexemes(ReadLine(true));
 }
 
 LexAnalyzer::~LexAnalyzer()
@@ -46,7 +47,7 @@ Token LexAnalyzer::GetNextToken()
 		else
 		{
 			ret.SetTokenValue(END_OF_INPUT);
-			GetLexemes(ReadLine());
+			GetLexemes(ReadLine(true));
 		}			
 	}
 
@@ -58,16 +59,14 @@ const char* LexAnalyzer::GetFileName()
 	return file_name;
 }
 
-string LexAnalyzer::ReadLine()
+string LexAnalyzer::ReadLine(bool count_line_num)
 {
 	string ret = "";
 
-	if (ios_file.bad() || ios_file.fail())
-		throw exception("File is not open.");
-
 	do
 	{
-		cur_line++;
+		if(count_line_num )
+			cur_line++;
 		getline(ios_file, ret);
 
 	} while (!ios_file.eof() && ret == "");			// ignore empty lines
@@ -116,16 +115,10 @@ void LexAnalyzer::GetLexemes(string line)
 string LexAnalyzer::GetNextValidLine(string str_line)
 {
 	string ret = str_line;
-	string ret_substr;
 
-	while (IsComment(ret) || IsEmptyLine(ret) || IsLabel(ret, true))
+	while (CanSkip(ret))
 	{
-		if (IsLabel(ret, true))
-		{
-			ret_substr = ret.substr(0, ret.size() - 1);
-			label_to_line_num_map.insert_or_assign(ret_substr, cur_bytecode_line);
-		}
-		ret = ReadLine();
+		ret = ReadLine(true);
 	}
 
 	return ret;
@@ -293,6 +286,11 @@ bool LexAnalyzer::IsLabel(string str, bool isDefinition)
 		return label_to_line_num_map.find(str) != label_to_line_num_map.end();
 }
 
+inline bool LexAnalyzer::CanSkip(string str_line)
+{
+	return IsComment(str_line) || IsEmptyLine(str_line) || IsLabel(str_line, true);
+}
+
 void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
 {
 	int elem;
@@ -309,4 +307,42 @@ void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
 	}
 
 	token->SetLexeme(new_lexeme);
+}
+
+void LexAnalyzer::InitLabelToLineMap()
+{
+	string line = "";
+	int i = 0;
+
+	while (true)
+	{
+		line = ReadLine(false);
+
+		if (line == "")
+			break;
+
+		if (!CanSkip(line))
+			i++;
+		else if(IsLabel(line, true))
+		{
+			line = line.substr(0, line.size() - 1);
+			label_to_line_num_map.insert_or_assign(line, i);
+		}
+	}
+
+	ResetFilePos();
+}
+
+inline void LexAnalyzer::OpenFile()
+{
+	ios_file.open(file_name);
+
+	if (!ios_file.is_open())
+		throw exception("File is not open.");
+}
+
+inline void LexAnalyzer::ResetFilePos()
+{
+	ios_file.clear();
+	ios_file.seekg(0, ios::beg);
 }

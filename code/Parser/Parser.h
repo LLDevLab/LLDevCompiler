@@ -11,6 +11,8 @@
 #include "../Instructions/TwoRegInstr/TwoRegInstructions.h"
 #include "../Instructions/OneRegImmInstr/OneRegImmInstuctions.h"
 
+#include "../SupportComponents/Helpers/Helpers.h"
+
 #define REDUCT_TABLE_ROWS 12
 #define REDUCT_TABLE_COLS 4
 

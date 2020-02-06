@@ -12,7 +12,6 @@
 #include "../Instructions/TwoRegInstr/TwoRegInstr.h"
 
 #define REG_ADDR_MAX 15
-#define OUTPUT_FILE_EXT ".hex"
 #define HEX_DATA_SIZE "04"
 #define HEX_DATA_TYPE "00"
 #define DATA_STR_SIZE 8
@@ -24,7 +23,7 @@ class CodeGenerator
 public:
 	CodeGenerator();
 	void EndOfFile();
-	void SaveToFile(const char* file);
+	void SaveToFile(string file);
 	void InitHexLine();
 	void SetInstruction(Instruction* instruction);
 private:
@@ -37,8 +36,7 @@ private:
 	void ClearHexs();
 	string ConvertBinsToHex();
 	string GetCheckSum();
-	void SaveLine();	
-	string RemoveFileExtension(const char* file_name);
+	void SaveLine();
 	int HexStrToInt(string hex_str);
 	uint32_t GetInstructionOpcode();
 	uint32_t GetFirstRegAddr();

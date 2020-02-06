@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../Exceptions/LLDevIOException.h"
+#include "../Exceptions/LLDevIOException/LLDevIOException.h"
 
 using namespace std;
 

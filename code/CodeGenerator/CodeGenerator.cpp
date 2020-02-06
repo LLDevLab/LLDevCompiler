@@ -21,36 +21,18 @@ void CodeGenerator::EndOfFile()
 	hex_file += hex_line;
 }
 
-void CodeGenerator::SaveToFile(const char* file)
+void CodeGenerator::SaveToFile(string file)
 {
 	ofstream file_stream;
-	string hex_file_name = RemoveFileExtension(file);
 
-	hex_file_name += OUTPUT_FILE_EXT;
-
-	file_stream.open(hex_file_name);
-
+	file_stream.open(file);
 	file_stream << hex_file;
-
 	file_stream.close();
 
 	ClearHexs();
 }
 
 // private methods
-
-string CodeGenerator::RemoveFileExtension(const char* file_name)
-{
-	string ret = file_name;
-	size_t found_pos = ret.find_last_of(".");
-
-	if (found_pos == string::npos)
-		return file_name;
-	
-	ret = ret.substr(0, found_pos);
-
-	return ret;
-}
 
 string CodeGenerator::ConvertBinsToHex()
 {

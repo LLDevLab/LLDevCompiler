@@ -1,26 +1,48 @@
 #include "Parser/Parser.h"
+#include "Compiler/Compiler.h"
+#include "Exceptions/LLDevExceptions.h"
+#include "SupportComponents/SymbolTable/SymbolTable.h"
+#include "SupportComponents/Helpers/Helpers.h"
 
 int main(int argc, char *argv[])
 {
-	if (argc > 1)
+	int i;
+	const char* file_name = NULL;
+	Compiler compiler;
+	SymbolTable symbol_table(argc, argv);
+	try
 	{
-		try
-		{
-			LexAnalyzer analyzer(argv[1]);
-			Parser parser(&analyzer);
+		symbol_table.InitSymbolTable();
 
+		for (i = 1; i < argc; i++)
+		{
+			file_name = argv[i];
+			LexAnalyzer analyzer(file_name, &symbol_table);
+			Parser parser(&analyzer);
 			parser.Parse();
-			cout << "Compilation complete." << endl;
+			compiler.AddFileName(FileHelper::GetObjFileName(file_name));
 		}
-		catch (LLDevIOException& e)
-		{
-			cout << e.what() << endl;
-			return 0;
-		}
-		catch (exception& e)
-		{
-			cout << e.what() << endl;
-			return -1;
-		}
+		compiler.Compile();
 	}
+	catch (LLDevIOException& e)
+	{
+		if (file_name != NULL)
+			cout << e.what() << " in " << file_name << endl;
+		else
+			cout << e.what() << endl;
+		return -1;
+	}
+	catch (LLDevSymbolTableException& e)
+	{
+		cout << e.what() << endl;
+		return -1;
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << endl;
+		return -1;
+	}
+
+	cout << "Compilation complete." << endl;
+	return 0;
 }

@@ -311,7 +311,7 @@ void Parser::Reduce(int reduct_table_idx)
 	case 1:
 		lhs = PRGM;
 		code_generator.EndOfFile();
-		code_generator.SaveToFile(analyzer->GetFileName());
+		code_generator.SaveToFile(FileHelper::GetObjFileName(analyzer->GetFileName()));
 		break;
 	case 2:
 	case 3:

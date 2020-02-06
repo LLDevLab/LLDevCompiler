@@ -1,15 +1,15 @@
 #include "LexAnalyzer.h"
 
-LexAnalyzer::LexAnalyzer(const char* file)
+LexAnalyzer::LexAnalyzer(const char* file, SymbolTable* symbol_table)
 {
 	cur_line = 0;
 	cur_bytecode_line = 0;
 	cur_token_index = 0;
 	file_name = file;
+	this->symbol_table = symbol_table;
 
 	OpenFile();
-	InitLabelToLineMap();
-	GetLexemes(ReadLine(true));
+	GetLexemes(ReadLine());
 }
 
 LexAnalyzer::~LexAnalyzer()
@@ -47,26 +47,25 @@ Token LexAnalyzer::GetNextToken()
 		else
 		{
 			ret.SetTokenValue(END_OF_INPUT);
-			GetLexemes(ReadLine(true));
+			GetLexemes(ReadLine());
 		}			
 	}
 
 	return ret;
 }
 
-const char* LexAnalyzer::GetFileName()
+string LexAnalyzer::GetFileName()
 {
 	return file_name;
 }
 
-string LexAnalyzer::ReadLine(bool count_line_num)
+string LexAnalyzer::ReadLine()
 {
 	string ret = "";
 
 	do
 	{
-		if(count_line_num )
-			cur_line++;
+		cur_line++;
 		getline(ios_file, ret);
 
 	} while (!ios_file.eof() && ret == "");			// ignore empty lines
@@ -116,9 +115,9 @@ string LexAnalyzer::GetNextValidLine(string str_line)
 {
 	string ret = str_line;
 
-	while (CanSkip(ret))
+	while (LineHelper::CanSkip(ret))
 	{
-		ret = ReadLine(true);
+		ret = ReadLine();
 	}
 
 	return ret;
@@ -160,7 +159,7 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 		ret = ZERO_REG_OP;
 	else if (IsOneRegImmOp(lexeme))
 		ret = ONE_REG_IMM_OP;
-	else if (IsImmediate(lexeme) || IsLabel(lexeme, false))
+	else if (IsImmediate(lexeme) || symbol_table->LabelExist(lexeme))
 		ret = IMMEDIATE;
 
 	return ret;
@@ -249,48 +248,6 @@ bool LexAnalyzer::IsRegister(string lexeme)
 	return ret;
 }
 
-inline bool LexAnalyzer::IsComment(string str_line)
-{
-	return (str_line.length() > 1 && str_line.substr(0, 2) == "//");
-}
-
-bool LexAnalyzer::IsEmptyLine(string str_line)
-{
-	size_t str_len = str_line.length();
-	bool ret = str_len > 0 ? true : false;		// string with length 0 can get here only if end of file was reached
-
-	for (int i = 0; i < str_len; i++)
-	{
-		char chr = str_line.at(i);
-		if (chr != ' ' && chr != '\t')
-		{
-			ret = false;
-			break;
-		}
-	}
-
-	return ret;
-}
-
-// Checks if this is a label
-// isDefinition - if this value is true, that checks for label definition, otherwise search for defined labels
-bool LexAnalyzer::IsLabel(string str, bool isDefinition)
-{
-	size_t size = str.size();
-	int label_pos = 0;
-	iterator<string, int> label_iterator;
-
-	if (isDefinition)
-		return size > 0 && str.at(size - 1) == ':';
-	else
-		return label_to_line_num_map.find(str) != label_to_line_num_map.end();
-}
-
-inline bool LexAnalyzer::CanSkip(string str_line)
-{
-	return IsComment(str_line) || IsEmptyLine(str_line) || IsLabel(str_line, true);
-}
-
 void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
 {
 	int elem;
@@ -298,9 +255,9 @@ void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
 	const int buf_len = 8;
 	char buf[buf_len];
 
-	if (IsLabel(lexeme, false))
+	if (symbol_table->LabelExist(lexeme))
 	{
-		elem = label_to_line_num_map.find(lexeme)->second;
+		elem = symbol_table->GetLabelLineNum(lexeme);
 		_itoa_s(elem, buf, buf_len, 10);
 		new_lexeme = '#';
 		new_lexeme.append(buf);
@@ -309,40 +266,10 @@ void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
 	token->SetLexeme(new_lexeme);
 }
 
-void LexAnalyzer::InitLabelToLineMap()
-{
-	string line = "";
-	int i = 0;
-
-	while (true)
-	{
-		line = ReadLine(false);
-
-		if (line == "")
-			break;
-
-		if (!CanSkip(line))
-			i++;
-		else if(IsLabel(line, true))
-		{
-			line = line.substr(0, line.size() - 1);
-			label_to_line_num_map.insert_or_assign(line, i);
-		}
-	}
-
-	ResetFilePos();
-}
-
 inline void LexAnalyzer::OpenFile()
 {
 	ios_file.open(file_name);
 
 	if (!ios_file.is_open())
 		throw exception("File is not open.");
-}
-
-inline void LexAnalyzer::ResetFilePos()
-{
-	ios_file.clear();
-	ios_file.seekg(0, ios::beg);
 }

@@ -29,6 +29,8 @@ bool LineHelper::IsLabel(string str_line)
 	size_t size = str_line.size();
 	int label_pos = 0;
 
+	if (IsComment(str_line)) 
+		return false;
 	return size > 0 && str_line.at(size - 1) == ':';
 }
 

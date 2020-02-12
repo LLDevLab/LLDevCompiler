@@ -4,8 +4,11 @@
 #define REDUCT_ERROR -2
 #define STACK_ERROR "Stack out of range."
 
-Parser::Parser(LexAnalyzer* analyzer)
+Parser::Parser(LexAnalyzer* analyzer, unsigned int first_line_num) :
+	code_generator(first_line_num)
 {
+	last_parsed_line = 0;
+	last_bytecode_line = first_line_num;
 	this->analyzer = analyzer;
 	InitReductionTable();
 }
@@ -232,6 +235,7 @@ void Parser::Reduce(int reduct_table_idx)
 			token = value_stack[top_of_stack];
 			cur_lexeme = token.GetLexeme();
 			cur_pos = token.GetPosition();
+			SetLastBytecodeLine(cur_pos.bytecode_line_num);
 
 			*last_token = token;
 
@@ -459,4 +463,18 @@ inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, unsigned int lin
 		ret = new RtrcInstr(line_num);
 
 	return ret;
+}
+
+unsigned int Parser::GetLastBytecodeLine()
+{
+	return last_bytecode_line;
+}
+
+inline void Parser::SetLastBytecodeLine(unsigned int line_num)
+{
+	if (last_parsed_line < line_num)
+	{
+		last_parsed_line = line_num;
+		last_bytecode_line++;
+	}
 }

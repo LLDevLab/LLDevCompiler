@@ -21,7 +21,7 @@ using namespace std;
 class CodeGenerator
 {
 public:
-	CodeGenerator();
+	CodeGenerator(unsigned int first_line_nr);
 	void EndOfFile();
 	void SaveToFile(string file);
 	void InitHexLine();
@@ -43,4 +43,5 @@ private:
 	uint32_t GetSecondRegAddr();
 	uint32_t GetImmediateValue();
 	uint32_t GetImmediateShiftingPos();
+	unsigned int first_line_num;
 };

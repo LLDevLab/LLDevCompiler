@@ -39,8 +39,10 @@ void SymbolTable::InitSymbolTable()
 			{
 				line = line.substr(0, line.size() - 1);
 
-				if(label_to_line_num_map.find(line) != label_to_line_num_map.end())
-					throw LLDevSymbolTableException("Label already exists in symbol table.");
+				if (label_to_line_num_map.find(line) != label_to_line_num_map.end())
+				{
+					throw LLDevSymbolTableException("Label \"" + line + "\" already exists in symbol table.");
+				}
 				
 				label_to_line_num_map.insert_or_assign(line, i);					
 			}

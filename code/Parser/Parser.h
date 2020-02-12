@@ -19,8 +19,9 @@
 class Parser
 {
 public:
-	Parser(LexAnalyzer* analyzer);
+	Parser(LexAnalyzer* analyzer, unsigned int first_line_num);
 	void Parse();
+	unsigned int GetLastBytecodeLine();
 private:
 	int reduct_table[REDUCT_TABLE_ROWS][REDUCT_TABLE_COLS];
 	vector<Token> value_stack;
@@ -29,6 +30,8 @@ private:
 	LexAnalyzer* analyzer;
 	string output;
 	CodeGenerator code_generator;
+	unsigned int last_bytecode_line;
+	unsigned int last_parsed_line;
 
 	void InitReductionTable();
 	void Shift();
@@ -39,4 +42,5 @@ private:
 	Instruction* CreateOneRegInstr(string lexeme, unsigned int line_num);
 	Instruction* CreateTwoRegInstr(string lexeme, unsigned int line_num);
 	Instruction* CreateOneRegImmInstr(string lexeme, unsigned int line_num);
+	void SetLastBytecodeLine(unsigned int line_num);
 };

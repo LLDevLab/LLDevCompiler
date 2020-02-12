@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 	const char* file_name = NULL;
 	Compiler compiler;
 	SymbolTable symbol_table(argc, argv);
+	unsigned int last_bytecode_line = 0;
 	try
 	{
 		symbol_table.InitSymbolTable();
@@ -18,9 +19,10 @@ int main(int argc, char *argv[])
 		{
 			file_name = argv[i];
 			LexAnalyzer analyzer(file_name, &symbol_table);
-			Parser parser(&analyzer);
+			Parser parser(&analyzer, last_bytecode_line);
 			parser.Parse();
 			compiler.AddFileName(FileHelper::GetObjFileName(file_name));
+			last_bytecode_line = parser.GetLastBytecodeLine();
 		}
 		compiler.Compile();
 	}

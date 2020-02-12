@@ -2,8 +2,9 @@
 
 // public methods
 
-CodeGenerator::CodeGenerator()
+CodeGenerator::CodeGenerator(unsigned int first_line_nr)
 {
+	this->first_line_num = first_line_nr;
 	ClearHexs();
 }
 
@@ -123,7 +124,7 @@ void CodeGenerator::InitHexLine()
 {
 	hex_line = ":";
 	hex_line += HEX_DATA_SIZE;
-	hex_line += LineNumToStr(instruction->GetLineNum());
+	hex_line += LineNumToStr(first_line_num + instruction->GetLineNum());
 }
 
 void CodeGenerator::SaveLine()

@@ -1,6 +1,6 @@
 #include "NoopInstr.h"
 
-NoopInstr::NoopInstr(unsigned int line_num) : ZeroRegInstr(line_num)
+NoopInstr::NoopInstr(uint line_num) : ZeroRegInstr(line_num)
 {
 }
 

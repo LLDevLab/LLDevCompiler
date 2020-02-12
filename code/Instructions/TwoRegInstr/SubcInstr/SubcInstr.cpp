@@ -1,6 +1,6 @@
 #include "SubcInstr.h"
 
-SubcInstr::SubcInstr(unsigned int line_num) : TwoRegInstr(line_num)
+SubcInstr::SubcInstr(uint line_num) : TwoRegInstr(line_num)
 {
 }
 

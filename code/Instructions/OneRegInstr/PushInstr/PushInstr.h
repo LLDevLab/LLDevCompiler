@@ -7,6 +7,6 @@ using namespace std;
 class PushInstr: public OneRegInstr
 {
 public:
-	PushInstr(unsigned int line_num);
+	PushInstr(uint line_num);
 	uint32_t GetOpcode();
 };

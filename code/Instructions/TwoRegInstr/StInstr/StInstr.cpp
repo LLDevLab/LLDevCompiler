@@ -1,6 +1,6 @@
 #include "StInstr.h"
 
-StInstr::StInstr(unsigned int line_num) : TwoRegInstr(line_num)
+StInstr::StInstr(uint line_num) : TwoRegInstr(line_num)
 {
 }
 

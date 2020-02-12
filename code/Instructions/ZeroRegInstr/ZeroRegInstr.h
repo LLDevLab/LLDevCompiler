@@ -10,5 +10,5 @@ public:
 	virtual uint32_t GetOpcode() = 0;
 	NONTERMINALS GetInstructionType();
 protected:
-	ZeroRegInstr(unsigned int line_num);
+	ZeroRegInstr(uint line_num);
 };

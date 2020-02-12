@@ -7,6 +7,6 @@ using namespace std;
 class BrltsInstr: public OneRegInstr
 {
 public:
-	BrltsInstr(unsigned int line_num);
+	BrltsInstr(uint line_num);
 	uint32_t GetOpcode();
 };

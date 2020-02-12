@@ -7,6 +7,6 @@ using namespace std;
 class RtrInstr: public ShiftRotateInstr
 {
 public:
-	RtrInstr(unsigned int line_num);
+	RtrInstr(uint line_num);
 	uint32_t GetOpcode();
 };

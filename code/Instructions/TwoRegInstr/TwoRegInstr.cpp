@@ -1,6 +1,6 @@
 #include "TwoRegInstr.h"
 
-TwoRegInstr::TwoRegInstr(unsigned int line_num) : OneRegInstr(line_num)
+TwoRegInstr::TwoRegInstr(uint line_num) : OneRegInstr(line_num)
 {
 	second_reg_addr = 0;
 }
@@ -23,7 +23,7 @@ bool TwoRegInstr::IsSecondRegAddrCorrect(uint32_t reg_addr)
 	return reg_addr <= max_second_reg_addr;
 }
 
-void TwoRegInstr::SetMaxSecondRegAddr(unsigned int max_addr)
+void TwoRegInstr::SetMaxSecondRegAddr(uint max_addr)
 {
 	max_second_reg_addr = max_addr;
 }

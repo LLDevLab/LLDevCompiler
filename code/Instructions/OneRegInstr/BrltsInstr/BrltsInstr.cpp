@@ -1,7 +1,7 @@
 #include "BrltsInstr.h"
 
 
-BrltsInstr::BrltsInstr(unsigned int line_num) : OneRegInstr(line_num)
+BrltsInstr::BrltsInstr(uint line_num) : OneRegInstr(line_num)
 {
 }
 

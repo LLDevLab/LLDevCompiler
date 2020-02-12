@@ -1,11 +1,11 @@
 #include "Instruction.h"
 
-Instruction::Instruction(unsigned int line_num)
+Instruction::Instruction(uint line_num)
 {
 	this->line_num = line_num;
 }
 
-unsigned int Instruction::GetLineNum()
+uint Instruction::GetLineNum()
 {
 	return line_num;
 }

@@ -1,7 +1,7 @@
 #include "CallInstr.h"
 
 
-CallInstr::CallInstr(unsigned int line_num) : OneRegInstr(line_num)
+CallInstr::CallInstr(uint line_num) : OneRegInstr(line_num)
 {
 }
 

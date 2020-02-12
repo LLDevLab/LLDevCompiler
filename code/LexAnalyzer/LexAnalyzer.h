@@ -8,6 +8,7 @@
 #include "../Token/Token.h"
 #include "../SupportComponents/Helpers/Helpers.h"
 #include "../SupportComponents/SymbolTable/SymbolTable.h"
+#include "../Types/TypeDef.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ private:
 
 	ifstream ios_file;
 	vector<string> lexemes;
-	unsigned int cur_token_index;
+	uint cur_token_index;
 	int cur_line;
 	int cur_bytecode_line;
 	SymbolTable* symbol_table;

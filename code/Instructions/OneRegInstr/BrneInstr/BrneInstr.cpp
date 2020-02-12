@@ -1,7 +1,7 @@
 #include "BrneInstr.h"
 
 
-BrneInstr::BrneInstr(unsigned int line_num) : OneRegInstr(line_num)
+BrneInstr::BrneInstr(uint line_num) : OneRegInstr(line_num)
 {
 }
 

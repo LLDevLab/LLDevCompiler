@@ -1,6 +1,6 @@
 #include "RtlcInstr.h"
 
-RtlcInstr::RtlcInstr(unsigned int line_num) : ShiftRotateInstr(line_num)
+RtlcInstr::RtlcInstr(uint line_num) : ShiftRotateInstr(line_num)
 {
 }
 

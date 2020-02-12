@@ -1,6 +1,6 @@
 #include "ZeroRegInstr.h"
 
-ZeroRegInstr::ZeroRegInstr(unsigned int line_num) : Instruction(line_num)
+ZeroRegInstr::ZeroRegInstr(uint line_num) : Instruction(line_num)
 {
 }
 

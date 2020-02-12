@@ -1,6 +1,6 @@
 #include "RtrcInstr.h"
 
-RtrcInstr::RtrcInstr(unsigned int line_num) : ShiftRotateInstr(line_num)
+RtrcInstr::RtrcInstr(uint line_num) : ShiftRotateInstr(line_num)
 {
 }
 

@@ -3,6 +3,7 @@
 #include "Exceptions/LLDevExceptions.h"
 #include "SupportComponents/SymbolTable/SymbolTable.h"
 #include "SupportComponents/Helpers/Helpers.h"
+#include "Types/TypeDef.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +11,7 @@ int main(int argc, char *argv[])
 	const char* file_name = NULL;
 	Compiler compiler;
 	SymbolTable symbol_table(argc, argv);
-	unsigned int last_bytecode_line = 0;
+	uint last_bytecode_line = 0;
 	try
 	{
 		symbol_table.InitSymbolTable();

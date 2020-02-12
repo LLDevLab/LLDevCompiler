@@ -4,7 +4,7 @@
 #define REDUCT_ERROR -2
 #define STACK_ERROR "Stack out of range."
 
-Parser::Parser(LexAnalyzer* analyzer, unsigned int first_line_num) :
+Parser::Parser(LexAnalyzer* analyzer, uint first_line_num) :
 	code_generator(first_line_num)
 {
 	last_parsed_line = 0;
@@ -369,7 +369,7 @@ void Parser::ShowError(token_pos pos, string lexeme)
 	throw LLDevIOException(buf);
 }
 
-inline Instruction* Parser::CreateZeroRegInstr(string lexeme, unsigned int line_num)
+inline Instruction* Parser::CreateZeroRegInstr(string lexeme, uint line_num)
 {
 	Instruction *ret = NULL;
 
@@ -381,7 +381,7 @@ inline Instruction* Parser::CreateZeroRegInstr(string lexeme, unsigned int line_
 	return ret;
 }
 
-inline Instruction* Parser::CreateOneRegInstr(string lexeme, unsigned int line_num)
+inline Instruction* Parser::CreateOneRegInstr(string lexeme, uint line_num)
 {
 	Instruction *ret = NULL;
 
@@ -413,7 +413,7 @@ inline Instruction* Parser::CreateOneRegInstr(string lexeme, unsigned int line_n
 	return ret;
 }
 
-inline Instruction* Parser::CreateTwoRegInstr(string lexeme, unsigned int line_num)
+inline Instruction* Parser::CreateTwoRegInstr(string lexeme, uint line_num)
 {
 	Instruction *ret = NULL;
 
@@ -443,7 +443,7 @@ inline Instruction* Parser::CreateTwoRegInstr(string lexeme, unsigned int line_n
 	return ret;
 }
 
-inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, unsigned int line_num)
+inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, uint line_num)
 {
 	Instruction *ret = NULL;
 
@@ -465,12 +465,12 @@ inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, unsigned int lin
 	return ret;
 }
 
-unsigned int Parser::GetLastBytecodeLine()
+uint Parser::GetLastBytecodeLine()
 {
 	return last_bytecode_line;
 }
 
-inline void Parser::SetLastBytecodeLine(unsigned int line_num)
+inline void Parser::SetLastBytecodeLine(uint line_num)
 {
 	if (last_parsed_line < line_num)
 	{

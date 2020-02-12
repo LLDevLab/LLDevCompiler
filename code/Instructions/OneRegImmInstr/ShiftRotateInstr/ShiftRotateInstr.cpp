@@ -7,7 +7,7 @@
 #define MAX_STR_SIZE 5
 #define SHIFTING_POS 17
 
-ShiftRotateInstr::ShiftRotateInstr(unsigned int line_num) : OneRegImmInstr(line_num)
+ShiftRotateInstr::ShiftRotateInstr(uint line_num) : OneRegImmInstr(line_num)
 {
 }
 
@@ -26,7 +26,7 @@ int ShiftRotateInstr::GetMinImmValue()
 	return MIN_IMM_VAL;
 }
 
-unsigned int ShiftRotateInstr::GetMaxImmStrSize()
+uint ShiftRotateInstr::GetMaxImmStrSize()
 {
 	return MAX_STR_SIZE;
 }

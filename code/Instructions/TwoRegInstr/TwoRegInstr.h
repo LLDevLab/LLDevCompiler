@@ -11,11 +11,11 @@ public:
 	uint32_t GetSecondRegAddr();
 	void SetSecondReg(string reg);
 protected:
-	TwoRegInstr(unsigned int line_num);
+	TwoRegInstr(uint line_num);
 	virtual bool IsSecondRegAddrCorrect(uint32_t reg_addr);
-	void SetMaxSecondRegAddr(unsigned int max_addr);
+	void SetMaxSecondRegAddr(uint max_addr);
 	NONTERMINALS GetInstructionType();
 private:
 	uint32_t second_reg_addr;
-	unsigned int max_second_reg_addr;
+	uint max_second_reg_addr;
 };

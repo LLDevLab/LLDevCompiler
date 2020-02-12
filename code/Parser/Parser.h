@@ -5,6 +5,7 @@
 #include "../LexAnalyzer/LexAnalyzer.h"
 #include "../CodeGenerator/CodeGenerator.h"
 #include "Nonterminals.h"
+#include "../Types/TypeDef.h"
 
 #include "../Instructions/ZeroRegInstr/ZeroRegInstructions.h"
 #include "../Instructions/OneRegInstr/OneRegInstructions.h"
@@ -19,9 +20,9 @@
 class Parser
 {
 public:
-	Parser(LexAnalyzer* analyzer, unsigned int first_line_num);
+	Parser(LexAnalyzer* analyzer, uint first_line_num);
 	void Parse();
-	unsigned int GetLastBytecodeLine();
+	uint GetLastBytecodeLine();
 private:
 	int reduct_table[REDUCT_TABLE_ROWS][REDUCT_TABLE_COLS];
 	vector<Token> value_stack;
@@ -30,17 +31,17 @@ private:
 	LexAnalyzer* analyzer;
 	string output;
 	CodeGenerator code_generator;
-	unsigned int last_bytecode_line;
-	unsigned int last_parsed_line;
+	uint last_bytecode_line;
+	uint last_parsed_line;
 
 	void InitReductionTable();
 	void Shift();
 	void Reduce(int reduct_table_idx);
 	void ShowError(token_pos pos, string lexeme, int parse_stack_val, int reduct_table_val);
 	void ShowError(token_pos pos, string lexeme);
-	Instruction* CreateZeroRegInstr(string lexeme, unsigned int line_num);
-	Instruction* CreateOneRegInstr(string lexeme, unsigned int line_num);
-	Instruction* CreateTwoRegInstr(string lexeme, unsigned int line_num);
-	Instruction* CreateOneRegImmInstr(string lexeme, unsigned int line_num);
-	void SetLastBytecodeLine(unsigned int line_num);
+	Instruction* CreateZeroRegInstr(string lexeme, uint line_num);
+	Instruction* CreateOneRegInstr(string lexeme, uint line_num);
+	Instruction* CreateTwoRegInstr(string lexeme, uint line_num);
+	Instruction* CreateOneRegImmInstr(string lexeme, uint line_num);
+	void SetLastBytecodeLine(uint line_num);
 };

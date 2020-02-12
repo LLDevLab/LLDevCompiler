@@ -1,6 +1,6 @@
 #include "XorInstr.h"
 
-XorInstr::XorInstr(unsigned int line_num) : TwoRegInstr(line_num)
+XorInstr::XorInstr(uint line_num) : TwoRegInstr(line_num)
 {
 }
 

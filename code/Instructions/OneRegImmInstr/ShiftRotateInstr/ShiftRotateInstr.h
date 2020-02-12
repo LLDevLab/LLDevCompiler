@@ -10,8 +10,8 @@ public:
 	virtual uint32_t GetOpcode() = 0;
 	virtual uint32_t GetShiftingPos();
 protected:
-	ShiftRotateInstr(unsigned int line_num);
+	ShiftRotateInstr(uint line_num);
 	virtual int GetMaxImmValue();
 	virtual int GetMinImmValue();
-	virtual unsigned int GetMaxImmStrSize();
+	virtual uint GetMaxImmStrSize();
 };

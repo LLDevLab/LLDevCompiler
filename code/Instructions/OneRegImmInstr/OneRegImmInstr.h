@@ -20,7 +20,7 @@ protected:
 		HEXADECIMAL
 	};
 
-	OneRegImmInstr(unsigned int line_num);
+	OneRegImmInstr(uint line_num);
 	bool IsImmediateHex(string val);
 	virtual bool IsImmediateValueCorrect(string value);
 	bool IsImmediateNumberCorrect(int val);
@@ -29,7 +29,7 @@ protected:
 	bool IsDigitCorrect(char digit);
 	virtual int GetMaxImmValue() = 0;
 	virtual int GetMinImmValue() = 0;
-	virtual unsigned int GetMaxImmStrSize() = 0;
+	virtual uint GetMaxImmStrSize() = 0;
 private:
 	int immediate_val;
 	IMMEDIATE_TYPE immediate_type;

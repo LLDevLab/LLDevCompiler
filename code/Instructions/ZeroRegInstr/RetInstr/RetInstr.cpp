@@ -1,6 +1,6 @@
 #include "RetInstr.h"
 
-RetInstr::RetInstr(unsigned int line_num) : ZeroRegInstr(line_num)
+RetInstr::RetInstr(uint line_num) : ZeroRegInstr(line_num)
 {
 }
 

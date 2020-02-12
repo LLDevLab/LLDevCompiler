@@ -1,6 +1,6 @@
 #include "AndInstr.h"
 
-AndInstr::AndInstr(unsigned int line_num) : TwoRegInstr(line_num)
+AndInstr::AndInstr(uint line_num) : TwoRegInstr(line_num)
 {
 }
 

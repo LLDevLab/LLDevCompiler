@@ -1,6 +1,6 @@
 #include "MovInstr.h"
 
-MovInstr::MovInstr(unsigned int line_num) : TwoRegInstr(line_num)
+MovInstr::MovInstr(uint line_num) : TwoRegInstr(line_num)
 {
 }
 

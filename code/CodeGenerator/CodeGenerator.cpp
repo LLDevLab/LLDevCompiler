@@ -2,7 +2,7 @@
 
 // public methods
 
-CodeGenerator::CodeGenerator(unsigned int first_line_nr)
+CodeGenerator::CodeGenerator(uint first_line_nr)
 {
 	this->first_line_num = first_line_nr;
 	ClearHexs();
@@ -71,12 +71,12 @@ string CodeGenerator::GetCheckSum()
 {
 	string ret = "";
 	uint32_t check_sum = 0;
-	unsigned int prev_pos = 1;
+	uint prev_pos = 1;
 	string substr;
 	stringstream stream;
 	size_t hex_line_size = hex_line.size();
 
-	for (unsigned int i = 1; i < hex_line_size; i++)
+	for (uint i = 1; i < hex_line_size; i++)
 	{
 		if (i < prev_pos + 2)
 			continue;
@@ -136,7 +136,7 @@ void CodeGenerator::SaveLine()
 	hex_file += hex_line + "\n";
 }
 
-string CodeGenerator::LineNumToStr(unsigned int line_num)
+string CodeGenerator::LineNumToStr(uint line_num)
 {
 	string ret = "";
 	const int buf_len = 5;

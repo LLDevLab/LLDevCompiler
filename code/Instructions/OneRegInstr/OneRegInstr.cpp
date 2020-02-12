@@ -1,6 +1,6 @@
 #include "OneRegInstr.h"
 
-OneRegInstr::OneRegInstr(unsigned int line_num) : Instruction(line_num)
+OneRegInstr::OneRegInstr(uint line_num) : Instruction(line_num)
 {
 	first_reg_addr = 0;
 	max_first_reg_addr = 15;
@@ -34,7 +34,7 @@ bool OneRegInstr::IsFirstRegAddrCorrect(uint32_t reg_addr)
 	return reg_addr <= max_first_reg_addr;
 }
 
-void OneRegInstr::SetMaxFirstRegAddr(unsigned int max_addr)
+void OneRegInstr::SetMaxFirstRegAddr(uint max_addr)
 {
 	max_first_reg_addr = max_addr;
 }

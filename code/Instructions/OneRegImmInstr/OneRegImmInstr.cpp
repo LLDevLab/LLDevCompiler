@@ -1,6 +1,6 @@
 #include "OneRegImmInstr.h"
 
-OneRegImmInstr::OneRegImmInstr(unsigned int line_num) : OneRegInstr(line_num)
+OneRegImmInstr::OneRegImmInstr(uint line_num) : OneRegInstr(line_num)
 {
 	immediate_val = 0;
 	immediate_type = DECIMAL;
@@ -84,7 +84,7 @@ bool OneRegImmInstr::IsDecimalValueCorrect(string value)
 	bool ret = true;
 	size_t lexeme_size = value.size();
 
-	for (unsigned int i = 1; i < lexeme_size; i++)
+	for (uint i = 1; i < lexeme_size; i++)
 	{
 		// negative immediate value
 		if (i == 1 && value[i] == '-')
@@ -110,7 +110,7 @@ bool OneRegImmInstr::IsHexValueCorrect(string value)
 	bool ret = true;
 	size_t lexeme_size = value.size();
 
-	for (unsigned int i = 1; i < lexeme_size; i++)
+	for (uint i = 1; i < lexeme_size; i++)
 	{
 		// first 2 characters of hex value should be "0x"
 		if ((i == 1 && value[i] != '0') || (i == 2 && tolower(value[i]) != 'x'))

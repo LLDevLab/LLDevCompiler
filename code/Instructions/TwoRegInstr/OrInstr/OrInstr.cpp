@@ -1,6 +1,6 @@
 #include "OrInstr.h"
 
-OrInstr::OrInstr(unsigned int line_num) : TwoRegInstr(line_num)
+OrInstr::OrInstr(uint line_num) : TwoRegInstr(line_num)
 {
 }
 

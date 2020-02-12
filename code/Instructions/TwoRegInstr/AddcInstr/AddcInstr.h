@@ -7,6 +7,6 @@ using namespace std;
 class AddcInstr: public TwoRegInstr
 {
 public:
-	AddcInstr(unsigned int line_num);
+	AddcInstr(uint line_num);
 	uint32_t GetOpcode();
 };

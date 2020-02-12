@@ -7,6 +7,6 @@ using namespace std;
 class MovInstr: public TwoRegInstr
 {
 public:
-	MovInstr(unsigned int line_num);
+	MovInstr(uint line_num);
 	uint32_t GetOpcode();
 };

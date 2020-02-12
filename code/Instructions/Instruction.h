@@ -4,7 +4,7 @@
 #include <string>
 #include "../Exceptions/LLDevIOException/LLDevIOException.h"
 #include "../Parser/Nonterminals.h"
-/**/
+#include "../Types/TypeDef.h"
 
 using namespace std;
 
@@ -12,11 +12,11 @@ class Instruction
 {
 public:
 	virtual uint32_t GetOpcode() = 0;
-	unsigned int GetLineNum();
+	uint GetLineNum();
 	virtual NONTERMINALS GetInstructionType() = 0;
 protected:
-	Instruction(unsigned int line_num);
+	Instruction(uint line_num);
 	void ShowError(string error);
 private:
-	unsigned int line_num;
+	uint line_num;
 };

@@ -10,6 +10,7 @@
 #include "../Instructions/OneRegImmInstr/OneRegImmInstr.h"
 #include "../Instructions/OneRegInstr/OneRegInstr.h"
 #include "../Instructions/TwoRegInstr/TwoRegInstr.h"
+#include "../Types/TypeDef.h"
 
 #define REG_ADDR_MAX 15
 #define HEX_DATA_SIZE "04"
@@ -21,7 +22,7 @@ using namespace std;
 class CodeGenerator
 {
 public:
-	CodeGenerator(unsigned int first_line_nr);
+	CodeGenerator(uint first_line_nr);
 	void EndOfFile();
 	void SaveToFile(string file);
 	void InitHexLine();
@@ -32,7 +33,7 @@ private:
 
 	Instruction *instruction;
 
-	string LineNumToStr(unsigned int line_num);
+	string LineNumToStr(uint line_num);
 	void ClearHexs();
 	string ConvertBinsToHex();
 	string GetCheckSum();
@@ -43,5 +44,5 @@ private:
 	uint32_t GetSecondRegAddr();
 	uint32_t GetImmediateValue();
 	uint32_t GetImmediateShiftingPos();
-	unsigned int first_line_num;
+	uint first_line_num;
 };

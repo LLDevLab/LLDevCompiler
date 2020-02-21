@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="code\CodeGenerator\CodeGenerator.h" />
+    <ClInclude Include="code\Compiler\Compiler.h" />
+    <ClInclude Include="code\Exceptions\LLDevException.h" />
+    <ClInclude Include="code\Exceptions\LLDevExceptions.h" />
+    <ClInclude Include="code\Exceptions\LLDevIOException\LLDevIOException.h" />
+    <ClInclude Include="code\Exceptions\LLDevParameterException\LLDevParameterException.h" />
+    <ClInclude Include="code\Exceptions\LLDevSymbolTableException\LLDevSymbolTableException.h" />
+    <ClInclude Include="code\Instructions\Instruction.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\LdiInstr\LdiInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\OneRegImmInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\OneRegImmInstuctions.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\LshInstr\LshInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RshInstr\RshInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtlcInstr\RtlcInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtlInstr\RtlInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtrcInstr\RtrcInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtrInstr\RtrInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\ShiftRotateInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\ShiftRotateInstructions.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BreqInstr\BreqInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BrgtsInstr\BrgtsInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BrgtuInstr\BrgtuInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BrInstr\BrInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BrltsInstr\BrltsInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BrltuInstr\BrltuInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\BrneInstr\BrneInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\CallInstr\CallInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\ClrInstr\ClrInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\NotInstr\NotInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\OneRegInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\OneRegInstructions.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\PopInstr\PopInstr.h" />
+    <ClInclude Include="code\Instructions\OneRegInstr\PushInstr\PushInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\AddcInstr\AddcInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\AddInstr\AddInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\AndInstr\AndInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\CmpInstr\CmpInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\LdInstr\LdInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\MovInstr\MovInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\OrInstr\OrInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\StInstr\StInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\SubcInstr\SubcInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\SubInstr\SubInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\TwoRegInstr.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\TwoRegInstructions.h" />
+    <ClInclude Include="code\Instructions\TwoRegInstr\XorInstr\XorInstr.h" />
+    <ClInclude Include="code\Instructions\ZeroRegInstr\NoopInstr\NoopInstr.h" />
+    <ClInclude Include="code\Instructions\ZeroRegInstr\RetInstr\RetInstr.h" />
+    <ClInclude Include="code\Instructions\ZeroRegInstr\ZeroRegInstr.h" />
+    <ClInclude Include="code\Instructions\ZeroRegInstr\ZeroRegInstructions.h" />
+    <ClInclude Include="code\LexAnalyzer\LexAnalyzer.h" />
+    <ClInclude Include="code\ParameterHandlers\ParameterHandlers.h" />
+    <ClInclude Include="code\ParameterHandlers\ParameterHandler\CompilerParameterHandler\CompilerParameterHandler.h" />
+    <ClInclude Include="code\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler\DbgInfoParamHandler.h" />
+    <ClInclude Include="code\ParameterHandlers\ParameterHandler\ParameterHandler.h" />
+    <ClInclude Include="code\Parameters\Parameters.h" />
+    <ClInclude Include="code\Parameters\Parameter\CompilerParameter\CompilerParameter.h" />
+    <ClInclude Include="code\Parameters\Parameter\CompilerParameter\DbgInfoParam\DbgInfoParam.h" />
+    <ClInclude Include="code\Parameters\Parameter\Parameter.h" />
+    <ClInclude Include="code\Parser\Nonterminals.h" />
+    <ClInclude Include="code\Parser\Parser.h" />
+    <ClInclude Include="code\SupportComponents\Helpers\FileHelper\FileHelper.h" />
+    <ClInclude Include="code\SupportComponents\Helpers\Helpers.h" />
+    <ClInclude Include="code\SupportComponents\Helpers\LineHelper\LineHelper.h" />
+    <ClInclude Include="code\SupportComponents\Helpers\ParametersHelper\ParametersHelper.h" />
+    <ClInclude Include="code\SupportComponents\SymbolTable\SymbolTable.h" />
+    <ClInclude Include="code\Token\Token.h" />
+    <ClInclude Include="code\Types\TypeDef.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="code\CodeGenerator\CodeGenerator.cpp" />
+    <ClCompile Include="code\Compiler\Compiler.cpp" />
+    <ClCompile Include="code\Exceptions\LLDevIOException\LLDevIOException.cpp" />
+    <ClCompile Include="code\Exceptions\LLDevParameterException\LLDevParameterException.cpp" />
+    <ClCompile Include="code\Exceptions\LLDevSymbolTableException\LLDevSymbolTableException.cpp" />
+    <ClCompile Include="code\Instructions\Instruction.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\LdiInstr\LdiInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\OneRegImmInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\LshInstr\LshInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RshInstr\RshInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtlcInstr\RtlcInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtlInstr\RtlInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtrcInstr\RtrcInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\RtrInstr\RtrInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegImmInstr\ShiftRotateInstr\ShiftRotateInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BreqInstr\BreqInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BrgtsInstr\BrgtsInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BrgtuInstr\BrgtuInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BrInstr\BrInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BrltsInstr\BrltsInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BrltuInstr\BrltuInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\BrneInstr\BrneInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\CallInstr\CallInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\ClrInstr\ClrInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\NotInstr\NotInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\OneRegInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\PopInstr\PopInstr.cpp" />
+    <ClCompile Include="code\Instructions\OneRegInstr\PushInstr\PushInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\AddcInstr\AddcInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\AddInstr\AddInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\AndInstr\AndInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\CmpInstr\CmpInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\LdInstr\LdInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\MovInstr\MovInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\OrInstr\OrInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\StInstr\StInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\SubcInstr\SubcInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\SubInstr\SubInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\TwoRegInstr.cpp" />
+    <ClCompile Include="code\Instructions\TwoRegInstr\XorInstr\XorInstr.cpp" />
+    <ClCompile Include="code\Instructions\ZeroRegInstr\NoopInstr\NoopInstr.cpp" />
+    <ClCompile Include="code\Instructions\ZeroRegInstr\RetInstr\RetInstr.cpp" />
+    <ClCompile Include="code\Instructions\ZeroRegInstr\ZeroRegInstr.cpp" />
+    <ClCompile Include="code\LexAnalyzer\LexAnalyzer.cpp" />
+    <ClCompile Include="code\LLDevCompiler.cpp" />
+    <ClCompile Include="code\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler\DbgInfoParamHandler.cpp" />
+    <ClCompile Include="code\Parameters\Parameter\CompilerParameter\CompilerParameter.cpp" />
+    <ClCompile Include="code\Parameters\Parameter\CompilerParameter\DbgInfoParam\DbgInfoParam.cpp" />
+    <ClCompile Include="code\Parameters\Parameter\Parameter.cpp" />
+    <ClCompile Include="code\Parser\Parser.cpp" />
+    <ClCompile Include="code\SupportComponents\Helpers\FileHelper\FileHelper.cpp" />
+    <ClCompile Include="code\SupportComponents\Helpers\LineHelper\LineHelper.cpp" />
+    <ClCompile Include="code\SupportComponents\Helpers\ParametersHelper\ParametersHelper.cpp" />
+    <ClCompile Include="code\SupportComponents\SymbolTable\SymbolTable.cpp" />
+    <ClCompile Include="code\Token\Token.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{4CE49A60-6881-4199-B7FE-F83D92B4F43F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>LLDevCompiler</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

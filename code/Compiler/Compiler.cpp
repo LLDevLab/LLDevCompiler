@@ -83,17 +83,23 @@ void Compiler::ProcessParams()
 	for (it = param_vector->begin(); it != param_vector->end(); it++)
 	{
 		Parameter* param = *it;
-		const type_info& param_type_info = typeid(*param);
+		param_type type = param->GetParameterType();
+		DbgInfoParam* dbg_info_param = NULL;
+		DbgInfoParamHandler* dbg_info_param_handler = NULL;
 
-		if (param_type_info.name() == "DbgInfoParam")
+		switch (type)
 		{
-			DbgInfoParam* dbg_info_param = (DbgInfoParam*)param;
-			DbgInfoParamHandler* dbg_info_param_handler = (DbgInfoParamHandler*)dbg_info_param->GetHandler();
-			
+		case PARAM_DBG_INFO:
+			dbg_info_param = (DbgInfoParam*)param;
+			dbg_info_param_handler = (DbgInfoParamHandler*)dbg_info_param->GetHandler();
+
 			if (hex_file == NULL)
 				throw new LLDevIOException("Hex file pointer is not pointing to a file.");
 
 			dbg_info_param_handler->GenerateDbgFile(hex_file->GetFileName());
+			break;
+		default:
+			break;
 		}
 	}
 }

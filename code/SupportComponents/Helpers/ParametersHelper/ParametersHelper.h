@@ -10,7 +10,7 @@ using namespace std;
 class ParametersHelper
 {
 public:
-	ParametersHelper(vector<string> param_names);
+	ParametersHelper(vector<string> param_names, SymbolTable* sym_table);
 	~ParametersHelper();
 	vector<Parameter*>* GetParameters();
 	static bool IsParameter(string param);
@@ -19,4 +19,5 @@ private:
 	void DeleteParameters();
 
 	vector<Parameter*> all_params;
+	SymbolTable* sym_table;
 };

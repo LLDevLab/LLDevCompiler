@@ -16,7 +16,7 @@ using namespace std;
 class LexAnalyzer
 {
 public:
-	LexAnalyzer(const char* file, SymbolTable* symbol_table);
+	LexAnalyzer(string file, SymbolTable* symbol_table);
 	~LexAnalyzer();
 
 	Token GetNextToken();

@@ -1,6 +1,6 @@
 #include "LexAnalyzer.h"
 
-LexAnalyzer::LexAnalyzer(const char* file, SymbolTable* symbol_table)
+LexAnalyzer::LexAnalyzer(string file, SymbolTable* symbol_table)
 {
 	cur_line = 0;
 	cur_bytecode_line = 0;

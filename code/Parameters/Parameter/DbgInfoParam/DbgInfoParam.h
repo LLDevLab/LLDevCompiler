@@ -8,4 +8,5 @@ class DbgInfoParam : public Parameter
 {
 public:
 	DbgInfoParam(string param, SymbolTable* symbol_table);
+	virtual param_type GetParameterType();
 };

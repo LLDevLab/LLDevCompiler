@@ -12,23 +12,24 @@ vector<string> GetParametersVector(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
-	int i;
-	const char* file_name = NULL;
+	string file_name = "";
 	Compiler* compiler = NULL;
 	SymbolTable symbol_table;
 	uint last_bytecode_line = 0;
 	ParametersHelper* param_helper = NULL;
 	bool isException = false;
+	vector<string> file_names = GetFileNamesVector(argc, argv);
+	vector<string>::iterator file_names_it;
 
 	try
 	{
-		symbol_table.InitSymbolTable(GetFileNamesVector(argc, argv));
-		param_helper = new ParametersHelper(GetParametersVector(argc, argv));
+		symbol_table.InitSymbolTable(file_names);
+		param_helper = new ParametersHelper(GetParametersVector(argc, argv), &symbol_table);
 		compiler = new Compiler(param_helper);
 
-		for (i = 1; i < argc; i++)
+		for (file_names_it = file_names.begin(); file_names_it != file_names.end(); file_names_it++)
 		{
-			file_name = argv[i];
+			file_name = *file_names_it;
 			LexAnalyzer analyzer(file_name, &symbol_table);
 			Parser parser(&analyzer, last_bytecode_line);
 			parser.Parse();
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
 	{
 		isException = true;
 
-		if (file_name != NULL)
+		if (file_name != "")
 			cout << e.what() << " in " << file_name << endl;
 		else
 			cout << e.what() << endl;

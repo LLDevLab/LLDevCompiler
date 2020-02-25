@@ -4,3 +4,8 @@ DbgInfoParam::DbgInfoParam(string param, SymbolTable* symbol_table) : Parameter(
 {
 	handler = new DbgInfoParamHandler(symbol_table);
 };
+
+param_type DbgInfoParam::GetParameterType()
+{
+	return PARAM_DBG_INFO;
+}

@@ -1,9 +1,11 @@
 #include "ParametersHelper.h"
 
-ParametersHelper::ParametersHelper(vector<string> param_names)
+ParametersHelper::ParametersHelper(vector<string> param_names, SymbolTable* sym_table)
 {
 	Parameter* param;
 	vector<string>::iterator param_names_it;
+
+	this->sym_table = sym_table;
 
 	for (param_names_it = param_names.begin(); param_names_it != param_names.end(); param_names_it++)
 	{
@@ -43,6 +45,9 @@ bool ParametersHelper::IsParameter(string param)
 Parameter* ParametersHelper::InitParameter(string param)
 {
 	Parameter* ret = NULL;
+
+	if (param == "-dbginfo")
+		ret = new DbgInfoParam(param, sym_table);
 
 	if (ret == NULL)
 		throw new LLDevParameterException("Invalid parameter " + param + ".");

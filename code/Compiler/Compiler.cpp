@@ -2,65 +2,98 @@
 
 #define END_OF_HEX_FILE ":00000001FF"
 
+Compiler::Compiler(ParametersHelper* param_helper)
+{
+	this->param_helper = param_helper;
+	hex_file = NULL;
+}
+
 Compiler::~Compiler()
 {
-	CloseFiles();
+	vector<ObjFile*>::iterator it;
+	ObjFile* obj_file;
+
+	for (it = obj_files.begin(); it != obj_files.end(); it++)
+	{
+		obj_file = *it;
+		delete obj_file;
+	}
+
+	obj_files.clear();
+
+	if (hex_file != NULL)
+		delete hex_file;
 }
 
-void Compiler::CloseFiles()
+// Creating new local  ObjFile object and adding it to vector of object files
+void Compiler::AddObjFileToVector(string file_name, uint bytecode_line_num)
 {
-	if (os_hex_file.is_open())
-		os_hex_file.close();
-	if (is_obj_file.is_open())
-		is_obj_file.close();
-}
-
-// Adding object file name to vector of file names
-void Compiler::AddFileName(string file_name)
-{
-	obj_file_names.push_back(file_name);
+	ObjFile* file = new ObjFile(file_name, bytecode_line_num);
+	obj_files.push_back(file);
 }
 
 void Compiler::Compile()
 {
-	vector<string>::iterator it;
+	vector<ObjFile*>::iterator it;
 	bool is_first_file = true;
 	bool is_last_file;
-	string hex_file_name;
-	string file_name;
 	string input_line;
 	size_t files_count = 1;
+	ObjFile* obj_file;
 
-	for (it = obj_file_names.begin(); it != obj_file_names.end(); it++)
+	for (it = obj_files.begin(); it != obj_files.end(); it++)
 	{
-		is_last_file = files_count == obj_file_names.size();
-		file_name = *it;
+		obj_file = *it;
+		is_last_file = files_count == obj_files.size();
 		if (is_first_file)
 		{
-			hex_file_name = FileHelper::GetHexFileName(file_name);
-			os_hex_file.open(hex_file_name);
+			hex_file = new HexFile(obj_file->GetFileName());
+			hex_file->Open(FILE_IO_OUTPUT);
 		}
-		is_obj_file.open(file_name);
+		obj_file->Open(FILE_IO_INPUT);
 
 		do
 		{
-			is_obj_file >> input_line;
+			input_line = obj_file->ReadLine();
 
 			if (!is_last_file && input_line == END_OF_HEX_FILE)
 				continue;
 
-			os_hex_file << input_line;
-
 			if (input_line != END_OF_HEX_FILE)
-				os_hex_file << endl;
+				hex_file->WriteLine(input_line);
+			else
+				hex_file->Write(input_line);
 
-		} while (!is_obj_file.eof());
+		} while (!obj_file->IsEndOfInput());
 
-		is_obj_file.close();
+		obj_file->Close(FILE_IO_INPUT);
 
 		is_first_file = false;
 		files_count++;
 	}
+	
+	ProcessParams();
+}
 
-	CloseFiles();
+void Compiler::ProcessParams()
+{
+	vector<Parameter*>* param_vector = param_helper->GetParameters();
+	vector<Parameter*>::iterator it;
+
+	for (it = param_vector->begin(); it != param_vector->end(); it++)
+	{
+		Parameter* param = *it;
+		const type_info& param_type_info = typeid(*param);
+
+		if (param_type_info.name() == "DbgInfoParam")
+		{
+			DbgInfoParam* dbg_info_param = (DbgInfoParam*)param;
+			DbgInfoParamHandler* dbg_info_param_handler = (DbgInfoParamHandler*)dbg_info_param->GetHandler();
+			
+			if (hex_file == NULL)
+				throw new LLDevIOException("Hex file pointer is not pointing to a file.");
+
+			dbg_info_param_handler->GenerateDbgFile(hex_file->GetFileName());
+		}
+	}
 }

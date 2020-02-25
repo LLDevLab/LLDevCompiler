@@ -75,8 +75,8 @@ string LexAnalyzer::ReadLine()
 
 void LexAnalyzer::GetLexemes(string line)
 {
-	int cur_pos = 0;
-	int prev_pos = 0;
+	size_t cur_pos = 0;
+	size_t prev_pos = 0;
 	string lexeme = "";
 	string tmp_line;
 
@@ -159,7 +159,7 @@ TOKENS LexAnalyzer::GetTokenFromLexeme(string lexeme)
 		ret = ZERO_REG_OP;
 	else if (IsOneRegImmOp(lexeme))
 		ret = ONE_REG_IMM_OP;
-	else if (IsImmediate(lexeme) || symbol_table->LabelExist(lexeme))
+	else if (IsImmediate(lexeme) || symbol_table->SymbolExist(lexeme))
 		ret = IMMEDIATE;
 
 	return ret;
@@ -255,9 +255,9 @@ void LexAnalyzer::SetTokenLexeme(Token* token, string lexeme)
 	const int buf_len = 8;
 	char buf[buf_len];
 
-	if (symbol_table->LabelExist(lexeme))
+	if (symbol_table->SymbolExist(lexeme))
 	{
-		elem = symbol_table->GetLabelLineNum(lexeme);
+		elem = symbol_table->GetSymbolPos(lexeme);
 		_itoa_s(elem, buf, buf_len, 10);
 		new_lexeme = '#';
 		new_lexeme.append(buf);

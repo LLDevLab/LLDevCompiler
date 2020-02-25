@@ -5,7 +5,7 @@
 #define STACK_ERROR "Stack out of range."
 
 Parser::Parser(LexAnalyzer* analyzer, uint first_line_num) :
-	code_generator(first_line_num)
+	code_generator(analyzer->GetFileName(), first_line_num)
 {
 	last_parsed_line = 0;
 	last_bytecode_line = first_line_num;
@@ -315,7 +315,7 @@ void Parser::Reduce(int reduct_table_idx)
 	case 1:
 		lhs = PRGM;
 		code_generator.EndOfFile();
-		code_generator.SaveToFile(FileHelper::GetObjFileName(analyzer->GetFileName()));
+		code_generator.SaveToFile();
 		break;
 	case 2:
 	case 3:

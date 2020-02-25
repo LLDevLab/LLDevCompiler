@@ -9,6 +9,7 @@
 #include "../SupportComponents/Helpers/Helpers.h"
 #include "../SupportComponents/SymbolTable/SymbolTable.h"
 #include "../Types/TypeDef.h"
+#include "../SupportComponents/Helpers/Helpers.h"
 
 using namespace std;
 

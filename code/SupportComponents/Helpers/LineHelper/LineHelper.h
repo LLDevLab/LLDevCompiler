@@ -10,6 +10,7 @@ public:
 	static bool IsEmptyLine(string str_line);
 	static bool IsLabel(string str_line);
 	static bool CanSkip(string str_line);
+	static bool IsRet(string str_line);
 private:
 	LineHelper() {};
 };

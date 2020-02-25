@@ -2,9 +2,9 @@
 
 // public methods
 
-CodeGenerator::CodeGenerator(uint first_line_nr)
+CodeGenerator::CodeGenerator(string file_name, uint first_line_num):
+	obj_file(file_name, first_line_num)
 {
-	this->first_line_num = first_line_nr;
 	ClearHexs();
 }
 
@@ -22,13 +22,11 @@ void CodeGenerator::EndOfFile()
 	hex_file += hex_line;
 }
 
-void CodeGenerator::SaveToFile(string file)
+void CodeGenerator::SaveToFile()
 {
-	ofstream file_stream;
-
-	file_stream.open(file);
-	file_stream << hex_file;
-	file_stream.close();
+	obj_file.Open(FILE_IO_OUTPUT);
+	obj_file.Write(hex_file);
+	obj_file.Close(FILE_IO_OUTPUT);
 
 	ClearHexs();
 }
@@ -124,7 +122,7 @@ void CodeGenerator::InitHexLine()
 {
 	hex_line = ":";
 	hex_line += HEX_DATA_SIZE;
-	hex_line += LineNumToStr(first_line_num + instruction->GetLineNum());
+	hex_line += LineNumToStr(obj_file.GetInitBytecodeLineNum() + instruction->GetLineNum());
 }
 
 void CodeGenerator::SaveLine()

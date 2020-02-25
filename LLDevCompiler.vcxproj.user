@@ -4,4 +4,8 @@
     <LocalDebuggerCommandArguments>bmp085/main.lda bmp085/lldevcpu.lda bmp085/i2c.lda bmp085/bmp085.lda</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>bmp085\main.lda bmp085\lldevcpu.lda bmp085\i2c.lda bmp085\bmp085.lda</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

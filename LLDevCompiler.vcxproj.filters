@@ -286,18 +286,6 @@
     <Filter Include="Source Files\Parameters\Parameter">
       <UniqueIdentifier>{f2ff05c8-07b9-46d2-8893-e22bf96bb199}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Parameters\Parameter\CompilerParameter">
-      <UniqueIdentifier>{e6c1106c-a3fa-4068-a7a1-8b2fe35e0a34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Parameters\Parameter\CompilerParameter">
-      <UniqueIdentifier>{fc2ec260-5d7c-4175-aa5a-a0added6df60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Parameters\Parameter\CompilerParameter\DbgInfoParam">
-      <UniqueIdentifier>{5a4e85d5-a1b2-43c3-bb6e-fa7a9fe01d41}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Parameters\Parameter\CompilerParameter\DbgInfoParam">
-      <UniqueIdentifier>{73d1951b-7bc9-431f-b3b7-a9d1bc233327}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ParameterHandlers">
       <UniqueIdentifier>{0b9456e5-28c8-474b-a4ec-19c92dd94b97}</UniqueIdentifier>
     </Filter>
@@ -310,23 +298,83 @@
     <Filter Include="Source Files\ParameterHandlers\ParameterHandler">
       <UniqueIdentifier>{f85a2a3d-14c0-4d24-9ce0-116c1d71a146}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler">
-      <UniqueIdentifier>{2b90b947-0a45-4796-a6fc-b4debc0d41d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler">
-      <UniqueIdentifier>{09de24ba-9753-4c40-9f61-2c6aa6f0f0df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler">
-      <UniqueIdentifier>{3afd2c4d-e218-4ae9-861e-b22c18b81935}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler">
-      <UniqueIdentifier>{16269a51-71ba-41d6-b768-8a97c750bc6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Exceptions\ParameterException">
       <UniqueIdentifier>{9ac91571-c6ff-4aa2-8ab5-1ba43a037f37}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Exceptions\ParameterException">
       <UniqueIdentifier>{b84f414b-c7a3-4878-8ce1-1081dfb51ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parameters\Parameter\DbgInfoParam">
+      <UniqueIdentifier>{5a4e85d5-a1b2-43c3-bb6e-fa7a9fe01d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parameters\Parameter\DbgInfoParam">
+      <UniqueIdentifier>{73d1951b-7bc9-431f-b3b7-a9d1bc233327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ParameterHandlers\ParameterHandler\DbgInfoParamHandler">
+      <UniqueIdentifier>{3afd2c4d-e218-4ae9-861e-b22c18b81935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ParameterHandlers\ParameterHandler\DbgInfoParamHandler">
+      <UniqueIdentifier>{16269a51-71ba-41d6-b768-8a97c750bc6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\SymbolTable">
+      <UniqueIdentifier>{cd875345-a88f-47c5-bf0e-da83ac0932cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\SymbolTable">
+      <UniqueIdentifier>{9626d0ef-8b66-416e-ae59-706d83618769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\SymbolTable\Symbol">
+      <UniqueIdentifier>{c77ba5c7-7264-48fd-bc94-615db8d18250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\SymbolTable\Symbol">
+      <UniqueIdentifier>{7897854b-6922-4892-91d3-5c8ba2a63ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\SymbolTable\Symbol\LabelSymbol">
+      <UniqueIdentifier>{19a90138-0e57-462b-b135-556709e50a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\SymbolTable\Symbol\LabelSymbol">
+      <UniqueIdentifier>{0ecea3d4-7e40-4159-8d0f-91ff194a5f1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\SymbolTable\Symbol\RetSymbol">
+      <UniqueIdentifier>{c1622a9d-50f3-4c3d-be8e-7b7e7aee7bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\SymbolTable\Symbol\RetSymbol">
+      <UniqueIdentifier>{b727bb16-c105-44c7-9fed-319fb07ae7c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\Files">
+      <UniqueIdentifier>{47ac23d4-c3b9-47d0-ba74-5b7122cb9ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\Files">
+      <UniqueIdentifier>{8b407f1c-a79f-47f3-9284-8c201079f892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\Files\ObjFile">
+      <UniqueIdentifier>{014c9ae5-4cd6-4c05-9de2-761852d700db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\Files\ObjFile">
+      <UniqueIdentifier>{3ab28eb4-ed28-4c80-b7cf-0f621ca59597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\Files\DbgFile">
+      <UniqueIdentifier>{0a4184c1-c0dd-4a2c-b57b-482239035013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\Files\DbgFile">
+      <UniqueIdentifier>{45c5f9e7-4632-4b11-a9ff-35dc3bd53ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\Files\HexFile">
+      <UniqueIdentifier>{32eb418e-622b-4b65-a6e0-d873a67b2965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\Files\HexFile">
+      <UniqueIdentifier>{86ae75cd-3aee-4bba-8ce8-ccdc70479167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\Files\SrcFile">
+      <UniqueIdentifier>{ab95a745-6abf-4eeb-a708-3b98487e0edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SupportComponents\Files\SrcFile\LdaSrcFile">
+      <UniqueIdentifier>{514f7364-b3ef-49b8-bbce-9961024670f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\Files\SrcFile">
+      <UniqueIdentifier>{c0be531c-c1b1-41cf-a185-b20f497fca81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SupportComponents\Files\SrcFile\LdaSrcFile">
+      <UniqueIdentifier>{c2747c04-5d0f-432d-82b0-b7b1bd5042f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -477,9 +525,6 @@
     <ClInclude Include="code\Compiler\Compiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="code\SupportComponents\SymbolTable\SymbolTable.h">
-      <Filter>Header Files\SupportComponents</Filter>
-    </ClInclude>
     <ClInclude Include="code\Exceptions\LLDevException.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
@@ -493,9 +538,6 @@
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="code\SupportComponents\Helpers\LineHelper\LineHelper.h">
-      <Filter>Header Files\SupportComponents\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="code\SupportComponents\Helpers\FileHelper\FileHelper.h">
       <Filter>Header Files\SupportComponents\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="code\SupportComponents\Helpers\Helpers.h">
@@ -513,26 +555,53 @@
     <ClInclude Include="code\Parameters\Parameter\Parameter.h">
       <Filter>Header Files\Parameters\Parameter</Filter>
     </ClInclude>
-    <ClInclude Include="code\Parameters\Parameter\CompilerParameter\CompilerParameter.h">
-      <Filter>Header Files\Parameters\Parameter\CompilerParameter</Filter>
-    </ClInclude>
-    <ClInclude Include="code\Parameters\Parameter\CompilerParameter\DbgInfoParam\DbgInfoParam.h">
-      <Filter>Header Files\Parameters\Parameter\CompilerParameter\DbgInfoParam</Filter>
-    </ClInclude>
     <ClInclude Include="code\ParameterHandlers\ParameterHandlers.h">
       <Filter>Header Files\ParameterHandlers</Filter>
     </ClInclude>
     <ClInclude Include="code\ParameterHandlers\ParameterHandler\ParameterHandler.h">
       <Filter>Header Files\ParameterHandlers\ParameterHandler</Filter>
     </ClInclude>
-    <ClInclude Include="code\ParameterHandlers\ParameterHandler\CompilerParameterHandler\CompilerParameterHandler.h">
-      <Filter>Header Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="code\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler\DbgInfoParamHandler.h">
-      <Filter>Header Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler</Filter>
-    </ClInclude>
     <ClInclude Include="code\Exceptions\LLDevParameterException\LLDevParameterException.h">
       <Filter>Header Files\Exceptions\ParameterException</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Parameters\Parameter\DbgInfoParam\DbgInfoParam.h">
+      <Filter>Header Files\Parameters\Parameter\DbgInfoParam</Filter>
+    </ClInclude>
+    <ClInclude Include="code\ParameterHandlers\ParameterHandler\DbgInfoParamHandler\DbgInfoParamHandler.h">
+      <Filter>Header Files\ParameterHandlers\ParameterHandler\DbgInfoParamHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\SymbolTable\SymbolTable.h">
+      <Filter>Header Files\SupportComponents\SymbolTable</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\SymbolTable\Symbol\Symbol.h">
+      <Filter>Header Files\SupportComponents\SymbolTable\Symbol</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\SymbolTable\Symbol\LabelSymbol\LabelSymbol.h">
+      <Filter>Header Files\SupportComponents\SymbolTable\Symbol\LabelSymbol</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\SymbolTable\Symbol\RetSymbol\RetSymbol.h">
+      <Filter>Header Files\SupportComponents\SymbolTable\Symbol\RetSymbol</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\SymbolTable\Symbol\Symbols.h">
+      <Filter>Header Files\SupportComponents\SymbolTable\Symbol</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\Files\File.h">
+      <Filter>Header Files\SupportComponents\Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\Files\Files.h">
+      <Filter>Header Files\SupportComponents\Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\Files\ObjFile\ObjFile.h">
+      <Filter>Header Files\SupportComponents\Files\ObjFile</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\Files\DbgFile\DbgFile.h">
+      <Filter>Header Files\SupportComponents\Files\DbgFile</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\Files\HexFile\HexFile.h">
+      <Filter>Header Files\SupportComponents\Files\HexFile</Filter>
+    </ClInclude>
+    <ClInclude Include="code\SupportComponents\Files\SrcFile\LdaSrcFile\LdaSrcFile.h">
+      <Filter>Header Files\SupportComponents\Files\SrcFile\LdaSrcFile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -668,9 +737,6 @@
     <ClCompile Include="code\Compiler\Compiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="code\SupportComponents\SymbolTable\SymbolTable.cpp">
-      <Filter>Source Files\SupportComponents</Filter>
-    </ClCompile>
     <ClCompile Include="code\Exceptions\LLDevIOException\LLDevIOException.cpp">
       <Filter>Source Files\Exceptions\IOExceptions</Filter>
     </ClCompile>
@@ -680,26 +746,47 @@
     <ClCompile Include="code\SupportComponents\Helpers\LineHelper\LineHelper.cpp">
       <Filter>Source Files\SupportComponents\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="code\SupportComponents\Helpers\FileHelper\FileHelper.cpp">
-      <Filter>Source Files\SupportComponents\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="code\SupportComponents\Helpers\ParametersHelper\ParametersHelper.cpp">
       <Filter>Source Files\SupportComponents\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="code\Parameters\Parameter\Parameter.cpp">
       <Filter>Source Files\Parameters\Parameter</Filter>
     </ClCompile>
-    <ClCompile Include="code\Parameters\Parameter\CompilerParameter\DbgInfoParam\DbgInfoParam.cpp">
-      <Filter>Source Files\Parameters\Parameter\CompilerParameter\DbgInfoParam</Filter>
-    </ClCompile>
-    <ClCompile Include="code\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler\DbgInfoParamHandler.cpp">
-      <Filter>Source Files\ParameterHandlers\ParameterHandler\CompilerParameterHandler\DbgInfoParamHandler</Filter>
-    </ClCompile>
     <ClCompile Include="code\Exceptions\LLDevParameterException\LLDevParameterException.cpp">
       <Filter>Source Files\Exceptions\ParameterException</Filter>
     </ClCompile>
-    <ClCompile Include="code\Parameters\Parameter\CompilerParameter\CompilerParameter.cpp">
-      <Filter>Source Files\Parameters\Parameter\CompilerParameter</Filter>
+    <ClCompile Include="code\Parameters\Parameter\DbgInfoParam\DbgInfoParam.cpp">
+      <Filter>Source Files\Parameters\Parameter\DbgInfoParam</Filter>
+    </ClCompile>
+    <ClCompile Include="code\ParameterHandlers\ParameterHandler\DbgInfoParamHandler\DbgInfoParamHandler.cpp">
+      <Filter>Source Files\ParameterHandlers\ParameterHandler\DbgInfoParamHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\SymbolTable\SymbolTable.cpp">
+      <Filter>Source Files\SupportComponents\SymbolTable</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\SymbolTable\Symbol\Symbol.cpp">
+      <Filter>Source Files\SupportComponents\SymbolTable\Symbol</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\SymbolTable\Symbol\LabelSymbol\LabelSymbol.cpp">
+      <Filter>Source Files\SupportComponents\SymbolTable\Symbol\LabelSymbol</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\SymbolTable\Symbol\RetSymbol\RetSymbol.cpp">
+      <Filter>Source Files\SupportComponents\SymbolTable\Symbol\RetSymbol</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\Files\File.cpp">
+      <Filter>Source Files\SupportComponents\Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\Files\ObjFile\ObjFile.cpp">
+      <Filter>Source Files\SupportComponents\Files\ObjFile</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\Files\DbgFile\DbgFile.cpp">
+      <Filter>Source Files\SupportComponents\Files\DbgFile</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\Files\HexFile\HexFile.cpp">
+      <Filter>Source Files\SupportComponents\Files\HexFile</Filter>
+    </ClCompile>
+    <ClCompile Include="code\SupportComponents\Files\SrcFile\LdaSrcFile\LdaSrcFile.cpp">
+      <Filter>Source Files\SupportComponents\Files\SrcFile\LdaSrcFile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

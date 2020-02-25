@@ -1,28 +1,34 @@
 #pragma once
 #include <string>
 #include <map>
-#include <iostream>
-#include <fstream>
-#include "../Helpers/Helpers.h"
+#include <vector>
+#include <algorithm>
+#include <vector>
+#include "../Files/Files.h"
+#include "../Helpers/LineHelper/LineHelper.h"
 #include "../../Exceptions/LLDevExceptions.h"
+#include "../../Types/TypeDef.h"
+#include "Symbol/Symbols.h"
 
 using namespace std;
 
 class SymbolTable
 {
 public:
-	SymbolTable(int argc, char* argv[]);
 	~SymbolTable();
-	void InitSymbolTable();
-	bool LabelExist(string label);
-	int GetLabelLineNum(string label);
+	void InitSymbolTable(vector<string> file_names);
+	bool SymbolExist(string symbol);
+	uint GetSymbolPos(string symbol);
+	vector<ObjFile*> GetObjFileVector();
+	vector<Symbol*> GetFileSymVector(string file_name);
+	void SetSymbolPos(string sym_name, uint sym_pos);
 private:
-	int file_names_len;
-	string* file_names;
-	map<string, int> label_to_line_num_map;
-	ifstream ios_file;
+	string ReadLine(LdaSrcFile* obj_file);
+	void SymbolNotFoundException(string sym_name);
+	Symbol* InitSymbol(string line, uint pos, ObjFile* obj_file);
 
-	void OpenFile(string file_name);
-	void CloseFile();
-	string ReadLine();
+	uint file_names_len;
+	map<string, Symbol*> symbols_map;
+	map<string, vector<Symbol*>> file_sym_map;
+	vector<ObjFile*> obj_file_vector;
 };

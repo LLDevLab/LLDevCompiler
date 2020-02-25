@@ -23,7 +23,7 @@ bool LineHelper::IsEmptyLine(string str_line)
 	return ret;
 }
 
-// Checks if this is a label
+// Checks if string is a label
 bool LineHelper::IsLabel(string str_line)
 {
 	size_t size = str_line.size();
@@ -32,6 +32,12 @@ bool LineHelper::IsLabel(string str_line)
 	if (IsComment(str_line)) 
 		return false;
 	return size > 0 && str_line.at(size - 1) == ':';
+}
+
+// Checkis if string is a ret instruction
+bool LineHelper::IsRet(string str_line)
+{
+	return str_line == "ret";
 }
 
 bool LineHelper::CanSkip(string str_line)

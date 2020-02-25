@@ -11,6 +11,7 @@
 #include "../Instructions/OneRegInstr/OneRegInstr.h"
 #include "../Instructions/TwoRegInstr/TwoRegInstr.h"
 #include "../Types/TypeDef.h"
+#include "../SupportComponents/Files/Files.h"
 
 #define REG_ADDR_MAX 15
 #define HEX_DATA_SIZE "04"
@@ -22,9 +23,9 @@ using namespace std;
 class CodeGenerator
 {
 public:
-	CodeGenerator(uint first_line_nr);
+	CodeGenerator(string file_name, uint first_line_num);
 	void EndOfFile();
-	void SaveToFile(string file);
+	void SaveToFile();
 	void InitHexLine();
 	void SetInstruction(Instruction* instruction);
 private:
@@ -44,5 +45,5 @@ private:
 	uint32_t GetSecondRegAddr();
 	uint32_t GetImmediateValue();
 	uint32_t GetImmediateShiftingPos();
-	uint first_line_num;
+	ObjFile obj_file;
 };

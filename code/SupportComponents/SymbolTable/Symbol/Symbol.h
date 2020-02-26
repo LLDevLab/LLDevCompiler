@@ -17,8 +17,8 @@ public:
 	virtual symbol_type GetSymbolType() = 0;
 	string GetSymbolName();
 	uint GetSymbolPos();
+	uint GetFileOffset();
 	uint GetSymbolPosOffset();
-	void SetSymbolPos(uint sym_pos);
 	string GetFileName();
 	virtual string ToString();
 	bool operator<(const Symbol& r);

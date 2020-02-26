@@ -17,14 +17,14 @@ uint Symbol::GetSymbolPos()
 	return sym_pos;
 }
 
-uint Symbol::GetSymbolPosOffset()
+uint Symbol::GetFileOffset()
 {
 	return obj_file->GetInitBytecodeLineNum();
 }
 
-void Symbol::SetSymbolPos(uint sym_pos)
+uint Symbol::GetSymbolPosOffset()
 {
-	this->sym_pos = sym_pos;
+	return GetFileOffset() + GetSymbolPos();
 }
 
 string Symbol::GetFileName()
@@ -41,8 +41,15 @@ string Symbol::ToString()
 {
 	const size_t buf_len = 10;
 	char buf[buf_len];
-	_itoa_s(sym_pos, buf, buf_len, 10);
-	string ret = sym_name + '\t' + buf;
+	string ret;
+	uint sym_offset_pos = GetSymbolPosOffset();
+
+	// position of 0 could be only on first file
+	if (GetFileOffset() > 0)
+		sym_offset_pos++;
+
+	_itoa_s(sym_offset_pos, buf, buf_len, 10);
+	ret = sym_name + "\t\t\t\t\t" + buf;
 
 	return ret;
 }

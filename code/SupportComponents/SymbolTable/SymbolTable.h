@@ -21,7 +21,6 @@ public:
 	uint GetSymbolPos(string symbol);
 	vector<ObjFile*> GetObjFileVector();
 	vector<Symbol*> GetFileSymVector(string file_name);
-	void SetSymbolPos(string sym_name, uint sym_pos);
 private:
 	string ReadLine(LdaSrcFile* obj_file);
 	void SymbolNotFoundException(string sym_name);

@@ -26,8 +26,9 @@ void SymbolTable::InitSymbolTable(vector<string> file_names)
 	ObjFile* obj_file = NULL;
 	string line = "";
 	Symbol* sym;
-	uint i;
+	uint cur_pos;
 	uint init_bytecode_line_num = 0;
+	bool is_first_file = true;
 
 	for (file_names_it = file_names.begin(); file_names_it != file_names.end(); file_names_it++)
 	{
@@ -37,7 +38,7 @@ void SymbolTable::InitSymbolTable(vector<string> file_names)
 		obj_file_vector.push_back(obj_file);
 		
 		lda_file.Open(FILE_IO_INPUT);
-		i = 0;
+		cur_pos = 0;
 
 		while (true)
 		{
@@ -46,22 +47,23 @@ void SymbolTable::InitSymbolTable(vector<string> file_names)
 			// Here empty line could be return when end of file was reached
 			if (line == "")
 				break;
-
-			if (!LineHelper::CanSkip(line))
-				i++;
 			
 			if (Symbol::IsSymbol(line))
 			{
-				if(LineHelper::IsLabel(line))
-					line = line.substr(0, line.size() - 1);
+				string sym_line = line;
+				if(LineHelper::IsLabel(sym_line))
+					sym_line = sym_line.substr(0, sym_line.size() - 1);
 
-				if (SymbolExist(line))
-					throw LLDevSymbolTableException("Label \"" + line + "\" already exists in symbol table.");
+				if (SymbolExist(sym_line))
+					throw LLDevSymbolTableException("Label \"" + sym_line + "\" already exists in symbol table.");
 				
-				sym = InitSymbol(line, i, obj_file);
+				sym = InitSymbol(sym_line, cur_pos, obj_file);
 				symbols_map.insert(pair<string, Symbol*>(sym->GetSymbolName(), sym));
 				file_sym_vect.push_back(sym);
 			}
+
+			if (!LineHelper::CanSkip(line))
+				cur_pos++;
 		}
 
 		lda_file.Close(FILE_IO_INPUT);
@@ -69,10 +71,15 @@ void SymbolTable::InitSymbolTable(vector<string> file_names)
 		sort(file_sym_vect.begin(), file_sym_vect.end());
 		file_sym_map.insert(pair<string, vector<Symbol*>>(obj_file->GetFileName(), file_sym_vect));
 
-		init_bytecode_line_num += i;
+		if (is_first_file)
+		{
+			// first line in the first file is 0, so correct cur_pos by decrementing it
+			cur_pos--;
+			is_first_file = false;
+		}
+		
+		init_bytecode_line_num += cur_pos;
 	}
-
-	sort(obj_file_vector.begin(), obj_file_vector.end());
 }
 
 bool SymbolTable::SymbolExist(string symbol)
@@ -90,7 +97,7 @@ uint SymbolTable::GetSymbolPos(string symbol)
 
 	sym = it->second;
 
-	return sym->GetSymbolPosOffset() + sym->GetSymbolPos();
+	return sym->GetSymbolPosOffset();
 }
 
 string SymbolTable::ReadLine(LdaSrcFile* lda_file)
@@ -127,18 +134,6 @@ vector<Symbol*> SymbolTable::GetFileSymVector(string file_name)
 		sym_vector = file_sym_map_it->second;
 
 	return sym_vector;
-}
-
-void SymbolTable::SetSymbolPos(string sym_name, uint sym_pos)
-{
-	map<string, Symbol*>::iterator it = symbols_map.find(sym_name);
-	Symbol* sym;
-
-	if (it == symbols_map.end())
-		SymbolNotFoundException(sym_name);
-
-	sym = it->second;
-	sym->SetSymbolPos(sym_pos);
 }
 
 vector<ObjFile*> SymbolTable::GetObjFileVector()

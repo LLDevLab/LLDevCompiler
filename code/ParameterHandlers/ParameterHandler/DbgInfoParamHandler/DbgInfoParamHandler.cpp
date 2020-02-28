@@ -15,12 +15,12 @@ void DbgInfoParamHandler::GenerateDbgFile(DbgFile file)
 	for (obj_file_it = obj_file_vector.begin(); obj_file_it != obj_file_vector.end(); obj_file_it++)
 	{
 		ObjFile* obj_file = *obj_file_it;
-		vector<Symbol*> func_vector = symbol_table->GetFileSymVector(obj_file->GetFileName());
+		vector<Symbol*> file_sym_vector = symbol_table->GetFileSymVector(obj_file->GetFileName());
 
 		vector<Symbol*>::iterator it;
 		Symbol* sym;
 
-		for (it = func_vector.begin(); it != func_vector.end(); it++)
+		for (it = file_sym_vector.begin(); it != file_sym_vector.end(); it++)
 		{
 			sym = *it;
 			file.WriteLine(sym->ToString());

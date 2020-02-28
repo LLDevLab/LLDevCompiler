@@ -44,34 +44,10 @@ string Symbol::ToString()
 	string ret;
 	uint sym_offset_pos = GetSymbolPosOffset();
 
-	// position of 0 could be only on first file
-	if (GetFileOffset() > 0)
-		sym_offset_pos++;
-
 	_itoa_s(sym_offset_pos, buf, buf_len, 10);
 	ret = sym_name + "\t\t\t\t\t" + buf;
 
 	return ret;
-}
-
-bool Symbol::operator<(const Symbol& r)
-{
-	return this->sym_pos < r.sym_pos;
-}
-
-bool Symbol::operator>(const Symbol& r)
-{
-	return this->sym_pos > r.sym_pos;
-}
-
-bool Symbol::operator==(const Symbol& r)
-{
-	return this->sym_pos == r.sym_pos;
-}
-
-bool Symbol::operator!=(const Symbol& r)
-{
-	return this->sym_pos != r.sym_pos;
 }
 
 bool Symbol::IsSymbol(string line)

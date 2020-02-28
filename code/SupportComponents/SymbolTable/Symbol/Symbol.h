@@ -21,10 +21,6 @@ public:
 	uint GetSymbolPosOffset();
 	string GetFileName();
 	virtual string ToString();
-	bool operator<(const Symbol& r);
-	bool operator>(const Symbol& r);
-	bool operator==(const Symbol& r);
-	bool operator!=(const Symbol& r);
 protected:
 	void SetSymbolName(string sym_name);
 private:

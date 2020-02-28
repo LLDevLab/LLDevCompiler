@@ -2,6 +2,11 @@
 
 This is assembly language compiler for lldevcpu architecture.
 
+## Compiler parameters
+- "-dbginfo" - prints .dbg file with debugging information
+	- Column 1 of this file contains the symbol name
+	- Column 2 of this file contails symbol position in compiled .hex file
+
 ## Comments
 - "//" at the beginning of the line is denote a comment line
 

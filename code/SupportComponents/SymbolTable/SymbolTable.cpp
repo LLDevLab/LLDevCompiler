@@ -28,7 +28,6 @@ void SymbolTable::InitSymbolTable(vector<string> file_names)
 	Symbol* sym;
 	uint cur_pos;
 	uint init_bytecode_line_num = 0;
-	bool is_first_file = true;
 
 	for (file_names_it = file_names.begin(); file_names_it != file_names.end(); file_names_it++)
 	{
@@ -68,15 +67,7 @@ void SymbolTable::InitSymbolTable(vector<string> file_names)
 
 		lda_file.Close(FILE_IO_INPUT);
 
-		sort(file_sym_vect.begin(), file_sym_vect.end());
 		file_sym_map.insert(pair<string, vector<Symbol*>>(obj_file->GetFileName(), file_sym_vect));
-
-		if (is_first_file)
-		{
-			// first line in the first file is 0, so correct cur_pos by decrementing it
-			cur_pos--;
-			is_first_file = false;
-		}
 		
 		init_bytecode_line_num += cur_pos;
 	}

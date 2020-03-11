@@ -7,6 +7,6 @@ using namespace std;
 class RshInstr: public ShiftRotateInstr
 {
 public:
-	RshInstr(uint line_num);
+	RshInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

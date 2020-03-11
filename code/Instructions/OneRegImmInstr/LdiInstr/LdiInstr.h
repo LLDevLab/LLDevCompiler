@@ -7,7 +7,7 @@ using namespace std;
 class LdiInstr: public OneRegImmInstr
 {
 public:
-	LdiInstr(uint line_num);
+	LdiInstr(token_pos pos);
 	uint32_t GetOpcode();
 	uint32_t GetShiftingPos();
 protected:

@@ -20,7 +20,7 @@ protected:
 		HEXADECIMAL
 	};
 
-	OneRegImmInstr(uint line_num);
+	OneRegImmInstr(token_pos pos);
 	bool IsImmediateHex(string val);
 	virtual bool IsImmediateValueCorrect(string value);
 	bool IsImmediateNumberCorrect(int val);

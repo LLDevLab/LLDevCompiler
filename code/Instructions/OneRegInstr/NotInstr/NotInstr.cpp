@@ -1,7 +1,7 @@
 #include "NotInstr.h"
 
 
-NotInstr::NotInstr(uint line_num) : OneRegInstr(line_num)
+NotInstr::NotInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

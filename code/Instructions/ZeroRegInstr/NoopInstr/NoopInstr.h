@@ -6,6 +6,6 @@ using namespace std;
 class NoopInstr : public ZeroRegInstr
 {
 public:	
-	NoopInstr(uint line_num);
+	NoopInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

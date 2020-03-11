@@ -1,7 +1,7 @@
 #include "PopInstr.h"
 
 
-PopInstr::PopInstr(uint line_num) : OneRegInstr(line_num)
+PopInstr::PopInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

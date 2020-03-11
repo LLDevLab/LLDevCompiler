@@ -1,6 +1,6 @@
 #include "RshInstr.h"
 
-RshInstr::RshInstr(uint line_num) : ShiftRotateInstr(line_num)
+RshInstr::RshInstr(token_pos pos) : ShiftRotateInstr(pos)
 {
 }
 

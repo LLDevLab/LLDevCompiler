@@ -1,7 +1,7 @@
 #include "BreqInstr.h"
 
 
-BreqInstr::BreqInstr(uint line_num) : OneRegInstr(line_num)
+BreqInstr::BreqInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

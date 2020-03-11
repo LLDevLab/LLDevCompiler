@@ -7,6 +7,6 @@ using namespace std;
 class StInstr: public TwoRegInstr
 {
 public:
-	StInstr(uint line_num);
+	StInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

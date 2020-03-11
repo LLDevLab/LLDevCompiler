@@ -13,7 +13,7 @@ public:
 	void SetFirstReg(string reg);
 	NONTERMINALS GetInstructionType();
 protected:
-	OneRegInstr(uint line_num);
+	OneRegInstr(token_pos pos);
 	uint32_t GetRegisterBin(string lexeme);
 	virtual bool IsFirstRegAddrCorrect(uint32_t reg_addr);
 	void SetMaxFirstRegAddr(uint max_addr);

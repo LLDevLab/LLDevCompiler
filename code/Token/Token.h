@@ -2,6 +2,7 @@
 
 #include <string>
 #include "../Exceptions/LLDevIOException/LLDevIOException.h"
+#include "../Types/TypeDef.h"
 
 using namespace std;
 
@@ -21,8 +22,8 @@ enum TOKENS
 
 struct token_pos
 {
-	int line_num;
-	int bytecode_line_num;
+	uint line_num;
+	uint bytecode_line_num;
 };
 
 class Token

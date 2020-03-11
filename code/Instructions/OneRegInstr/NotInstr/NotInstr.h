@@ -7,6 +7,6 @@ using namespace std;
 class NotInstr: public OneRegInstr
 {
 public:
-	NotInstr(uint line_num);
+	NotInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

@@ -1,6 +1,6 @@
 #include "ZeroRegInstr.h"
 
-ZeroRegInstr::ZeroRegInstr(uint line_num) : Instruction(line_num)
+ZeroRegInstr::ZeroRegInstr(token_pos pos) : Instruction(pos)
 {
 }
 

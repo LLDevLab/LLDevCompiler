@@ -7,6 +7,6 @@ using namespace std;
 class MovInstr: public TwoRegInstr
 {
 public:
-	MovInstr(uint line_num);
+	MovInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

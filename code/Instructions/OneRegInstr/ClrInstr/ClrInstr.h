@@ -7,6 +7,6 @@ using namespace std;
 class ClrInstr: public OneRegInstr
 {
 public:
-	ClrInstr(uint line_num);
+	ClrInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

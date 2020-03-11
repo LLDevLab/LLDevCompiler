@@ -7,6 +7,6 @@ using namespace std;
 class BreqInstr: public OneRegInstr
 {
 public:
-	BreqInstr(uint line_num);
+	BreqInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

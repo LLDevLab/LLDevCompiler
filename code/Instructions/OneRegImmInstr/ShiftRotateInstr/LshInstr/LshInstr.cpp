@@ -1,6 +1,6 @@
 #include "LshInstr.h"
 
-LshInstr::LshInstr(uint line_num) : ShiftRotateInstr(line_num)
+LshInstr::LshInstr(token_pos pos) : ShiftRotateInstr(pos)
 {
 }
 

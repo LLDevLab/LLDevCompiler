@@ -122,7 +122,7 @@ void CodeGenerator::InitHexLine()
 {
 	hex_line = ":";
 	hex_line += HEX_DATA_SIZE;
-	hex_line += LineNumToStr(obj_file.GetInitBytecodeLineNum() + instruction->GetLineNum());
+	hex_line += LineNumToStr(obj_file.GetInitBytecodeLineNum() + instruction->GetBytecodeLineNum());
 }
 
 void CodeGenerator::SaveLine()

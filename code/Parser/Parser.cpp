@@ -242,14 +242,14 @@ void Parser::Reduce(int reduct_table_idx)
 			switch (parse_stack[top_of_stack])
 			{
 			case ZERO_REG_OP:
-				cur_instr = CreateZeroRegInstr(cur_lexeme, cur_pos.bytecode_line_num);
+				cur_instr = CreateZeroRegInstr(cur_lexeme, cur_pos);
 
 				if (cur_instr != NULL)
 					code_generator.SetInstruction(cur_instr);
 
 				break;
 			case ONE_REG_OP:
-				cur_instr = CreateOneRegInstr(cur_lexeme, cur_pos.bytecode_line_num);
+				cur_instr = CreateOneRegInstr(cur_lexeme, cur_pos);
 
 				if (cur_instr != NULL)
 				{
@@ -261,7 +261,7 @@ void Parser::Reduce(int reduct_table_idx)
 
 				break;
 			case TWO_REG_OP:
-				cur_instr = CreateTwoRegInstr(cur_lexeme, cur_pos.bytecode_line_num);
+				cur_instr = CreateTwoRegInstr(cur_lexeme, cur_pos);
 
 				if (cur_instr != NULL)
 				{
@@ -274,7 +274,7 @@ void Parser::Reduce(int reduct_table_idx)
 
 				break;
 			case ONE_REG_IMM_OP:
-				cur_instr = CreateOneRegImmInstr(cur_lexeme, cur_pos.bytecode_line_num);
+				cur_instr = CreateOneRegImmInstr(cur_lexeme, cur_pos);
 
 				if (cur_instr != NULL)
 				{
@@ -369,98 +369,98 @@ void Parser::ShowError(token_pos pos, string lexeme)
 	throw LLDevIOException(buf);
 }
 
-inline Instruction* Parser::CreateZeroRegInstr(string lexeme, uint line_num)
+inline Instruction* Parser::CreateZeroRegInstr(string lexeme, token_pos pos)
 {
 	Instruction *ret = NULL;
 
 	if (lexeme == "noop")
-		ret = new NoopInstr(line_num);
+		ret = new NoopInstr(pos);
 	else if (lexeme == "ret")
-		ret = new RetInstr(line_num);
+		ret = new RetInstr(pos);
 
 	return ret;
 }
 
-inline Instruction* Parser::CreateOneRegInstr(string lexeme, uint line_num)
+inline Instruction* Parser::CreateOneRegInstr(string lexeme, token_pos pos)
 {
 	Instruction *ret = NULL;
 
 	if (lexeme == "br")
-		ret = new BrInstr(line_num);
+		ret = new BrInstr(pos);
 	else if (lexeme == "breq")
-		ret = new BreqInstr(line_num);
+		ret = new BreqInstr(pos);
 	else if (lexeme == "brne")
-		ret = new BrneInstr(line_num);
+		ret = new BrneInstr(pos);
 	else if (lexeme == "brlts")
-		ret = new BrltsInstr(line_num);
+		ret = new BrltsInstr(pos);
 	else if (lexeme == "brgts")
-		ret = new BrgtsInstr(line_num);
+		ret = new BrgtsInstr(pos);
 	else if (lexeme == "brltu")
-		ret = new BrltuInstr(line_num);
+		ret = new BrltuInstr(pos);
 	else if (lexeme == "brgtu")
-		ret = new BrgtuInstr(line_num);
+		ret = new BrgtuInstr(pos);
 	else if (lexeme == "clr")
-		ret = new ClrInstr(line_num);
+		ret = new ClrInstr(pos);
 	else if (lexeme == "not")
-		ret = new NotInstr(line_num);
+		ret = new NotInstr(pos);
 	else if (lexeme == "push")
-		ret = new PushInstr(line_num);
+		ret = new PushInstr(pos);
 	else if (lexeme == "pop")
-		ret = new PopInstr(line_num);
+		ret = new PopInstr(pos);
 	else if (lexeme == "call")
-		ret = new CallInstr(line_num);
+		ret = new CallInstr(pos);
 
 	return ret;
 }
 
-inline Instruction* Parser::CreateTwoRegInstr(string lexeme, uint line_num)
+inline Instruction* Parser::CreateTwoRegInstr(string lexeme, token_pos pos)
 {
 	Instruction *ret = NULL;
 
 	if (lexeme == "add")
-		ret = new AddInstr(line_num);
+		ret = new AddInstr(pos);
 	else if (lexeme == "sub")
-		ret = new SubInstr(line_num);
+		ret = new SubInstr(pos);
 	else if (lexeme == "cmp")
-		ret = new CmpInstr(line_num);
+		ret = new CmpInstr(pos);
 	else if (lexeme == "or")
-		ret = new OrInstr(line_num);
+		ret = new OrInstr(pos);
 	else if (lexeme == "and")
-		ret = new AndInstr(line_num);
+		ret = new AndInstr(pos);
 	else if (lexeme == "xor")
-		ret = new XorInstr(line_num);
+		ret = new XorInstr(pos);
 	else if (lexeme == "addc")
-		ret = new AddcInstr(line_num);
+		ret = new AddcInstr(pos);
 	else if (lexeme == "subc")
-		ret = new SubcInstr(line_num);
+		ret = new SubcInstr(pos);
 	else if (lexeme == "ld")
-		ret = new LdInstr(line_num);
+		ret = new LdInstr(pos);
 	else if (lexeme == "st")
-		ret = new StInstr(line_num);
+		ret = new StInstr(pos);
 	else if (lexeme == "mov")
-		ret = new MovInstr(line_num);
+		ret = new MovInstr(pos);
 
 	return ret;
 }
 
-inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, uint line_num)
+inline Instruction* Parser::CreateOneRegImmInstr(string lexeme, token_pos pos)
 {
 	Instruction *ret = NULL;
 
 	if (lexeme == "ldi")
-		ret = new LdiInstr(line_num);
+		ret = new LdiInstr(pos);
 	else if (lexeme == "lsh")
-		ret = new LshInstr(line_num);
+		ret = new LshInstr(pos);
 	else if (lexeme == "rsh")
-		ret = new RshInstr(line_num);
+		ret = new RshInstr(pos);
 	else if (lexeme == "rtl")
-		ret = new RtlInstr(line_num);
+		ret = new RtlInstr(pos);
 	else if (lexeme == "rtr")
-		ret = new RtrInstr(line_num);
+		ret = new RtrInstr(pos);
 	else if (lexeme == "rtlc")
-		ret = new RtlcInstr(line_num);
+		ret = new RtlcInstr(pos);
 	else if (lexeme == "rtrc")
-		ret = new RtrcInstr(line_num);
+		ret = new RtrcInstr(pos);
 
 	return ret;
 }

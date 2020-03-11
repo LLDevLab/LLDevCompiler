@@ -1,6 +1,6 @@
 #include "CmpInstr.h"
 
-CmpInstr::CmpInstr(uint line_num) : TwoRegInstr(line_num)
+CmpInstr::CmpInstr(token_pos pos) : TwoRegInstr(pos)
 {
 }
 

@@ -1,7 +1,7 @@
 #include "BrInstr.h"
 
 
-BrInstr::BrInstr(uint line_num) : OneRegInstr(line_num)
+BrInstr::BrInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

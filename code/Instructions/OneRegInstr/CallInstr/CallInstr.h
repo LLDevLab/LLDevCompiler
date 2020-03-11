@@ -7,6 +7,6 @@ using namespace std;
 class CallInstr: public OneRegInstr
 {
 public:
-	CallInstr(uint line_num);
+	CallInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

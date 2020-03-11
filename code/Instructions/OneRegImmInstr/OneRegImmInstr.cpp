@@ -1,6 +1,6 @@
 #include "OneRegImmInstr.h"
 
-OneRegImmInstr::OneRegImmInstr(uint line_num) : OneRegInstr(line_num)
+OneRegImmInstr::OneRegImmInstr(token_pos pos) : OneRegInstr(pos)
 {
 	immediate_val = 0;
 	immediate_type = DECIMAL;

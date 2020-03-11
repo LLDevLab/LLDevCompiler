@@ -1,6 +1,6 @@
 #include "LdInstr.h"
 
-LdInstr::LdInstr(uint line_num) : TwoRegInstr(line_num)
+LdInstr::LdInstr(token_pos pos) : TwoRegInstr(pos)
 {
 }
 

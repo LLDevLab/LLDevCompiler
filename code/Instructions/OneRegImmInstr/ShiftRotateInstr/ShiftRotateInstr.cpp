@@ -7,7 +7,7 @@
 #define MAX_STR_SIZE 5
 #define SHIFTING_POS 17
 
-ShiftRotateInstr::ShiftRotateInstr(uint line_num) : OneRegImmInstr(line_num)
+ShiftRotateInstr::ShiftRotateInstr(token_pos pos) : OneRegImmInstr(pos)
 {
 }
 

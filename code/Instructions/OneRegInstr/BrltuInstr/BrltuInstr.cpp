@@ -1,7 +1,7 @@
 #include "BrltuInstr.h"
 
 
-BrltuInstr::BrltuInstr(uint line_num) : OneRegInstr(line_num)
+BrltuInstr::BrltuInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

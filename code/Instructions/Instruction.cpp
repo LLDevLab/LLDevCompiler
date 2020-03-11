@@ -1,13 +1,18 @@
 #include "Instruction.h"
 
-Instruction::Instruction(uint line_num)
+Instruction::Instruction(token_pos pos)
 {
-	this->line_num = line_num;
+	this->pos = pos;
+}
+
+uint Instruction::GetBytecodeLineNum()
+{
+	return pos.bytecode_line_num;
 }
 
 uint Instruction::GetLineNum()
 {
-	return line_num;
+	return pos.line_num;
 }
 
 void Instruction::ShowError(string error)

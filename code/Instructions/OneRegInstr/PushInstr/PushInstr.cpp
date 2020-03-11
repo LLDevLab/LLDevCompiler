@@ -1,7 +1,7 @@
 #include "PushInstr.h"
 
 
-PushInstr::PushInstr(uint line_num) : OneRegInstr(line_num)
+PushInstr::PushInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

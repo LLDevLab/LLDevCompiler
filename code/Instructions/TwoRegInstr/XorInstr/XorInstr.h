@@ -7,6 +7,6 @@ using namespace std;
 class XorInstr: public TwoRegInstr
 {
 public:
-	XorInstr(uint line_num);
+	XorInstr(token_pos pos);
 	uint32_t GetOpcode();
 };

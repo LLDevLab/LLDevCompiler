@@ -11,7 +11,7 @@ public:
 	uint32_t GetSecondRegAddr();
 	void SetSecondReg(string reg);
 protected:
-	TwoRegInstr(uint line_num);
+	TwoRegInstr(token_pos pos);
 	virtual bool IsSecondRegAddrCorrect(uint32_t reg_addr);
 	void SetMaxSecondRegAddr(uint max_addr);
 	NONTERMINALS GetInstructionType();

@@ -1,7 +1,7 @@
 #include "ClrInstr.h"
 
 
-ClrInstr::ClrInstr(uint line_num) : OneRegInstr(line_num)
+ClrInstr::ClrInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

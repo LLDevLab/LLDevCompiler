@@ -1,6 +1,6 @@
 #include "StInstr.h"
 
-StInstr::StInstr(uint line_num) : TwoRegInstr(line_num)
+StInstr::StInstr(token_pos pos) : TwoRegInstr(pos)
 {
 }
 

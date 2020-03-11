@@ -39,9 +39,9 @@ private:
 	void Reduce(int reduct_table_idx);
 	void ShowError(token_pos pos, string lexeme, int parse_stack_val, int reduct_table_val);
 	void ShowError(token_pos pos, string lexeme);
-	Instruction* CreateZeroRegInstr(string lexeme, uint line_num);
-	Instruction* CreateOneRegInstr(string lexeme, uint line_num);
-	Instruction* CreateTwoRegInstr(string lexeme, uint line_num);
-	Instruction* CreateOneRegImmInstr(string lexeme, uint line_num);
+	Instruction* CreateZeroRegInstr(string lexeme, token_pos pos);
+	Instruction* CreateOneRegInstr(string lexeme, token_pos pos);
+	Instruction* CreateTwoRegInstr(string lexeme, token_pos pos);
+	Instruction* CreateOneRegImmInstr(string lexeme, token_pos pos);
 	void SetLastBytecodeLine(uint line_num);
 };

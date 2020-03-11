@@ -9,7 +9,7 @@
 #define MAX_STR_SIZE 10
 #define SHIFTING_POS 0
 
-LdiInstr::LdiInstr(uint line_num) : OneRegImmInstr(line_num)
+LdiInstr::LdiInstr(token_pos pos) : OneRegImmInstr(pos)
 {
 }
 

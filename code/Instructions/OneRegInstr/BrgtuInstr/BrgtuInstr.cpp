@@ -1,7 +1,7 @@
 #include "BrgtuInstr.h"
 
 
-BrgtuInstr::BrgtuInstr(uint line_num) : OneRegInstr(line_num)
+BrgtuInstr::BrgtuInstr(token_pos pos) : OneRegInstr(pos)
 {
 }
 

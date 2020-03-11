@@ -1,6 +1,6 @@
 #include "OneRegInstr.h"
 
-OneRegInstr::OneRegInstr(uint line_num) : Instruction(line_num)
+OneRegInstr::OneRegInstr(token_pos pos) : Instruction(pos)
 {
 	first_reg_addr = 0;
 	max_first_reg_addr = 15;

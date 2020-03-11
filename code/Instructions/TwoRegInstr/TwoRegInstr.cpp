@@ -1,6 +1,6 @@
 #include "TwoRegInstr.h"
 
-TwoRegInstr::TwoRegInstr(uint line_num) : OneRegInstr(line_num)
+TwoRegInstr::TwoRegInstr(token_pos pos) : OneRegInstr(pos)
 {
 	second_reg_addr = 0;
 }
